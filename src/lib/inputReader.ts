@@ -9,7 +9,7 @@ export default function inputReader(
   required?: boolean
 ): string {
   const inputMsg = `[Input] ${inputName}${
-    defaultValue ? ` (${defaultValue}): ` : ': '
+    defaultValue ? ` (Default: ${defaultValue}): ` : ': '
   }`
 
   const promptMsg = colorify.trace(inputMsg)
