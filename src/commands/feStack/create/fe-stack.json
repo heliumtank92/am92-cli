@@ -1,0 +1,235 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "This Template create front-end deplyoment stack-Cloudfront and S3 assocaition",
+    "Parameters": {
+        "BucketName": {
+            "Type": "String",
+            "Description": "Name of S3 BucketName",
+            "Default": ""
+        },
+        "Name": {
+            "Type": "String",
+            "Description": "Name Tag",
+            "Default": ""
+        },
+        "Env": {
+            "Type": "String",
+            "Default": "PROD",
+            "Description": ""
+        },
+        "Role": {
+            "Type": "String",
+            "Default": ""
+        },
+        "Owner": {
+            "Type": "String",
+            "Default": ""
+        },
+        "ACMList": {
+            "Type": "String",
+            "Description": "ACM Certificate ARN",
+            "Default": ""
+        },
+        "DomainAliases": {
+            "Type": "String",
+            "Description": "DomainAliases Name",
+            "Default": ""
+        }
+    },
+    "Resources": {
+        "S3Bucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "BucketName": {
+                    "Ref": "BucketName"
+                },
+                "BucketEncryption": {
+                    "ServerSideEncryptionConfiguration": [
+                        {
+                            "ServerSideEncryptionByDefault": {
+                                "SSEAlgorithm": "AES256"
+                            }
+                        }
+                    ]
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "Name"
+                        }
+                    },
+                    {
+                        "Key": "Env",
+                        "Value": {
+                            "Ref": "Env"
+                        }
+                    },
+                    {
+                        "Key": "Owner",
+                        "Value": {
+                            "Ref": "Owner"
+                        }
+                    }
+                ]
+            }
+        },
+        "OriginAccessIdentity": {
+            "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+            "DependsOn": "S3Bucket",
+            "Properties": {
+                "CloudFrontOriginAccessIdentityConfig": {
+                    "Comment": {
+                        "Fn::Join": [
+                            "-",
+                            [
+                                "access-identity",
+                                {
+                                    "Ref": "S3Bucket"
+                                },
+                                "s3.amazonaws.com"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "myDistribution": {
+            "Type": "AWS::CloudFront::Distribution",
+            "DependsOn": "OriginAccessIdentity",
+            "Properties": {
+                "DistributionConfig": {
+                    "Aliases": [
+                        {
+                            "Ref": "DomainAliases"
+                        }
+                    ],
+                    "Origins": [
+                        {
+                            "DomainName": {
+                                "Fn::Join": [
+                                    ".",
+                                    [
+                                        {
+                                            "Ref": "S3Bucket"
+                                        },
+                                        "s3.amazonaws.com"
+                                    ]
+                                ]
+                            },
+                            "Id": {
+                                "Fn::Join": [
+                                    "-",
+                                    [
+                                        "S3",
+                                        {
+                                            "Ref": "S3Bucket"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "S3OriginConfig": {
+                                "OriginAccessIdentity": {
+                                    "Fn::Join": [
+                                        "/",
+                                        [
+                                            "origin-access-identity",
+                                            "cloudfront",
+                                            {
+                                                "Ref": "OriginAccessIdentity"
+                                            }
+                                        ]
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    "Enabled": "true",
+                    "DefaultRootObject": "index.html",
+                    "CustomErrorResponses": [
+                        {
+                            "ErrorCachingMinTTL": "300",
+                            "ErrorCode": "403",
+                            "ResponseCode": "200",
+                            "ResponsePagePath": "/index.html"
+                        },
+                        {
+                            "ErrorCachingMinTTL": "300",
+                            "ErrorCode": "404",
+                            "ResponseCode": "200",
+                            "ResponsePagePath": "/index.html"
+                        }
+                    ],
+                    "IPV6Enabled": "true",
+                    "HttpVersion": "http2",
+                    "DefaultCacheBehavior": {
+                        "AllowedMethods": [
+                            "GET",
+                            "HEAD",
+                            "OPTIONS"
+                        ],
+                        "CachedMethods": [
+                            "HEAD",
+                            "GET"
+                        ],
+                        "ForwardedValues": {
+                            "Cookies": {
+                                "Forward": "none"
+                            },
+                            "QueryString": "false"
+                        },
+                        "TargetOriginId": {
+                            "Fn::Join": [
+                                "-",
+                                [
+                                    "S3",
+                                    {
+                                        "Ref": "S3Bucket"
+                                    }
+                                ]
+                            ]
+                        },
+                        "ViewerProtocolPolicy": "redirect-to-https",
+                        "Compress": "true"
+                    },
+                    "PriceClass": "PriceClass_200",
+                    "Restrictions": {
+                        "GeoRestriction": {
+                            "RestrictionType": "whitelist",
+                            "Locations": [
+                                "IN"
+                            ]
+                        }
+                    },
+                    "ViewerCertificate": {
+                        "AcmCertificateArn": {
+                            "Ref": "ACMList"
+                        },
+                        "MinimumProtocolVersion": "TLSv1.2_2018",
+                        "SslSupportMethod": "sni-only"
+                    }
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "Name"
+                        }
+                    },
+                    {
+                        "Key": "Env",
+                        "Value": {
+                            "Ref": "Env"
+                        }
+                    },
+                    {
+                        "Key": "Owner",
+                        "Value": {
+                            "Ref": "Owner"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

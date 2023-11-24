@@ -1,0 +1,35 @@
+[
+    {
+        "ParameterKey": "BucketName",
+        "ParameterValue": "demo-bucket"
+    },
+    {
+        "ParameterKey": "Name",
+        "ParameterValue": "demo-web-prod"
+    },
+    {
+        "ParameterKey": "Env",
+        "ParameterValue": "PROD"
+    }, 
+    {
+        "ParameterKey": "Role",
+        "ParameterValue": "WEB"
+    }, 
+    {
+        "ParameterKey": "Owner",
+        "ParameterValue": "Owner Name"
+    }, 
+    {
+        "ParameterKey": "ACMList",
+        "ParameterValue": "arn::acm::"
+    }, 
+    {
+        "ParameterKey": "DomainAliases",
+        "ParameterValue": "test.com"
+    },
+    {
+        "ParameterKey": "GeoRestrictionWhitelist",
+        "ParameterValue": ["IN"]
+    }
+]
+  
