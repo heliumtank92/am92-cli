@@ -49,51 +49,61 @@ async function handler(argv: Arguments) {
   }
 
   const rsrcFolderPath = `${apiFolderPath}/resources`
+  const rsrcPath = `${rsrcFolderPath}/${rsrcName}`
+
   if (!fs.existsSync(rsrcFolderPath)) {
     logger.fatal(
-      `[Error] Resource Folder does not exist at the location: ${rsrcFolderPath}`
+      `[Error] Resource Folder does not exist at the location: ${apiFolderPath}/`
     )
     process.exit()
   }
 
-  const rsrcPath = `${rsrcFolderPath}/${rsrcName}`
-
   if (fs.existsSync(rsrcPath)) {
     logger.fatal(
-      `[Error] Resource already exists at the location: ${rsrcFolderPath}`
+      `[Error] Resource already exists at the location: ${rsrcFolderPath}/`
+    )
+    process.exit()
+  }
+
+  const routesPath = `${apiFolderPath}/routes`
+  if (!fs.existsSync(routesPath)) {
+    logger.fatal(
+      `[Error] Routes Folder does not exist at the location: ${apiFolderPath}/`
     )
     process.exit()
   }
 
   // Create Resource Folder
-  new CliCommand('Create Resource Folder', 'mkdir').append(rsrcPath).exec(false)
+  new CliCommand('Create Resource Folder', `mkdir ${rsrcPath}`).exec(false)
 
   // Create Resource Model
   new CliCommand('Create Resource Model', 'echo')
     .append(_getModelFile(rsrcName))
-    .append('>')
-    .append(`${rsrcPath}/${rsrcName}.Model.mjs`)
+    .append(`> ${rsrcPath}/${rsrcName}.Model.mjs`)
     .exec(false)
 
   // Create Resource Controller
   new CliCommand('Create Resource Controller', 'echo')
     .append(_getControllerFile(rsrcName))
-    .append('>')
-    .append(`${rsrcPath}/${rsrcName}.Controller.mjs`)
+    .append(`> ${rsrcPath}/${rsrcName}.Controller.mjs`)
     .exec(false)
 
   // Create Resource Router
   new CliCommand('Create Resource Router', 'echo')
     .append(_getRouterFile(rsrcName))
-    .append('>')
-    .append(`${rsrcPath}/${rsrcName}.Router.mjs`)
+    .append(`> ${rsrcPath}/${rsrcName}.Router.mjs`)
     .exec(false)
 
   // Create Resource index
   new CliCommand('Create Resource index', 'echo')
     .append(_getIndexFile(rsrcName))
-    .append('>')
-    .append(`${rsrcPath}/index.mjs`)
+    .append(`> ${rsrcPath}/index.mjs`)
+    .exec(false)
+
+  // Create API Router
+  new CliCommand('Create API Router', 'echo')
+    .append(_getApiRouterFile(rsrcName))
+    .append(`> ${routesPath}/${rsrcName}.mjs`)
     .exec(false)
 
   logger.complete(`[${COMMAND}] Completed!`)
@@ -160,4 +170,20 @@ import ${rsrcName}Controller from './${rsrcName}.Controller.mjs'
 import ${rsrcName}Router from './${rsrcName}.Router.mjs'
 
 export { ${rsrcName}Model, ${rsrcName}Controller, ${rsrcName}Router }"`
+}
+
+function _getApiRouterFile(rsrcName: string): string {
+  return `"import Express from 'express'
+import { ${rsrcName}Router as RouterClass } from '../resources/${rsrcName}/index.mjs'
+
+const config = {
+  routesConfig: {
+    route: { enabled: true }
+  }
+}
+
+const Router = new Express.Router()
+const ${rsrcName}Router = new RouterClass(Router, config)
+
+export default ${rsrcName}Router"`
 }
