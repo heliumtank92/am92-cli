@@ -16,6 +16,7 @@ yargs.command(
 function builder(yargs: any) {
   return yargs.option('out-dir', {
     description: 'Output Directory',
+    type: 'string',
     required: false
   })
 }

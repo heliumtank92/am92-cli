@@ -17,18 +17,22 @@ function builder(yargs: any) {
   return yargs
     .option('aws-profile', {
       description: 'AWS Profile',
+      type: 'string',
       required: false
     })
     .option('bucket-name', {
       description: 'S3 Bucket Name',
+      type: 'string',
       required: false
     })
     .option('build-path', {
       description: 'Build Path',
+      type: 'string',
       required: false
     })
     .option('cf-dist-id', {
       description: 'CloudFront Distribution ID',
+      type: 'string',
       required: false
     })
 }

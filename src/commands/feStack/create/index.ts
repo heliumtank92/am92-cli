@@ -18,14 +18,17 @@ function builder(yargs: any) {
   return yargs
     .option('aws-profile', {
       description: 'AWS Profile',
+      type: 'string',
       required: false
     })
     .option('stack-name', {
       description: 'CloudFormation Stack Name',
+      type: 'string',
       required: false
     })
     .option('params-file-path', {
       description: 'Parameters File Location',
+      type: 'string',
       required: false
     })
 }
