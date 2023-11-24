@@ -23,6 +23,10 @@ function builder(yargs: any) {
       description: 'API Folder Path',
       required: false
     })
+    .option('router-mount-path', {
+      description: 'Router Mount Path',
+      required: false
+    })
 }
 
 async function handler(argv: Arguments) {
@@ -30,9 +34,10 @@ async function handler(argv: Arguments) {
 
   let rsrcName = (argv.rsrcName as string) || ''
   let apiFolderPath = (argv.apiFolderPath as string) || ''
+  let routerMountPath = (argv.routerMountPath as string) || ''
 
   if (!rsrcName) {
-    const RSRC_NAME = 'Rsrc'
+    const RSRC_NAME = 'Sample'
     rsrcName = inputReader('Resource Name', RSRC_NAME, true)
   }
 
@@ -73,6 +78,11 @@ async function handler(argv: Arguments) {
     process.exit()
   }
 
+  if (!routerMountPath) {
+    const ROUTER_MOUNT_PATH = '/samples'
+    routerMountPath = inputReader('Router Mount Path', ROUTER_MOUNT_PATH, true)
+  }
+
   // Create Resource Folder
   new CliCommand('Create Resource Folder', `mkdir ${rsrcPath}`).exec(false)
 
@@ -104,6 +114,20 @@ async function handler(argv: Arguments) {
   new CliCommand('Create API Router', 'echo')
     .append(_getApiRouterFile(rsrcName))
     .append(`> ${routesPath}/${rsrcName}.mjs`)
+    .exec(false)
+
+  // Read Routes Index
+  const routesIndexFile = _getRoutesIndexFile(routesPath)
+  const newRoutesIndexFile = _buildNewRoutesIndex(
+    routesIndexFile,
+    rsrcName,
+    routerMountPath
+  )
+
+  // Rewrite Routes Index
+  new CliCommand('Rewrite Routes Index', 'echo')
+    .append(`"${newRoutesIndexFile}"`)
+    .append(`> ${routesPath}/index.mjs`)
     .exec(false)
 
   logger.complete(`[${COMMAND}] Completed!`)
@@ -186,4 +210,45 @@ const Router = new Express.Router()
 const ${rsrcName}Router = new RouterClass(Router, config)
 
 export default ${rsrcName}Router"`
+}
+
+function _getRoutesIndexFile(routesPath: string): string {
+  try {
+    const indexRoutesFile = fs
+      .readFileSync(`${routesPath}/index.mjs`)
+      .toString('utf8')
+
+    if (!indexRoutesFile.length) {
+      logger.warn(`[Warn] Router Entry in ${routesPath}/index.mjs failed!`)
+      process.exit()
+    }
+
+    return indexRoutesFile
+  } catch (error) {
+    logger.warn(`[Warn] Router Entry in ${routesPath}/index.mjs failed!`)
+    logger.fatal(`[Error] Failed to read file: ${routesPath}/index.mjs`)
+    process.exit()
+  }
+}
+
+function _buildNewRoutesIndex(
+  routesIndexFile: string,
+  rsrcName: string,
+  routerMountPath: string
+): string {
+  const imports: string[] = routesIndexFile.match(/(\/\/.*?)?import.+/g) || []
+  imports.push(`import ${rsrcName}Router from './${rsrcName}.mjs'`)
+  const importsString = imports.join('\n')
+
+  const paths: string[] = routesIndexFile.match(/(\/\/.*?)?{ path:.*}/g) || []
+  paths.push(`{ path: '${routerMountPath}', router: ${rsrcName}Router }`)
+  const pathsString = paths.map(path => '  ' + path).join(',\n')
+
+  return `${importsString}
+
+const Routes = [
+${pathsString}
+]
+
+export default Routes`
 }
