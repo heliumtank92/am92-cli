@@ -8,7 +8,7 @@ const COMMAND = 'rsrc-create-mongo-crud'
 
 yargs.command(
   COMMAND,
-  colorify.trace('Create a Backend Resource with MongoODM CRUD'),
+  colorify.trace('Create a Backend Resource with MongoOdm CRUD'),
   builder,
   handler
 )
@@ -124,8 +124,8 @@ function _getModelFile(rsrcName: string): string {
   return `"import { Model } from '@am92/mongo-odm'
 import ${rsrcName}Schema from './${rsrcName}Schema.mjs'
 
-const ${rsrcName}ODM = new Model('${rsrcName}', ${rsrcName}Schema)
-const { createOne, list, findById, updateById, removeById } = ${rsrcName}ODM
+const ${rsrcName}Odm = new Model('${rsrcName}', ${rsrcName}Schema)
+const { createOne, list, findById, updateById, removeById } = ${rsrcName}Odm
 
 const ${rsrcName}Model = {
   create: createOne,
