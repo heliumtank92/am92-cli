@@ -239,18 +239,38 @@ function _buildNewRoutesIndex(
   rsrcName: string,
   routerMountPath: string
 ): string {
-  const imports: string[] = routesIndexFile.match(/(\/\/.*?)?import.+/g) || []
-  imports.push(`import ${rsrcName}Router from './${rsrcName}.mjs'`)
-  const importsString = imports.join('\n')
+  let imports = (routesIndexFile.match(
+    /((.|\n)+)?import(.|\n)+const Routes = \[/gm
+  ) || [''])[0]
 
-  const paths: string[] = routesIndexFile.match(/(\/\/.*?)?{ path:.*}/g) || []
-  paths.push(`{ path: '${routerMountPath}', router: ${rsrcName}Router }`)
-  const pathsString = paths.map(path => '  ' + path).join(',\n')
+  if (!imports) {
+    return routesIndexFile
+  }
 
-  return `${importsString}
+  imports = imports.replace(
+    '\n\nconst Routes = [',
+    `\nimport ${rsrcName}Router from './${rsrcName}.mjs'`
+  )
+
+  let routes = (routesIndexFile.match(
+    /const Routes = \[(.|\n?)+{ path(.|\n)+}/gm
+  ) || [''])[0].replace('const Routes = [', '')
+
+  if (!routes) {
+    return routesIndexFile
+  }
+
+  if (routes.indexOf('\n') === 0) {
+    routes = routes.replace('\n', '')
+  }
+
+  routes = routes.trim()
+
+  return `${imports}
 
 const Routes = [
-${pathsString}
+  ${routes},
+  { path: '${routerMountPath}', router: ${rsrcName}Router }
 ]
 
 export default Routes`
