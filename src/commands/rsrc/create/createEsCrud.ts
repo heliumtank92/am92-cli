@@ -10,7 +10,7 @@ const COMMAND = 'rsrc-create-es-crud'
 
 yargs.command(
   COMMAND,
-  colorify.trace('Create a Backend Resource with OpensearchOdm CRUD'),
+  colorify.trace('Create a Backend CRUD Resource with OpensearchOdm'),
   builder,
   handler
 )

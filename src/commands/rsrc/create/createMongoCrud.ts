@@ -9,7 +9,7 @@ const COMMAND = 'rsrc-create-mongo-crud'
 
 yargs.command(
   COMMAND,
-  colorify.trace('Create a Backend Resource with MongoOdm CRUD'),
+  colorify.trace('Create a Backend CRUD Resource with MongoOdm'),
   builder,
   handler
 )
