@@ -6,6 +6,7 @@ import { CreateFilesParams } from '../TYPES'
 export default function createFiles(attrs: CreateFilesParams): void {
   const {
     createParams,
+    constantsGenerator,
     schemaGenerator,
     modelGenerator,
     controllerGenerator,
@@ -19,6 +20,14 @@ export default function createFiles(attrs: CreateFilesParams): void {
 
   // Create Resource Folder
   new CliCommand('Create Resource Folder', `mkdir ${rsrcPath}`).exec(false)
+
+  // Create Resource Constants
+  if (constantsGenerator) {
+    new CliCommand('Create Resource Constants', 'echo')
+      .append(constantsGenerator(rsrcName))
+      .append(`> ${rsrcPath}/${rsrcName}.Constants.mjs`)
+      .exec(false)
+  }
 
   // Create Resource Schema
   if (schemaGenerator) {

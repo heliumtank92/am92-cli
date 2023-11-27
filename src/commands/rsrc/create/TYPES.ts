@@ -7,6 +7,7 @@ export interface CreateParams {
 
 export interface CreateFilesParams {
   createParams: CreateParams
+  constantsGenerator?: (rsrcName: string) => string
   schemaGenerator?: (rsrcName: string) => string
   modelGenerator?: (rsrcName: string) => string
   controllerGenerator?: (rsrcName: string) => string
