@@ -2,6 +2,7 @@ import fs from 'fs'
 import CliCommand from '../../../../lib/CliCommand'
 import { logger } from '../../../../lib/logger'
 import { CreateFilesParams } from '../TYPES'
+import { getFile } from '../../../../lib/getFile'
 
 export default function createFiles(attrs: CreateFilesParams): void {
   const {
@@ -78,7 +79,13 @@ export default function createFiles(attrs: CreateFilesParams): void {
 
     if (routesIndexEntry) {
       // Read Routes Index
-      const routesIndexFile = _getRoutesIndexFile(routesFolderPath)
+      const routesIndexFile = getFile(
+        `${routesFolderPath}/index.mjs`,
+        `Failed to read file: ${routesFolderPath}/index.mjs`,
+        `Router Entry in ${routesFolderPath}/index.mjs failed!`
+      )
+
+      // Build New Routes Index
       const newRoutesIndexFile = _buildNewRoutesIndex(
         routesIndexFile,
         rsrcName,
@@ -91,25 +98,6 @@ export default function createFiles(attrs: CreateFilesParams): void {
         .append(`> ${routesFolderPath}/index.mjs`)
         .exec(false)
     }
-  }
-}
-
-function _getRoutesIndexFile(routesPath: string): string {
-  try {
-    const indexRoutesFile = fs
-      .readFileSync(`${routesPath}/index.mjs`)
-      .toString('utf8')
-
-    if (!indexRoutesFile.length) {
-      logger.warn(`[Warn] Router Entry in ${routesPath}/index.mjs failed!`)
-      process.exit()
-    }
-
-    return indexRoutesFile
-  } catch (error) {
-    logger.warn(`[Warn] Router Entry in ${routesPath}/index.mjs failed!`)
-    logger.fatal(`[Error] Failed to read file: ${routesPath}/index.mjs`)
-    process.exit()
   }
 }
 
