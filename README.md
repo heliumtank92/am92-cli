@@ -11,6 +11,7 @@
 
 ## Table of Content
 - [Installation](#installation)
+- [Usage](#usage)
 - [Contributors](#contributors)
 - [Resources](#resources)
 - [License](#license)
@@ -19,7 +20,20 @@
 
 ## Installation
 ```bash
-$ npm install -g @am92/cli
+npm install -g @am92/cli
+```
+<br />
+
+## Usage
+Get List of all commands
+```bash
+am92 --help
+```
+<br />
+
+Get help of individual command
+```bash
+am92 [command] --help
 ```
 <br />
 
