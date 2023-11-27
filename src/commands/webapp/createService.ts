@@ -3,10 +3,10 @@ import fs from 'fs'
 import { colorify, logger } from '../../lib/logger'
 import inputReader from '../../lib/inputReader'
 import CliCommand from '../../lib/CliCommand'
-import { camelCase, pascalCase } from '../../lib/changeCase'
-import { getFile } from '../../lib/getFile'
+import { pascalCase } from '../../lib/changeCase'
 
 const COMMAND = 'webapp-create-service'
+const PATH_CHOICES = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD']
 
 yargs.command(
   COMMAND,
@@ -35,6 +35,7 @@ function builder(yargs: any): any {
     .option('service-method', {
       description: 'Service Method',
       type: 'string',
+      choices: PATH_CHOICES,
       required: false
     })
     .option('service-url', {
@@ -120,6 +121,15 @@ async function handler(argv: Arguments) {
     serviceMethod = inputReader('Service Method', SERVICE_NAME, true)
   }
 
+  if (!PATH_CHOICES.includes(serviceMethod)) {
+    logger.fatal(
+      `[Error] Invalid Service Method. It must be one of: ${PATH_CHOICES.join(
+        ', '
+      )}`
+    )
+    process.exit()
+  }
+
   if (!serviceUrl) {
     const SERVICE_URL = '/service/url'
     serviceUrl = inputReader('Service URL', SERVICE_URL, true)
@@ -131,17 +141,19 @@ async function handler(argv: Arguments) {
   new CliCommand('Append Action File', 'echo')
     .append(`"${serviceActions}"`)
     .append(`>> ${reducerFolderPath}/Actions.ts`)
-    .exec()
+    .exec(false)
 
   const serviceFileFunc =
-    serviceMethod === 'GET' ? _buildGetServiceFile : _buildPostServiceFile
-  const serviceFile = serviceFileFunc(serviceName, serviceUrl)
+    serviceMethod === 'GET' || serviceMethod === 'GET'
+      ? _buildGetServiceFile
+      : _buildPostServiceFile
+  const serviceFile = serviceFileFunc(serviceName, serviceUrl, serviceMethod)
 
   // Write Service File
   new CliCommand('Write Service File', 'echo')
     .append(`"${serviceFile}"`)
     .append(`> ${serviceFilePath}`)
-    .exec()
+    .exec(false)
 
   logger.complete(`[${COMMAND}] Completed!`)
 }
@@ -159,22 +171,20 @@ export const ${serviceName}TraceActions = traceActionsCreator(
 
 function _buildPostServiceFile(
   serviceName: string,
-  serviceUrl: string
+  serviceUrl: string,
+  serviceMethod: string
 ): string {
   return `import { WebHttpRequestOptions } from '@am92/web-http'
 import { asHttp } from '~/src/Configurations/WebHttp'
 import serviceActionCreatorWithTokenRotation from '~/src/Redux/serviceActionCreatorWithTokenRotation'
 import { ${serviceName}TraceActions, ${serviceName}ServiceName } from '../Actions'
 
-export type ${pascalCase(serviceName)}RequestData = {
-  username: string
-  password: string
-}
+export type ${pascalCase(serviceName)}RequestData = {}
 
 async function ${serviceName}(reqData: ${pascalCase(serviceName)}RequestData) {
   const options: WebHttpRequestOptions = {
     url: '${serviceUrl}',
-    method: 'POST',
+    method: '${serviceMethod}'
     data: reqData
   }
 
@@ -194,7 +204,11 @@ export { ${serviceName}ServiceName }
 `
 }
 
-function _buildGetServiceFile(serviceName: string, serviceUrl: string): string {
+function _buildGetServiceFile(
+  serviceName: string,
+  serviceUrl: string,
+  serviceMethod: string
+): string {
   return `import { WebHttpRequestOptions } from '@am92/web-http'
 import { asHttp } from '~/src/Configurations/WebHttp'
 import serviceActionCreatorWithTokenRotation from '~/src/Redux/serviceActionCreatorWithTokenRotation'
@@ -203,7 +217,7 @@ import { ${serviceName}TraceActions, ${serviceName}ServiceName } from '../Action
 async function ${serviceName}() {
   const options: WebHttpRequestOptions = {
     url: '${serviceUrl}',
-    method: 'GET'
+    method: '${serviceMethod}'
   }
 
   const response = await asHttp.request(options)
