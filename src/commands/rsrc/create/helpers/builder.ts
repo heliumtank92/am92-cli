@@ -1,12 +1,12 @@
 export default function builder(yargs: any): any {
   return yargs
-    .option('rsrc-name', {
-      description: 'Resource Name',
+    .option('project-root-folder-path', {
+      description: 'Project Root Path',
       type: 'string',
       required: false
     })
-    .option('api-folder-path', {
-      description: 'API Folder Path',
+    .option('rsrc-name', {
+      description: 'Resource Name',
       type: 'string',
       required: false
     })
