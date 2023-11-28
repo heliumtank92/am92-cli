@@ -35,17 +35,17 @@ async function handler(argv: Arguments) {
 }
 
 function modelGenerator(rsrcName: string): string {
-  return `"const ${rsrcName}Model = {
+  return `const ${rsrcName}Model = {
   routeLogic
 }
 
 async function routeLogic() {}
 
-export default ${rsrcName}Model"`
+export default ${rsrcName}Model`
 }
 
 function controllerGenerator(rsrcName: string): string {
-  return `"import { ResponseBody } from '@am92/express-utils'
+  return `import { ResponseBody } from '@am92/express-utils'
 import ${rsrcName}Model from './${rsrcName}.Model.mjs'
 
 const ${rsrcName}Controller = {
@@ -59,11 +59,11 @@ async function routeHandler(request, response, next) {
   process.nextTick(next)
 }
 
-export default ${rsrcName}Controller"`
+export default ${rsrcName}Controller`
 }
 
 function routerGenerator(rsrcName: string): string {
-  return `"import { configureRouter } from '@am92/express-utils'
+  return `import { configureRouter } from '@am92/express-utils'
 import ${rsrcName}Controller from './${rsrcName}.Controller.mjs'
 
 const { routeHandler } = ${rsrcName}Controller
@@ -86,19 +86,19 @@ class ${rsrcName}Router {
   }
 }
 
-export default ${rsrcName}Router"`
+export default ${rsrcName}Router`
 }
 
 function indexGenerator(rsrcName: string): string {
-  return `"import ${rsrcName}Model from './${rsrcName}.Model.mjs'
+  return `import ${rsrcName}Model from './${rsrcName}.Model.mjs'
 import ${rsrcName}Controller from './${rsrcName}.Controller.mjs'
 import ${rsrcName}Router from './${rsrcName}.Router.mjs'
 
-export { ${rsrcName}Model, ${rsrcName}Controller, ${rsrcName}Router }"`
+export { ${rsrcName}Model, ${rsrcName}Controller, ${rsrcName}Router }`
 }
 
 function apiRouterGenerator(rsrcName: string): string {
-  return `"import Express from 'express'
+  return `import Express from 'express'
 import { ${rsrcName}Router as RouterClass } from '../resources/${rsrcName}/index.mjs'
 
 const config = {
@@ -110,5 +110,5 @@ const config = {
 const Router = new Express.Router()
 const ${rsrcName}Router = new RouterClass(Router, config)
 
-export default ${rsrcName}Router"`
+export default ${rsrcName}Router`
 }

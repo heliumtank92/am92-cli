@@ -83,7 +83,7 @@ async function handler(argv: Arguments) {
 
   // Create Action File
   new CliCommand('Create Action File', 'echo')
-    .append(actionGenerator())
+    .append(`"${actionGenerator()}"`)
     .append(`> ${reducerFolderPath}/Actions.ts`)
     .exec(false)
 
@@ -95,7 +95,7 @@ async function handler(argv: Arguments) {
 
   // Create Reducer File
   new CliCommand('Create Reducer File', 'echo')
-    .append(reducerGenerator())
+    .append(`"${reducerGenerator()}"`)
     .append(`> ${reducerFolderPath}/Reducer.ts`)
     .exec(false)
 
@@ -119,12 +119,12 @@ async function handler(argv: Arguments) {
 }
 
 function actionGenerator(): string {
-  return `"import { createAction } from '@reduxjs/toolkit'
-import traceActionsCreator from '../traceActionsCreator'"`
+  return `import { createAction } from '@reduxjs/toolkit'
+import traceActionsCreator from '../traceActionsCreator'`
 }
 
 function selectorGenerator(reducerName: string): string {
-  return `"import { createSelector } from '@reduxjs/toolkit'
+  return `import { createSelector } from '@reduxjs/toolkit'
 
 export const SLICE_NAME = '${camelCase(reducerName)}'
 
@@ -133,11 +133,11 @@ const select = (state: any) => state[SLICE_NAME]
 export const get${pascalCase(reducerName)}Reducer = createSelector(
   select,
   (reducer: any) => reducer
-)"`
+)`
 }
 
 function reducerGenerator(): string {
-  return `"import {
+  return `import {
   ActionReducerMapBuilder,
   CreateSliceOptions,
   createSlice
@@ -155,7 +155,7 @@ const sliceOptions: CreateSliceOptions = {
 
 const slice = createSlice(sliceOptions)
 
-export default slice.reducer"`
+export default slice.reducer`
 }
 
 function _buildNewReducersFile(

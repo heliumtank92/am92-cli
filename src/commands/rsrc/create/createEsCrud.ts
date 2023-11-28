@@ -38,12 +38,12 @@ async function handler(argv: Arguments) {
 }
 
 function constantsGenerator(rsrcName: string): string {
-  return `"export const INDEX = '${kebabCase(rsrcName)}'
-export const MODEL_NAME = '${rsrcName}'"`
+  return `export const INDEX = '${kebabCase(rsrcName)}'
+export const MODEL_NAME = '${rsrcName}'`
 }
 
 function schemaGenerator(rsrcName: string): string {
-  return `"import { Schema } from '@am92/opensearch-odm'
+  return `import { Schema } from '@am92/opensearch-odm'
 import { INDEX } from './${rsrcName}.Constants.mjs'
 
 const properties = {
@@ -52,11 +52,11 @@ const properties = {
 
 const ${rsrcName}Schema = new Schema(INDEX, properties)
 
-export default ${rsrcName}Schema"`
+export default ${rsrcName}Schema`
 }
 
 function modelGenerator(rsrcName: string): string {
-  return `"import { Model } from '@am92/opensearch-odm'
+  return `import { Model } from '@am92/opensearch-odm'
 import ${rsrcName}Schema from './${rsrcName}.Schema.mjs'
 import { MODEL_NAME } from './${rsrcName}.Constants.mjs'
 
@@ -83,11 +83,11 @@ const ${rsrcName}Model = {
   removeById
 }
 
-export default ${rsrcName}Model"`
+export default ${rsrcName}Model`
 }
 
 function controllerGenerator(rsrcName: string): string {
-  return `"import { ResponseBody } from '@am92/express-utils'
+  return `import { ResponseBody } from '@am92/express-utils'
 import ${rsrcName}Model from './${rsrcName}.Model.mjs'
 
 const ${rsrcName}Controller = {
@@ -168,11 +168,11 @@ async function removeById(request, response, next) {
   process.nextTick(next)
 }
 
-export default ${rsrcName}Controller"`
+export default ${rsrcName}Controller`
 }
 
 function routerGenerator(rsrcName: string): string {
-  return `"import { configureRouter } from '@am92/express-utils'
+  return `import { configureRouter } from '@am92/express-utils'
 import ${rsrcName}Controller from './${rsrcName}.Controller.mjs'
 
 const {
@@ -239,20 +239,20 @@ class ${rsrcName}Router {
   }
 }
 
-export default ${rsrcName}Router"`
+export default ${rsrcName}Router`
 }
 
 function indexGenerator(rsrcName: string): string {
-  return `"import ${rsrcName}Schema from './${rsrcName}.Schema.mjs'
+  return `import ${rsrcName}Schema from './${rsrcName}.Schema.mjs'
 import ${rsrcName}Model from './${rsrcName}.Model.mjs'
 import ${rsrcName}Controller from './${rsrcName}.Controller.mjs'
 import ${rsrcName}Router from './${rsrcName}.Router.mjs'
 
-export { ${rsrcName}Schema, ${rsrcName}Model, ${rsrcName}Controller, ${rsrcName}Router }"`
+export { ${rsrcName}Schema, ${rsrcName}Model, ${rsrcName}Controller, ${rsrcName}Router }`
 }
 
 function apiRouterGenerator(rsrcName: string): string {
-  return `"import Express from 'express'
+  return `import Express from 'express'
 import { ${rsrcName}Router as RouterClass } from '../resources/${rsrcName}/index.mjs'
 
 const config = {
@@ -271,5 +271,5 @@ const config = {
 const Router = new Express.Router()
 const ${rsrcName}Router = new RouterClass(Router, config)
 
-export default ${rsrcName}Router"`
+export default ${rsrcName}Router`
 }

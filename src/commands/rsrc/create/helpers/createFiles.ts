@@ -25,7 +25,7 @@ export default function createFiles(attrs: CreateFilesParams): void {
   // Create Resource Constants
   if (constantsGenerator) {
     new CliCommand('Create Resource Constants', 'echo')
-      .append(constantsGenerator(rsrcName))
+      .append(`"${constantsGenerator(rsrcName)}"`)
       .append(`> ${rsrcPath}/${rsrcName}.Constants.mjs`)
       .exec(false)
   }
@@ -33,7 +33,7 @@ export default function createFiles(attrs: CreateFilesParams): void {
   // Create Resource Schema
   if (schemaGenerator) {
     new CliCommand('Create Resource Schema', 'echo')
-      .append(schemaGenerator(rsrcName))
+      .append(`"${schemaGenerator(rsrcName)}"`)
       .append(`> ${rsrcPath}/${rsrcName}.Schema.mjs`)
       .exec(false)
   }
@@ -41,7 +41,7 @@ export default function createFiles(attrs: CreateFilesParams): void {
   // Create Resource Model
   if (modelGenerator) {
     new CliCommand('Create Resource Model', 'echo')
-      .append(modelGenerator(rsrcName))
+      .append(`"${modelGenerator(rsrcName)}"`)
       .append(`> ${rsrcPath}/${rsrcName}.Model.mjs`)
       .exec(false)
   }
@@ -49,7 +49,7 @@ export default function createFiles(attrs: CreateFilesParams): void {
   // Create Resource Controller
   if (controllerGenerator) {
     new CliCommand('Create Resource Controller', 'echo')
-      .append(controllerGenerator(rsrcName))
+      .append(`"${controllerGenerator(rsrcName)}"`)
       .append(`> ${rsrcPath}/${rsrcName}.Controller.mjs`)
       .exec(false)
   }
@@ -57,7 +57,7 @@ export default function createFiles(attrs: CreateFilesParams): void {
   // Create Resource Router
   if (routerGenerator) {
     new CliCommand('Create Resource Router', 'echo')
-      .append(routerGenerator(rsrcName))
+      .append(`"${routerGenerator(rsrcName)}"`)
       .append(`> ${rsrcPath}/${rsrcName}.Router.mjs`)
       .exec(false)
   }
@@ -65,7 +65,7 @@ export default function createFiles(attrs: CreateFilesParams): void {
   // Create Resource index
   if (indexGenerator) {
     new CliCommand('Create Resource index', 'echo')
-      .append(indexGenerator(rsrcName))
+      .append(`"${indexGenerator(rsrcName)}"`)
       .append(`> ${rsrcPath}/index.mjs`)
       .exec(false)
   }
@@ -73,7 +73,7 @@ export default function createFiles(attrs: CreateFilesParams): void {
   // Create API Router
   if (apiRouterGenerator) {
     new CliCommand('Create API Router', 'echo')
-      .append(apiRouterGenerator(rsrcName))
+      .append(`"${apiRouterGenerator(rsrcName)}"`)
       .append(`> ${routesFolderPath}/${rsrcName}.mjs`)
       .exec(false)
 

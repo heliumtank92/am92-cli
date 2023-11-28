@@ -36,7 +36,7 @@ async function handler(argv: Arguments) {
 }
 
 function schemaGenerator(rsrcName: string): string {
-  return `"import { buildSchema } from '@am92/mongo-odm'
+  return `import { buildSchema } from '@am92/mongo-odm'
 
 const schemaObject = {
   // Schema Properties as defined by mongoose Schema Class
@@ -46,11 +46,11 @@ const schemaOptions = {}
 
 const ${rsrcName}Schema = buildSchema(${rsrcName}SchemaObject, schemaOptions)
 
-export default ${rsrcName}Schema"`
+export default ${rsrcName}Schema`
 }
 
 function modelGenerator(rsrcName: string): string {
-  return `"import { Model } from '@am92/mongo-odm'
+  return `import { Model } from '@am92/mongo-odm'
 import ${rsrcName}Schema from './${rsrcName}Schema.mjs'
 
 const ${rsrcName}Odm = new Model('${rsrcName}', ${rsrcName}Schema)
@@ -64,11 +64,11 @@ const ${rsrcName}Model = {
   removeById: removeById
 }
 
-export default ${rsrcName}Model"`
+export default ${rsrcName}Model`
 }
 
 function controllerGenerator(rsrcName: string): string {
-  return `"import { ResponseBody } from '@am92/express-utils'
+  return `import { ResponseBody } from '@am92/express-utils'
 import ${rsrcName}Model from './${rsrcName}.Model.mjs'
 
 const ${rsrcName}Controller = {
@@ -125,11 +125,11 @@ async function removeById(request, response, next) {
   process.nextTick(next)
 }
 
-export default ${rsrcName}Controller"`
+export default ${rsrcName}Controller`
 }
 
 function routerGenerator(rsrcName: string): string {
-  return `"import { configureRouter } from '@am92/express-utils'
+  return `import { configureRouter } from '@am92/express-utils'
 import ${rsrcName}Controller from './${rsrcName}.Controller.mjs'
 
 const { create, list, findById, updateById, removeById } = ${rsrcName}Controller
@@ -172,20 +172,20 @@ class ${rsrcName}Router {
   }
 }
 
-export default ${rsrcName}Router"`
+export default ${rsrcName}Router`
 }
 
 function indexGenerator(rsrcName: string): string {
-  return `"import ${rsrcName}Schema from './${rsrcName}.Schema.mjs'
+  return `import ${rsrcName}Schema from './${rsrcName}.Schema.mjs'
 import ${rsrcName}Model from './${rsrcName}.Model.mjs'
 import ${rsrcName}Controller from './${rsrcName}.Controller.mjs'
 import ${rsrcName}Router from './${rsrcName}.Router.mjs'
 
-export { ${rsrcName}Schema, ${rsrcName}Model, ${rsrcName}Controller, ${rsrcName}Router }"`
+export { ${rsrcName}Schema, ${rsrcName}Model, ${rsrcName}Controller, ${rsrcName}Router }`
 }
 
 function apiRouterGenerator(rsrcName: string): string {
-  return `"import Express from 'express'
+  return `import Express from 'express'
 import { ${rsrcName}Router as RouterClass } from '../resources/${rsrcName}/index.mjs'
 
 const config = {
@@ -201,5 +201,5 @@ const config = {
 const Router = new Express.Router()
 const ${rsrcName}Router = new RouterClass(Router, config)
 
-export default ${rsrcName}Router"`
+export default ${rsrcName}Router`
 }

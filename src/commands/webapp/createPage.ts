@@ -92,7 +92,7 @@ async function handler(argv: Arguments) {
 
   // Create Page File
   new CliCommand('Create Page File', 'echo')
-    .append(pageGenerator(pageName))
+    .append(`"${pageGenerator(pageName)}"`)
     .append(`> ${pageFolderPath}/${pageName}.Page.tsx`)
     .exec(false)
 
@@ -104,7 +104,7 @@ async function handler(argv: Arguments) {
 }
 
 function pageGenerator(pageName: string): string {
-  return `"import React, { PureComponent } from 'react'
+  return `import React, { PureComponent } from 'react'
 import { DsTypography } from '@am92/react-design-system'
 
 export default class SamplePage extends PureComponent {
@@ -113,7 +113,7 @@ export default class SamplePage extends PureComponent {
       <DsTypography variant='headingBoldExtraLarge'>${pageName} Page</DsTypography>
     )
   }
-}"`
+}`
 }
 
 function _updateAppRoutesFile(
