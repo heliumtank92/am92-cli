@@ -1,6 +1,4 @@
-import fs from 'fs'
 import CliCommand from '../../../../lib/CliCommand'
-import { logger } from '../../../../lib/logger'
 import { CreateFilesParams } from '../TYPES'
 import { getFile } from '../../../../lib/getFile'
 

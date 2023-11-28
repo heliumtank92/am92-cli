@@ -7,7 +7,6 @@ import { CreateParams } from '../TYPES'
 export default function getCreateParams(argv: Arguments): CreateParams {
   let projectRootPath = (argv.projectRootPath as string) || ''
   let rsrcName = (argv.rsrcName as string) || ''
-  // let apiFolderPath = (argv.apiFolderPath as string) || ''
   let routerMountPath = (argv.routerMountPath as string) || ''
 
   if (!projectRootPath) {
