@@ -42,8 +42,8 @@ async function handler(argv: Arguments) {
   let pagePath = (argv.pagePath as string) || ''
 
   if (!projectRootPath) {
-    const API_FOLDER_PATH: string = '.'
-    projectRootPath = inputReader('Project Root Path', API_FOLDER_PATH, true)
+    const ROOT_FOLDER_PATH: string = '.'
+    projectRootPath = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
   }
 
   if (!fs.existsSync(projectRootPath)) {
