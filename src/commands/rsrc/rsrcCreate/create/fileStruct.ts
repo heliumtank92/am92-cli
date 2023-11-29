@@ -7,11 +7,11 @@ import getCreateParams from '../helpers/getCreateParams'
 import rewriteFile from '../../../../lib/rewriteFile'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
-import MODEL_INDEX from '../helpers/fileTemplates/model/MODEL_INDEX'
-import CONTROLLER from '../helpers/fileTemplates/controller/CONTROLLER'
-import ROUTER from '../helpers/fileTemplates/router/ROUTER'
-import INDEX from '../helpers/fileTemplates/index/INDEX'
-import API_ROUTER from '../helpers/fileTemplates/apiRouter/API_ROUTER'
+import MODEL_INDEX from '../../fileTemplates/model/MODEL_INDEX'
+import CONTROLLER from '../../fileTemplates/controller/CONTROLLER'
+import ROUTER from '../../fileTemplates/router/ROUTER'
+import INDEX from '../../fileTemplates/index/INDEX'
+import API_ROUTER from '../../fileTemplates/apiRouter/API_ROUTER'
 
 const COMMAND = 'rsrc-create-file-struct'
 
@@ -35,7 +35,7 @@ async function handler(argv: Arguments) {
   new CliCommand('Create Resource Folder', `mkdir ${rsrcPath}`).exec(false)
 
   // Create Model
-  const model = MODEL_INDEX.replaceAll('{rsrcPrefix}', rsrcName)
+  const model = MODEL_INDEX.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model.mjs`
   new CliCommand('Create Model', 'echo')
     .append(`"${model}"`)

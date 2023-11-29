@@ -7,12 +7,12 @@ import getCreateParams from '../helpers/getCreateParams'
 import rewriteFile from '../../../../lib/rewriteFile'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
-import MONGO_SCHEMA from '../helpers/fileTemplates/schema/MONGO_SCHEMA'
-import MONGO_CRUD_MODEL from '../helpers/fileTemplates/model/MONGO_CRUD_MODEL'
-import CRUD_CONTROLLER from '../helpers/fileTemplates/controller/CRUD_CONTROLLER'
-import CRUD_ROUTER from '../helpers/fileTemplates/router/CRUD_ROUTER'
-import ODM_INDEX from '../helpers/fileTemplates/index/ODM_INDEX'
-import CRUD_API_ROUTER from '../helpers/fileTemplates/apiRouter/CRUD_API_ROUTER'
+import MONGO_SCHEMA from '../../fileTemplates/schema/MONGO_SCHEMA'
+import MONGO_CRUD_MODEL from '../../fileTemplates/model/MONGO_CRUD_MODEL'
+import CRUD_CONTROLLER from '../../fileTemplates/controller/CRUD_CONTROLLER'
+import CRUD_ROUTER from '../../fileTemplates/router/CRUD_ROUTER'
+import ODM_INDEX from '../../fileTemplates/index/ODM_INDEX'
+import CRUD_API_ROUTER from '../../fileTemplates/apiRouter/CRUD_API_ROUTER'
 
 const COMMAND = 'rsrc-create-mongo-crud-file-struct'
 

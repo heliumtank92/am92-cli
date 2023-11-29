@@ -1,7 +1,7 @@
 import fs from 'fs'
+import { transformSync } from '@babel/core'
 import { logger } from './logger'
 import CliCommand from './CliCommand'
-import { transformSync } from '@babel/core'
 
 export default function rewriteFile(
   fileName: string,

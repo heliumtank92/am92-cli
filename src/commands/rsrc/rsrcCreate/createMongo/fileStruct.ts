@@ -7,12 +7,12 @@ import getCreateParams from '../helpers/getCreateParams'
 import rewriteFile from '../../../../lib/rewriteFile'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
-import MONGO_SCHEMA from '../helpers/fileTemplates/schema/MONGO_SCHEMA'
-import MONGO_MODEL from '../helpers/fileTemplates/model/MONGO_MODEL'
-import CONTROLLER from '../helpers/fileTemplates/controller/CONTROLLER'
-import ROUTER from '../helpers/fileTemplates/router/ROUTER'
-import ODM_INDEX from '../helpers/fileTemplates/index/ODM_INDEX'
-import API_ROUTER from '../helpers/fileTemplates/apiRouter/API_ROUTER'
+import MONGO_SCHEMA from '../../fileTemplates/schema/MONGO_SCHEMA'
+import MONGO_MODEL from '../../fileTemplates/model/MONGO_MODEL'
+import CONTROLLER from '../../fileTemplates/controller/CONTROLLER'
+import ROUTER from '../../fileTemplates/router/ROUTER'
+import ODM_INDEX from '../../fileTemplates/index/ODM_INDEX'
+import API_ROUTER from '../../fileTemplates/apiRouter/API_ROUTER'
 
 const COMMAND = 'rsrc-create-mongo-file-struct'
 

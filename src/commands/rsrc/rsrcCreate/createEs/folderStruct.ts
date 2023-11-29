@@ -8,14 +8,14 @@ import rewriteFile from '../../../../lib/rewriteFile'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 import { kebabCase } from '../../../../lib/changeCase'
 
-import ES_CONSTANTS from '../helpers/fileTemplates/constants/ES_CONSTANTS'
-import ES_SCHEMA from '../helpers/fileTemplates/schema/ES_SCHEMA'
-import ES_ODM from '../helpers/fileTemplates/model/ES_ODM'
-import MODEL_INDEX from '../helpers/fileTemplates/model/MODEL_INDEX'
-import CONTROLLER_INDEX from '../helpers/fileTemplates/controller/CONTROLLER_INDEX'
-import ROUTER_INDEX from '../helpers/fileTemplates/router/ROUTER_INDEX'
-import ODM_INDEX from '../helpers/fileTemplates/index/ODM_INDEX'
-import API_ROUTER from '../helpers/fileTemplates/apiRouter/API_ROUTER'
+import ES_CONSTANTS from '../../fileTemplates/constants/ES_CONSTANTS'
+import ES_SCHEMA from '../../fileTemplates/schema/ES_SCHEMA'
+import ES_ODM from '../../fileTemplates/model/ES_ODM'
+import MODEL_INDEX from '../../fileTemplates/model/MODEL_INDEX'
+import CONTROLLER_INDEX from '../../fileTemplates/controller/CONTROLLER_INDEX'
+import ROUTER_INDEX from '../../fileTemplates/router/ROUTER_INDEX'
+import ODM_INDEX from '../../fileTemplates/index/ODM_INDEX'
+import API_ROUTER from '../../fileTemplates/apiRouter/API_ROUTER'
 
 const COMMAND = 'rsrc-create-es-folder-struct'
 
@@ -81,7 +81,7 @@ async function handler(argv: Arguments) {
     .append(`"${odm}"`)
     .append(`> ${odmFileLoc}`)
     .exec(false)
-  const model = MODEL_INDEX.replaceAll('{rsrcPrefix}', rsrcName)
+  const model = MODEL_INDEX.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model/index.mjs`
   new CliCommand('Create Model Index', 'echo')
     .append(`"${model}"`)

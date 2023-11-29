@@ -7,11 +7,11 @@ import getCreateParams from '../helpers/getCreateParams'
 import rewriteFile from '../../../../lib/rewriteFile'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
-import MODEL_INDEX from '../helpers/fileTemplates/model/MODEL_INDEX'
-import CONTROLLER_INDEX from '../helpers/fileTemplates/controller/CONTROLLER_INDEX'
-import ROUTER_INDEX from '../helpers/fileTemplates/router/ROUTER_INDEX'
-import INDEX from '../helpers/fileTemplates/index/INDEX'
-import API_ROUTER from '../helpers/fileTemplates/apiRouter/API_ROUTER'
+import MODEL_INDEX from '../../fileTemplates/model/MODEL_INDEX'
+import CONTROLLER_INDEX from '../../fileTemplates/controller/CONTROLLER_INDEX'
+import ROUTER_INDEX from '../../fileTemplates/router/ROUTER_INDEX'
+import INDEX from '../../fileTemplates/index/INDEX'
+import API_ROUTER from '../../fileTemplates/apiRouter/API_ROUTER'
 
 const COMMAND = 'rsrc-create-folder-struct'
 
@@ -39,7 +39,7 @@ async function handler(argv: Arguments) {
     'Create Model Folder',
     `mkdir ${rsrcPath}/${rsrcName}.Model`
   ).exec(false)
-  const model = MODEL_INDEX.replaceAll('{rsrcPrefix}', rsrcName)
+  const model = MODEL_INDEX.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model/index.mjs`
   new CliCommand('Create Model Index', 'echo')
     .append(`"${model}"`)
