@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { logger } from './logger'
 import CliCommand from './CliCommand'
+import { transformSync } from '@babel/core'
 
 export default function rewriteFile(
   fileName: string,
@@ -10,6 +11,23 @@ export default function rewriteFile(
   const file = getFile(filePath)
 
   const newFile = fileEditor(file)
+
+  try {
+    const options: any = {}
+
+    if (filePath.match(/.ts$/gm)) {
+      options.plugins = ['@babel/plugin-transform-typescript']
+    } else if (filePath.match(/.tsx$/gm)) {
+      options.plugins = [
+        ['@babel/plugin-transform-typescript', { isTSX: true }]
+      ]
+    }
+
+    transformSync(newFile, options)
+  } catch (error) {
+    logger.error(`[Error] Failed to rewrite file: ${filePath}`)
+    return
+  }
 
   new CliCommand(`Rewrite ${fileName}`, 'echo')
     .append(`"${newFile}"`)
