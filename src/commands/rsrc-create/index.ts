@@ -1,6 +1,0 @@
-import './create/fileStruct'
-import './create/folderStruct'
-import './createMongoCrud/fileStruct'
-import './createMongoCrud/folderStruct'
-import './createEsCrud/fileStruct'
-import './createEsCrud/folderStruct'
