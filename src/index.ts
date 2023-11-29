@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 import yargs from 'yargs'
-import './commands/rsrc-create'
+import './commands/rsrc'
 import './commands/webapp'
 import './commands/feStack'
 
