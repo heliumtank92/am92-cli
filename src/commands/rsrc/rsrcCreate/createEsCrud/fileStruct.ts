@@ -1,12 +1,13 @@
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
+import createFile from '../../../../lib/createFile'
+import rewriteFile from '../../../../lib/rewriteFile'
+import { kebabCase } from '../../../../lib/changeCase'
 
 import createBuilder from '../helpers/createBuilder'
 import getCreateParams from '../helpers/getCreateParams'
-import rewriteFile from '../../../../lib/rewriteFile'
 import routesIndexEditor from '../helpers/routesIndexEditor'
-import { kebabCase } from '../../../../lib/changeCase'
 
 import ES_CONSTANTS from '../../fileTemplates/constants/ES_CONSTANTS'
 import ES_SCHEMA from '../../fileTemplates/schema/ES_SCHEMA'
@@ -45,10 +46,7 @@ async function handler(argv: Arguments) {
     kebabCase(rsrcName)
   )
   const constsFileLoc = `${rsrcPath}/${rsrcName}.Constants.mjs`
-  new CliCommand('Create Constants', 'echo')
-    .append(`"${consts}"`)
-    .append(`> ${constsFileLoc}`)
-    .exec(false)
+  createFile('Constants', consts, constsFileLoc)
 
   // Create Schema
   const schema = ES_SCHEMA.replaceAll('{rsrcName}', rsrcName).replaceAll(
@@ -56,34 +54,22 @@ async function handler(argv: Arguments) {
     constantsPath
   )
   const schemaFileLoc = `${rsrcPath}/${rsrcName}.Schema.mjs`
-  new CliCommand('Create Schema', 'echo')
-    .append(`"${schema}"`)
-    .append(`> ${schemaFileLoc}`)
-    .exec(false)
+  createFile('Schema', schema, schemaFileLoc)
 
   // Create Model
   const model = ES_CRUD_MODEL.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model.mjs`
-  new CliCommand('Create Model', 'echo')
-    .append(`"${model}"`)
-    .append(`> ${modelFileLoc}`)
-    .exec(false)
+  createFile('Model', model, modelFileLoc)
 
   // Create Controller
   const controller = CRUD_CONTROLLER.replaceAll('{rsrcName}', rsrcName)
   const controllerFileLoc = `${rsrcPath}/${rsrcName}.Controller.mjs`
-  new CliCommand('Create Controller', 'echo')
-    .append(`"${controller}"`)
-    .append(`> ${controllerFileLoc}`)
-    .exec(false)
+  createFile('Controller', controller, controllerFileLoc)
 
   // Create Router
   const router = CRUD_ROUTER.replaceAll('{rsrcName}', rsrcName)
   const routerFileLoc = `${rsrcPath}/${rsrcName}.Router.mjs`
-  new CliCommand('Create Router', 'echo')
-    .append(`"${router}"`)
-    .append(`> ${routerFileLoc}`)
-    .exec(false)
+  createFile('Router', router, routerFileLoc)
 
   // Create Index
   const index = ODM_INDEX.replaceAll('{rsrcName}', rsrcName)
@@ -92,18 +78,12 @@ async function handler(argv: Arguments) {
     .replaceAll('{controllerPath}', controllerPath)
     .replaceAll('{routerPath}', routerPath)
   const indexFileLoc = `${rsrcPath}/index.mjs`
-  new CliCommand('Create Index', 'echo')
-    .append(`"${index}"`)
-    .append(`> ${indexFileLoc}`)
-    .exec(false)
+  createFile('Index', index, indexFileLoc)
 
   // Create API Router
   const apiRouter = CRUD_API_ROUTER.replaceAll('{rsrcName}', rsrcName)
   const apiRouterFileLoc = `${routesFolderPath}/${rsrcName}.mjs`
-  new CliCommand('Create API Router', 'echo')
-    .append(`"${apiRouter}"`)
-    .append(`> ${apiRouterFileLoc}`)
-    .exec(false)
+  createFile('API Router', apiRouter, apiRouterFileLoc)
 
   // Rewrite Routes Index
   const routesIndexFileLoc = `${routesFolderPath}/index.mjs`

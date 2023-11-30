@@ -1,10 +1,11 @@
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
+import createFile from '../../../../lib/createFile'
+import rewriteFile from '../../../../lib/rewriteFile'
 
 import createBuilder from '../helpers/createBuilder'
 import getCreateParams from '../helpers/getCreateParams'
-import rewriteFile from '../../../../lib/rewriteFile'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
 import MODEL_INDEX from '../../fileTemplates/model/MODEL_INDEX'
@@ -37,10 +38,7 @@ async function handler(argv: Arguments) {
   // Create Model
   const model = MODEL_INDEX.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model.mjs`
-  new CliCommand('Create Model', 'echo')
-    .append(`"${model}"`)
-    .append(`> ${modelFileLoc}`)
-    .exec(false)
+  createFile('Model', model, modelFileLoc)
 
   // Create Controller
   const controller = CONTROLLER.replaceAll('{rsrcPrefix}', rsrcName).replaceAll(
@@ -48,18 +46,12 @@ async function handler(argv: Arguments) {
     modelPath
   )
   const controllerFileLoc = `${rsrcPath}/${rsrcName}.Controller.mjs`
-  new CliCommand('Create Controller', 'echo')
-    .append(`"${controller}"`)
-    .append(`> ${controllerFileLoc}`)
-    .exec(false)
+  createFile('Controller', controller, controllerFileLoc)
 
   // Create Router
   const router = ROUTER.replaceAll('{rsrcName}', rsrcName)
   const routerFileLoc = `${rsrcPath}/${rsrcName}.Router.mjs`
-  new CliCommand('Create Router', 'echo')
-    .append(`"${router}"`)
-    .append(`> ${routerFileLoc}`)
-    .exec(false)
+  createFile('Router', router, routerFileLoc)
 
   // Create Index
   const index = INDEX.replaceAll('{rsrcName}', rsrcName)
@@ -67,18 +59,12 @@ async function handler(argv: Arguments) {
     .replaceAll('{controllerPath}', controllerPath)
     .replaceAll('{routerPath}', routerPath)
   const indexFileLoc = `${rsrcPath}/index.mjs`
-  new CliCommand('Create Index', 'echo')
-    .append(`"${index}"`)
-    .append(`> ${indexFileLoc}`)
-    .exec(false)
+  createFile('Index', index, indexFileLoc)
 
   // Create API Router
   const apiRouter = API_ROUTER.replaceAll('{rsrcName}', rsrcName)
   const apiRouterFileLoc = `${routesFolderPath}/${rsrcName}.mjs`
-  new CliCommand('Create API Router', 'echo')
-    .append(`"${apiRouter}"`)
-    .append(`> ${apiRouterFileLoc}`)
-    .exec(false)
+  createFile('API Router', apiRouter, apiRouterFileLoc)
 
   // Rewrite Routes Index
   const routesIndexFileLoc = `${routesFolderPath}/index.mjs`

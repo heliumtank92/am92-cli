@@ -1,10 +1,11 @@
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
+import createFile from '../../../../lib/createFile'
+import rewriteFile from '../../../../lib/rewriteFile'
 
 import createBuilder from '../helpers/createBuilder'
 import getCreateParams from '../helpers/getCreateParams'
-import rewriteFile from '../../../../lib/rewriteFile'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
 import MONGO_SCHEMA from '../../fileTemplates/schema/MONGO_SCHEMA'
@@ -44,10 +45,7 @@ async function handler(argv: Arguments) {
   ).exec(false)
   const schema = MONGO_SCHEMA.replaceAll('{rsrcName}', rsrcName)
   const schemaFileLoc = `${rsrcPath}/${rsrcName}.Schema/index.mjs`
-  new CliCommand('Create Schema Index', 'echo')
-    .append(`"${schema}"`)
-    .append(`> ${schemaFileLoc}`)
-    .exec(false)
+  createFile('Schema Index', schema, schemaFileLoc)
 
   // Create Model
   new CliCommand(
@@ -56,16 +54,10 @@ async function handler(argv: Arguments) {
   ).exec(false)
   const odm = MONGO_ODM.replaceAll('{rsrcName}', rsrcName)
   const odmFileLoc = `${rsrcPath}/${rsrcName}.Model/${rsrcName}.Odm.mjs`
-  new CliCommand('Create Odm', 'echo')
-    .append(`"${odm}"`)
-    .append(`> ${odmFileLoc}`)
-    .exec(false)
+  createFile('Odm', odm, odmFileLoc)
   const model = MODEL_INDEX.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model/index.mjs`
-  new CliCommand('Create Model Index', 'echo')
-    .append(`"${model}"`)
-    .append(`> ${modelFileLoc}`)
-    .exec(false)
+  createFile('Model Index', model, modelFileLoc)
 
   // Create Controller
   new CliCommand(
@@ -74,10 +66,7 @@ async function handler(argv: Arguments) {
   ).exec(false)
   const controller = CONTROLLER_INDEX.replaceAll('{rsrcName}', rsrcName)
   const controllerFileLoc = `${rsrcPath}/${rsrcName}.Controller/index.mjs`
-  new CliCommand('Create Controller Index', 'echo')
-    .append(`"${controller}"`)
-    .append(`> ${controllerFileLoc}`)
-    .exec(false)
+  createFile('Controller Index', controller, controllerFileLoc)
 
   // Create Router
   new CliCommand(
@@ -86,10 +75,7 @@ async function handler(argv: Arguments) {
   ).exec(false)
   const router = ROUTER_INDEX.replaceAll('{rsrcName}', rsrcName)
   const routerFileLoc = `${rsrcPath}/${rsrcName}.Router/index.mjs`
-  new CliCommand('Create Router', 'echo')
-    .append(`"${router}"`)
-    .append(`> ${routerFileLoc}`)
-    .exec(false)
+  createFile('Router', router, routerFileLoc)
 
   // Create Index
   const index = ODM_INDEX.replaceAll('{rsrcName}', rsrcName)
@@ -98,18 +84,12 @@ async function handler(argv: Arguments) {
     .replaceAll('{controllerPath}', controllerPath.substring(1))
     .replaceAll('{routerPath}', routerPath.substring(1))
   const indexFileLoc = `${rsrcPath}/index.mjs`
-  new CliCommand('Create Index', 'echo')
-    .append(`"${index}"`)
-    .append(`> ${indexFileLoc}`)
-    .exec(false)
+  createFile('Index', index, indexFileLoc)
 
   // Create API Router
   const apiRouter = API_ROUTER.replaceAll('{rsrcName}', rsrcName)
   const apiRouterFileLoc = `${routesFolderPath}/${rsrcName}.mjs`
-  new CliCommand('Create API Router', 'echo')
-    .append(`"${apiRouter}"`)
-    .append(`> ${apiRouterFileLoc}`)
-    .exec(false)
+  createFile('API Router', apiRouter, apiRouterFileLoc)
 
   // Rewrite Routes Index
   const routesIndexFileLoc = `${routesFolderPath}/index.mjs`
