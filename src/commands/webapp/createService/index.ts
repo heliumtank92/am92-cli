@@ -4,6 +4,8 @@ import { colorify, logger } from '../../../lib/logger'
 import inputReader from '../../../lib/inputReader'
 import CliCommand from '../../../lib/CliCommand'
 import { pascalCase } from '../../../lib/changeCase'
+import createFile from '../../../lib/createFile'
+
 import SERVICE_ACTIONS from './SERVICE_ACTIONS'
 import GET_SERVICE_FILE from './GET_SERVICE_FILE'
 import POST_SERVICE_FILE from './POST_SERVICE_FILE'
@@ -159,10 +161,7 @@ async function handler(argv: Arguments) {
     .replaceAll('{serviceMethod}', serviceMethod)
 
   // Write Service File
-  new CliCommand('Write Service File', 'echo')
-    .append(`"${serviceFile}"`)
-    .append(`> ${serviceFilePath}`)
-    .exec(false)
+  createFile('Service File', serviceFile, serviceFilePath)
 
   logger.complete(`[${COMMAND}] Completed!`)
 }

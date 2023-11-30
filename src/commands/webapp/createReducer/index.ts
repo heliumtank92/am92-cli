@@ -3,8 +3,10 @@ import fs from 'fs'
 import { colorify, logger } from '../../../lib/logger'
 import inputReader from '../../../lib/inputReader'
 import CliCommand from '../../../lib/CliCommand'
-import { camelCase, pascalCase } from '../../../lib/changeCase'
+import createFile from '../../../lib/createFile'
 import rewriteFile from '../../../lib/rewriteFile'
+import { camelCase, pascalCase } from '../../../lib/changeCase'
+
 import ACTION_FILE from './ACTION_FILE'
 import REDUCER_FILE from './REDUCER_FILE'
 import SELECTOR_FILE from './SELECTOR_FILE'
@@ -86,25 +88,19 @@ async function handler(argv: Arguments) {
 
   // Create Action File
   const action = ACTION_FILE.replaceAll('{reducerName}', reducerName)
-  new CliCommand('Create Action File', 'echo')
-    .append(`"${action}"`)
-    .append(`> ${reducerFolderPath}/Actions.ts`)
-    .exec(false)
+  const actionLoc = `${reducerFolderPath}/Actions.ts`
+  createFile('Action File', action, actionLoc)
 
   // Create Selector File
   const selector = SELECTOR_FILE.replaceAll('{reducerName}', reducerName)
     .replaceAll('{camelCase(reducerName)}', camelCase(reducerName))
     .replaceAll('{pascalCase(reducerName)}', pascalCase(reducerName))
-  new CliCommand('Create Selector File', 'echo')
-    .append(`"${selector}"`)
-    .append(`> ${reducerFolderPath}/Selectors.ts`)
-    .exec(false)
+  const selectorLoc = `${reducerFolderPath}/Selectors.ts`
+  createFile('Selector File', selector, selectorLoc)
 
   // Create Reducer File
-  new CliCommand('Create Reducer File', 'echo')
-    .append(`"${REDUCER_FILE}"`)
-    .append(`> ${reducerFolderPath}/Reducer.ts`)
-    .exec(false)
+  const reducerLoc = `${reducerFolderPath}/Reducer.ts`
+  createFile('Reducer File', REDUCER_FILE, reducerLoc)
 
   const reducersFile = `${reduxFolderPath}/Reducers.ts`
   rewriteFile('Routes Index', reducersFile, _reducersFileEditor(reducerName))

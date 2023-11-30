@@ -3,8 +3,10 @@ import fs from 'fs'
 import { colorify, logger } from '../../../lib/logger'
 import inputReader from '../../../lib/inputReader'
 import CliCommand from '../../../lib/CliCommand'
-import { constantCase } from '../../../lib/changeCase'
 import rewriteFile from '../../../lib/rewriteFile'
+import createFile from '../../../lib/createFile'
+import { constantCase } from '../../../lib/changeCase'
+
 import PAGE_FILE from './PAGE_FILE'
 
 const COMMAND = 'webapp-create-page'
@@ -93,10 +95,8 @@ async function handler(argv: Arguments) {
 
   // Create Page File
   const page = PAGE_FILE.replaceAll('{pageName}', pageName)
-  new CliCommand('Create Page File', 'echo')
-    .append(`"${page}"`)
-    .append(`> ${pageFolderPath}/${pageName}.Page.tsx`)
-    .exec(false)
+  const pageLoc = `${pageFolderPath}/${pageName}.Page.tsx`
+  createFile('Page File', page, pageLoc)
 
   const appRoutesFile = `${srcFolderPath}/Constants/APP_ROUTES.ts`
   rewriteFile(
