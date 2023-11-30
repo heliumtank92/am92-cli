@@ -17,8 +17,12 @@ export default function routerIndexEditor(
       .replace('\n  }', '')
       .replace('}', '')
 
-    let routerExport = (file.match(/export default (.|\n)+/gm) || [''])[0]
-    routerExport = routerExport.substring(0, routerExport.length - 1)
+    let routerExport = (file.match(/}\n}\n(.|\n)+/gm) || [''])[0].replace(
+      '}\n}\n',
+      ''
+    )
+    routerExport =
+      routerExport && routerExport.substring(0, routerExport.length - 1)
 
     return `${imports}import ${partialName}Routes from './${partialName}.Routes.mjs'
 
@@ -26,7 +30,6 @@ ${routes.includes('...') ? `${routes},` : `${routes}`}
     ...${partialName}Routes
   }
 }
-
 ${routerExport}`
   }
 }

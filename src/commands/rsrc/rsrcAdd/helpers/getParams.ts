@@ -3,9 +3,12 @@ import { Arguments } from 'yargs'
 import { logger } from '../../../../lib/logger'
 import inputReader from '../../../../lib/inputReader'
 import { pascalCase } from '../../../../lib/changeCase'
-import { AddPartialParams } from './TYPES'
+import { AddPartialParams } from '../TYPES'
 
-export default function getParams(argv: Arguments): AddPartialParams {
+export default function getParams(
+  argv: Arguments,
+  partialRequired: boolean = true
+): AddPartialParams {
   let projectRootPath = (argv.projectRootPath as string) || ''
   let rsrcName = (argv.rsrcName as string) || ''
   let partialName = (argv.partialName as string) || ''
@@ -53,7 +56,7 @@ export default function getParams(argv: Arguments): AddPartialParams {
   }
 
   if (!partialName) {
-    partialName = inputReader('Resource Partial Name', '', true)
+    partialName = inputReader('Resource Partial Name', '', partialRequired)
     partialName = pascalCase(partialName)
   }
 
