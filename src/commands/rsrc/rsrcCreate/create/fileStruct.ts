@@ -1,7 +1,7 @@
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
-import createFile from '../../../../lib/createFile'
+import writeFile from '../../../../lib/writeFile'
 import rewriteFile from '../../../../lib/rewriteFile'
 
 import createBuilder from '../helpers/createBuilder'
@@ -38,7 +38,7 @@ async function handler(argv: Arguments) {
   // Create Model
   const model = MODEL_INDEX.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model.mjs`
-  createFile('Model', model, modelFileLoc)
+  writeFile('Model', model, modelFileLoc)
 
   // Create Controller
   const controller = CONTROLLER.replaceAll('{rsrcPrefix}', rsrcName).replaceAll(
@@ -46,12 +46,12 @@ async function handler(argv: Arguments) {
     modelPath
   )
   const controllerFileLoc = `${rsrcPath}/${rsrcName}.Controller.mjs`
-  createFile('Controller', controller, controllerFileLoc)
+  writeFile('Controller', controller, controllerFileLoc)
 
   // Create Router
   const router = ROUTER.replaceAll('{rsrcName}', rsrcName)
   const routerFileLoc = `${rsrcPath}/${rsrcName}.Router.mjs`
-  createFile('Router', router, routerFileLoc)
+  writeFile('Router', router, routerFileLoc)
 
   // Create Index
   const index = INDEX.replaceAll('{rsrcName}', rsrcName)
@@ -59,12 +59,12 @@ async function handler(argv: Arguments) {
     .replaceAll('{controllerPath}', controllerPath)
     .replaceAll('{routerPath}', routerPath)
   const indexFileLoc = `${rsrcPath}/index.mjs`
-  createFile('Index', index, indexFileLoc)
+  writeFile('Index', index, indexFileLoc)
 
   // Create API Router
   const apiRouter = API_ROUTER.replaceAll('{rsrcName}', rsrcName)
   const apiRouterFileLoc = `${routesFolderPath}/${rsrcName}.mjs`
-  createFile('API Router', apiRouter, apiRouterFileLoc)
+  writeFile('API Router', apiRouter, apiRouterFileLoc)
 
   // Rewrite Routes Index
   const routesIndexFileLoc = `${routesFolderPath}/index.mjs`

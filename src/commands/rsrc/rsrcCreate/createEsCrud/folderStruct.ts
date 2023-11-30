@@ -1,7 +1,7 @@
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
-import createFile from '../../../../lib/createFile'
+import writeFile from '../../../../lib/writeFile'
 import rewriteFile from '../../../../lib/rewriteFile'
 import { kebabCase } from '../../../../lib/changeCase'
 
@@ -54,7 +54,7 @@ async function handler(argv: Arguments) {
     kebabCase(rsrcName)
   )
   const constsFileLoc = `${rsrcPath}/${rsrcName}.Constants/index.mjs`
-  createFile('Constants Index', consts, constsFileLoc)
+  writeFile('Constants Index', consts, constsFileLoc)
 
   // Create Schema
   new CliCommand(
@@ -66,7 +66,7 @@ async function handler(argv: Arguments) {
     constantsPath
   )
   const schemaFileLoc = `${rsrcPath}/${rsrcName}.Schema/index.mjs`
-  createFile('Schema Index', schema, schemaFileLoc)
+  writeFile('Schema Index', schema, schemaFileLoc)
 
   // Create Model
   new CliCommand(
@@ -75,13 +75,13 @@ async function handler(argv: Arguments) {
   ).exec(false)
   const odm = ES_ODM.replaceAll('{rsrcName}', rsrcName)
   const odmFileLoc = `${rsrcPath}/${rsrcName}.Model/${rsrcName}.Odm.mjs`
-  createFile('Odm', odm, odmFileLoc)
+  writeFile('Odm', odm, odmFileLoc)
   const crudModel = CRUD_MODEL_PARTIAL.replaceAll('{rsrcName}', rsrcName)
   const crudModelFileLoc = `${rsrcPath}/${rsrcName}.Model/Crud.Model.mjs`
-  createFile('CRUD Model', crudModel, crudModelFileLoc)
+  writeFile('CRUD Model', crudModel, crudModelFileLoc)
   const model = CRUD_MODEL_INDEX.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model/index.mjs`
-  createFile('Model Index', model, modelFileLoc)
+  writeFile('Model Index', model, modelFileLoc)
 
   // Create Controller
   new CliCommand(
@@ -93,10 +93,10 @@ async function handler(argv: Arguments) {
     rsrcName
   )
   const crudControllerFileLoc = `${rsrcPath}/${rsrcName}.Controller/Crud.Controller.mjs`
-  createFile('CRUD Controller', crudController, crudControllerFileLoc)
+  writeFile('CRUD Controller', crudController, crudControllerFileLoc)
   const controller = CRUD_CONTROLLER_INDEX.replaceAll('{rsrcName}', rsrcName)
   const controllerFileLoc = `${rsrcPath}/${rsrcName}.Controller/index.mjs`
-  createFile('Controller Index', controller, controllerFileLoc)
+  writeFile('Controller Index', controller, controllerFileLoc)
 
   // Create Router
   new CliCommand(
@@ -105,10 +105,10 @@ async function handler(argv: Arguments) {
   ).exec(false)
   const routerCrud = CRUD_ROUTER_PARTIAL.replaceAll('{rsrcName}', rsrcName)
   const routerCrudFileLoc = `${rsrcPath}/${rsrcName}.Router/Crud.Routes.mjs`
-  createFile('Router CRUD', routerCrud, routerCrudFileLoc)
+  writeFile('Router CRUD', routerCrud, routerCrudFileLoc)
   const router = CRUD_ROUTER_INDEX.replaceAll('{rsrcName}', rsrcName)
   const routerFileLoc = `${rsrcPath}/${rsrcName}.Router/index.mjs`
-  createFile('Router', router, routerFileLoc)
+  writeFile('Router', router, routerFileLoc)
 
   // Create Index
   const index = ODM_INDEX.replaceAll('{rsrcName}', rsrcName)
@@ -117,12 +117,12 @@ async function handler(argv: Arguments) {
     .replaceAll('{controllerPath}', controllerPath.substring(1))
     .replaceAll('{routerPath}', routerPath.substring(1))
   const indexFileLoc = `${rsrcPath}/index.mjs`
-  createFile('Index', index, indexFileLoc)
+  writeFile('Index', index, indexFileLoc)
 
   // Create API Router
   const apiRouter = CRUD_API_ROUTER.replaceAll('{rsrcName}', rsrcName)
   const apiRouterFileLoc = `${routesFolderPath}/${rsrcName}.mjs`
-  createFile('API Router', apiRouter, apiRouterFileLoc)
+  writeFile('API Router', apiRouter, apiRouterFileLoc)
 
   // Rewrite Routes Index
   const routesIndexFileLoc = `${routesFolderPath}/index.mjs`

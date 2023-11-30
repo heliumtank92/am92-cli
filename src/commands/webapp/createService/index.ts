@@ -4,7 +4,7 @@ import { colorify, logger } from '../../../lib/logger'
 import inputReader from '../../../lib/inputReader'
 import CliCommand from '../../../lib/CliCommand'
 import { pascalCase } from '../../../lib/changeCase'
-import createFile from '../../../lib/createFile'
+import writeFile from '../../../lib/writeFile'
 
 import SERVICE_ACTIONS from './SERVICE_ACTIONS'
 import GET_SERVICE_FILE from './GET_SERVICE_FILE'
@@ -145,10 +145,8 @@ async function handler(argv: Arguments) {
     '{reducerName}',
     reducerName
   ).replaceAll('{serviceName}', serviceName)
-  new CliCommand('Append Action File', 'echo')
-    .append(`"${serviceActions}"`)
-    .append(`>> ${reducerFolderPath}/Actions.ts`)
-    .exec(false)
+  const serviceFileLoc = `${reducerFolderPath}/Actions.ts`
+  writeFile('Action File', serviceActions, serviceFileLoc, true)
 
   const serviceFileTemplate =
     serviceMethod === 'GET' || serviceMethod === 'GET'
@@ -161,7 +159,7 @@ async function handler(argv: Arguments) {
     .replaceAll('{serviceMethod}', serviceMethod)
 
   // Write Service File
-  createFile('Service File', serviceFile, serviceFilePath)
+  writeFile('Service File', serviceFile, serviceFilePath)
 
   logger.complete(`[${COMMAND}] Completed!`)
 }

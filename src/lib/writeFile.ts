@@ -2,10 +2,11 @@ import { transformSync } from '@babel/core'
 import CliCommand from './CliCommand'
 import { logger } from './logger'
 
-export default function createFile(
+export default function writeFile(
   fileName: string,
   fileContent: string,
-  filePath: string
+  filePath: string,
+  append?: boolean
 ) {
   try {
     const options: any = {}
@@ -24,8 +25,8 @@ export default function createFile(
     return
   }
 
-  new CliCommand(`Create ${fileName}`, 'echo')
+  new CliCommand(`${append ? 'Append' : 'Create'} ${fileName}`, 'echo')
     .append(`"${fileContent}"`)
-    .append(`> ${filePath}`)
+    .append(`${append ? '>>' : '>'} ${filePath}`)
     .exec(false)
 }

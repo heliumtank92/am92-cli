@@ -4,7 +4,7 @@ import { colorify, logger } from '../../../lib/logger'
 import inputReader from '../../../lib/inputReader'
 import CliCommand from '../../../lib/CliCommand'
 import rewriteFile from '../../../lib/rewriteFile'
-import createFile from '../../../lib/createFile'
+import writeFile from '../../../lib/writeFile'
 import { constantCase } from '../../../lib/changeCase'
 
 import PAGE_FILE from './PAGE_FILE'
@@ -96,7 +96,7 @@ async function handler(argv: Arguments) {
   // Create Page File
   const page = PAGE_FILE.replaceAll('{pageName}', pageName)
   const pageLoc = `${pageFolderPath}/${pageName}.Page.tsx`
-  createFile('Page File', page, pageLoc)
+  writeFile('Page File', page, pageLoc)
 
   const appRoutesFile = `${srcFolderPath}/Constants/APP_ROUTES.ts`
   rewriteFile(

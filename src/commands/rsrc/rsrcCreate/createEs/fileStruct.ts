@@ -1,7 +1,7 @@
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
-import createFile from '../../../../lib/createFile'
+import writeFile from '../../../../lib/writeFile'
 import rewriteFile from '../../../../lib/rewriteFile'
 import { kebabCase } from '../../../../lib/changeCase'
 
@@ -46,7 +46,7 @@ async function handler(argv: Arguments) {
     kebabCase(rsrcName)
   )
   const constsFileLoc = `${rsrcPath}/${rsrcName}.Constants.mjs`
-  createFile('Constants', consts, constsFileLoc)
+  writeFile('Constants', consts, constsFileLoc)
 
   // Create Schema
   const schema = ES_SCHEMA.replaceAll('{rsrcName}', rsrcName).replaceAll(
@@ -54,12 +54,12 @@ async function handler(argv: Arguments) {
     constantsPath
   )
   const schemaFileLoc = `${rsrcPath}/${rsrcName}.Schema.mjs`
-  createFile('Schema', schema, schemaFileLoc)
+  writeFile('Schema', schema, schemaFileLoc)
 
   // Create Model
   const model = ES_MODEL.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model.mjs`
-  createFile('Model', model, modelFileLoc)
+  writeFile('Model', model, modelFileLoc)
 
   // Create Controller
   const controller = CONTROLLER.replaceAll('{rsrcPrefix}', rsrcName).replaceAll(
@@ -67,12 +67,12 @@ async function handler(argv: Arguments) {
     modelPath
   )
   const controllerFileLoc = `${rsrcPath}/${rsrcName}.Controller.mjs`
-  createFile('Controller', controller, controllerFileLoc)
+  writeFile('Controller', controller, controllerFileLoc)
 
   // Create Router
   const router = ROUTER.replaceAll('{rsrcName}', rsrcName)
   const routerFileLoc = `${rsrcPath}/${rsrcName}.Router.mjs`
-  createFile('Router', router, routerFileLoc)
+  writeFile('Router', router, routerFileLoc)
 
   // Create Index
   const index = ODM_INDEX.replaceAll('{rsrcName}', rsrcName)
@@ -81,12 +81,12 @@ async function handler(argv: Arguments) {
     .replaceAll('{controllerPath}', controllerPath)
     .replaceAll('{routerPath}', routerPath)
   const indexFileLoc = `${rsrcPath}/index.mjs`
-  createFile('Index', index, indexFileLoc)
+  writeFile('Index', index, indexFileLoc)
 
   // Create API Router
   const apiRouter = API_ROUTER.replaceAll('{rsrcName}', rsrcName)
   const apiRouterFileLoc = `${routesFolderPath}/${rsrcName}.mjs`
-  createFile('API Router', apiRouter, apiRouterFileLoc)
+  writeFile('API Router', apiRouter, apiRouterFileLoc)
 
   // Rewrite Routes Index
   const routesIndexFileLoc = `${routesFolderPath}/index.mjs`
