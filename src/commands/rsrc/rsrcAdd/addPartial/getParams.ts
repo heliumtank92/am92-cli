@@ -5,13 +5,10 @@ import inputReader from '../../../../lib/inputReader'
 import { pascalCase } from '../../../../lib/changeCase'
 import { AddPartialParams } from './TYPES'
 
-export default function getParams(
-  argv: Arguments,
-  partialRequired: boolean = true
-): AddPartialParams {
+export default function getParams(argv: Arguments): AddPartialParams {
   let projectRoot = (argv.projectRoot as string) || ''
-  let rsrcName = (argv.rsrcName as string) || ''
-  let partialName = (argv.partialName as string) || ''
+  let rsrcName = pascalCase((argv.rsrcName as string) || '')
+  let partialName = pascalCase((argv.partialName as string) || '')
 
   if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
@@ -56,7 +53,7 @@ export default function getParams(
   }
 
   if (!partialName) {
-    partialName = inputReader('Resource Partial Name', '', partialRequired)
+    partialName = inputReader('Resource Partial Name', '', true)
     partialName = pascalCase(partialName)
   }
 

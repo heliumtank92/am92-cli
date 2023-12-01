@@ -7,7 +7,7 @@ import { pascalCase } from '../../../../lib/changeCase'
 
 export default function getCreateParams(argv: Arguments): CreateParams {
   let projectRoot = (argv.projectRoot as string) || ''
-  let rsrcName = (argv.rsrcName as string) || ''
+  let rsrcName = pascalCase((argv.rsrcName as string) || '')
   let routerMountPath = (argv.routerMountPath as string) || ''
 
   if (!projectRoot) {
