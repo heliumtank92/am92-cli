@@ -3,29 +3,29 @@ import { Arguments } from 'yargs'
 import { logger } from '../../../../lib/logger'
 import inputReader from '../../../../lib/inputReader'
 import { pascalCase } from '../../../../lib/changeCase'
-import { AddPartialParams } from '../TYPES'
+import { AddPartialParams } from './TYPES'
 
 export default function getParams(
   argv: Arguments,
   partialRequired: boolean = true
 ): AddPartialParams {
-  let projectRootPath = (argv.projectRootPath as string) || ''
+  let projectRoot = (argv.projectRoot as string) || ''
   let rsrcName = (argv.rsrcName as string) || ''
   let partialName = (argv.partialName as string) || ''
 
-  if (!projectRootPath) {
+  if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
-    projectRootPath = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
+    projectRoot = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
   }
 
-  if (!fs.existsSync(projectRootPath)) {
+  if (!fs.existsSync(projectRoot)) {
     logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRootPath}`
+      `[Error] Project does not exist at the location: ${projectRoot}`
     )
     process.exit()
   }
 
-  const apiFolderPath = `${projectRootPath}/api`
+  const apiFolderPath = `${projectRoot}/api`
   if (!fs.existsSync(apiFolderPath)) {
     logger.fatal(
       `[Error] API Folder does not exist at the location: ${apiFolderPath}`

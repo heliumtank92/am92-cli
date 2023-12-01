@@ -20,7 +20,7 @@ yargs.command(
 
 function builder(yargs: any): any {
   return yargs
-    .option('project-root-folder-path', {
+    .option('project-root', {
       description: 'Project Root Path',
       type: 'string',
       required: false
@@ -40,23 +40,23 @@ function builder(yargs: any): any {
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
-  let projectRootPath = (argv.projectRootPath as string) || ''
+  let projectRoot = (argv.projectRoot as string) || ''
   let pageName = (argv.pageName as string) || ''
   let pagePath = (argv.pagePath as string) || ''
 
-  if (!projectRootPath) {
+  if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
-    projectRootPath = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
+    projectRoot = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
   }
 
-  if (!fs.existsSync(projectRootPath)) {
+  if (!fs.existsSync(projectRoot)) {
     logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRootPath}`
+      `[Error] Project does not exist at the location: ${projectRoot}`
     )
     process.exit()
   }
 
-  const srcFolderPath = `${projectRootPath}/src`
+  const srcFolderPath = `${projectRoot}/src`
   if (!fs.existsSync(srcFolderPath)) {
     logger.fatal(
       `[Error] Project Source Folder does not exist at the location: ${srcFolderPath}`

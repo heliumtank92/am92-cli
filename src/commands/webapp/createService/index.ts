@@ -11,7 +11,7 @@ import GET_SERVICE_FILE from './GET_SERVICE_FILE'
 import POST_SERVICE_FILE from './POST_SERVICE_FILE'
 
 const COMMAND = 'webapp-create-service'
-const PATH_CHOICES = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD']
+const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD']
 
 yargs.command(
   COMMAND,
@@ -22,7 +22,7 @@ yargs.command(
 
 function builder(yargs: any): any {
   return yargs
-    .option('project-root-folder-path', {
+    .option('project-root', {
       description: 'Project Root Path',
       type: 'string',
       required: false
@@ -40,7 +40,7 @@ function builder(yargs: any): any {
     .option('service-method', {
       description: 'Service Method',
       type: 'string',
-      choices: PATH_CHOICES,
+      choices: METHODS,
       required: false
     })
     .option('service-url', {
@@ -53,25 +53,25 @@ function builder(yargs: any): any {
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
-  let projectRootPath = (argv.projectRootPath as string) || ''
+  let projectRoot = (argv.projectRoot as string) || ''
   let reducerName = (argv.reducerName as string) || ''
   let serviceName = (argv.serviceName as string) || ''
   let serviceMethod = (argv.serviceMethod as string) || ''
   let serviceUrl = (argv.serviceUrl as string) || ''
 
-  if (!projectRootPath) {
+  if (!projectRoot) {
     const API_FOLDER_PATH: string = '.'
-    projectRootPath = inputReader('Project Root Path', API_FOLDER_PATH, true)
+    projectRoot = inputReader('Project Root Path', API_FOLDER_PATH, true)
   }
 
-  if (!fs.existsSync(projectRootPath)) {
+  if (!fs.existsSync(projectRoot)) {
     logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRootPath}`
+      `[Error] Project does not exist at the location: ${projectRoot}`
     )
     process.exit()
   }
 
-  const srcFolderPath = `${projectRootPath}/src`
+  const srcFolderPath = `${projectRoot}/src`
   if (!fs.existsSync(srcFolderPath)) {
     logger.fatal(
       `[Error] Project Source Folder does not exist at the location: ${srcFolderPath}`
@@ -126,11 +126,9 @@ async function handler(argv: Arguments) {
     serviceMethod = inputReader('Service Method', SERVICE_NAME, true)
   }
 
-  if (!PATH_CHOICES.includes(serviceMethod)) {
+  if (!METHODS.includes(serviceMethod)) {
     logger.fatal(
-      `[Error] Invalid Service Method. It must be one of: ${PATH_CHOICES.join(
-        ', '
-      )}`
+      `[Error] Invalid Service Method. It must be one of: ${METHODS.join(', ')}`
     )
     process.exit()
   }

@@ -1,6 +1,6 @@
 export default function createBuilder(yargs: any): any {
   return yargs
-    .option('project-root-folder-path', {
+    .option('project-root', {
       description: 'Project Root Path',
       type: 'string',
       required: false

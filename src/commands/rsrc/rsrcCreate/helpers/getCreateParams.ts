@@ -6,23 +6,23 @@ import { CreateParams } from '../TYPES'
 import { pascalCase } from '../../../../lib/changeCase'
 
 export default function getCreateParams(argv: Arguments): CreateParams {
-  let projectRootPath = (argv.projectRootPath as string) || ''
+  let projectRoot = (argv.projectRoot as string) || ''
   let rsrcName = (argv.rsrcName as string) || ''
   let routerMountPath = (argv.routerMountPath as string) || ''
 
-  if (!projectRootPath) {
+  if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
-    projectRootPath = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
+    projectRoot = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
   }
 
-  if (!fs.existsSync(projectRootPath)) {
+  if (!fs.existsSync(projectRoot)) {
     logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRootPath}`
+      `[Error] Project does not exist at the location: ${projectRoot}`
     )
     process.exit()
   }
 
-  const apiFolderPath = `${projectRootPath}/api`
+  const apiFolderPath = `${projectRoot}/api`
   if (!fs.existsSync(apiFolderPath)) {
     logger.fatal(
       `[Error] API Folder does not exist at the location: ${apiFolderPath}`
