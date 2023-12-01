@@ -1,8 +1,7 @@
 import fs from 'fs'
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
-import rewriteFile from '../../../../lib/rewriteFile'
-import writeFile from '../../../../lib/writeFile'
+import { writeFile, rewriteFile } from '../../../../lib/file'
 
 import builder from './builder'
 import getParams from './getParams'

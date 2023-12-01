@@ -1,8 +1,7 @@
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
-import writeFile from '../../../../lib/writeFile'
-import rewriteFile from '../../../../lib/rewriteFile'
+import { writeFile, rewriteFile } from '../../../../lib/file'
 import { kebabCase } from '../../../../lib/changeCase'
 
 import createBuilder from '../helpers/createBuilder'
