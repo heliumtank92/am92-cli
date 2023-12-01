@@ -124,6 +124,7 @@ async function handler(argv: Arguments) {
   if (!serviceMethod) {
     const SERVICE_NAME = 'POST'
     serviceMethod = inputReader('Service Method', SERVICE_NAME, true)
+    serviceMethod = serviceMethod.toUpperCase()
   }
 
   if (!METHODS.includes(serviceMethod)) {
