@@ -21,6 +21,10 @@ export default async function fileStructHandler(createParams: CreateParams) {
   // Create Resource Folder
   new CliCommand('Create Resource Folder', `mkdir ${rsrcPath}`).exec(false)
 
+  // Create Constants
+  const constantsFileLoc = `${rsrcPath}/${rsrcName}.Constants.mjs`
+  writeFile('Constants', '', constantsFileLoc)
+
   // Create Schema
   const schema = MONGO_SCHEMA.replaceAll('{rsrcName}', rsrcName)
   const schemaFileLoc = `${rsrcPath}/${rsrcName}.Schema.mjs`

@@ -19,6 +19,10 @@ export default async function fileStructHandler(createParams: CreateParams) {
   // Create Resource Folder
   new CliCommand('Create Resource Folder', `mkdir ${rsrcPath}`).exec(false)
 
+  // Create Constants
+  const constantsFileLoc = `${rsrcPath}/${rsrcName}.Constants.mjs`
+  writeFile('Constants', '', constantsFileLoc)
+
   // Create Model
   const model = MODEL_INDEX.replaceAll('{rsrcName}', rsrcName)
   const modelFileLoc = `${rsrcPath}/${rsrcName}.Model.mjs`

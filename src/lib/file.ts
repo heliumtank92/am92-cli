@@ -24,6 +24,12 @@ export function writeFile(
   filePath: string,
   append?: boolean
 ) {
+  if (!fileContent) {
+    !append &&
+      new CliCommand(`Create ${fileName}`, `touch ${filePath}`).exec(false)
+    return
+  }
+
   try {
     const options: any = {}
 
@@ -53,7 +59,6 @@ export function rewriteFile(
   fileEditor: (file: string) => string
 ) {
   const file = getFile(filePath)
-
   const newFile = fileEditor(file)
 
   try {

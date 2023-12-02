@@ -19,6 +19,14 @@ export default async function folderStructHandler(createParams: CreateParams) {
   // Create Resource Folder
   new CliCommand('Create Resource Folder', `mkdir ${rsrcPath}`).exec(false)
 
+  // Create Constants
+  new CliCommand(
+    'Create Constants Folder',
+    `mkdir ${rsrcPath}/${rsrcName}.Constants`
+  ).exec(false)
+  const constantsFileLoc = `${rsrcPath}/${rsrcName}.Constants/index.mjs`
+  writeFile('Constants Index', '', constantsFileLoc)
+
   // Create Model
   new CliCommand(
     'Create Model Folder',
