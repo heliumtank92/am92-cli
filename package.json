@@ -7,7 +7,7 @@
   "module": "dist/index.js",
   "main": "dist/index.js",
   "bin": {
-    "am92": "./dist/index.js"
+    "am92-cli": "./dist/index.js"
   },
   "files": [
     "dist/**/*.js",
