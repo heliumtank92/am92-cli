@@ -1,1 +1,2 @@
 import './addPartial'
+import './addRoute'

@@ -11,9 +11,6 @@ dependencies:
   '@babel/plugin-transform-typescript':
     specifier: ^7.23.5
     version: 7.23.5(@babel/core@7.23.5)
-  '@babel/preset-typescript':
-    specifier: ^7.23.3
-    version: 7.23.3(@babel/core@7.23.5)
   colorette:
     specifier: ^2.0.20
     version: 2.0.20
@@ -300,16 +297,6 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
-  /@babel/plugin-syntax-jsx@7.23.3(@babel/core@7.23.5):
-    resolution: {integrity: sha512-EB2MELswq55OHUoRZLGg/zC7QWUKfNLpE57m/S2yr1uEneIgsTgrSzXP3NXEsMkVn76OlaVVnzN+ugObuYGwhg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.5
-      '@babel/helper-plugin-utils': 7.22.5
-    dev: false
-
   /@babel/plugin-syntax-typescript@7.23.3(@babel/core@7.23.5):
     resolution: {integrity: sha512-9EiNjVJOMwCO+43TqoTrgQ8jMwcAd0sWyXi9RPfIsLTj4R2MADDDQXELhffaUx/uJv2AYcxBgPwH6j4TIA4ytQ==}
     engines: {node: '>=6.9.0'}
@@ -318,18 +305,6 @@ packages:
     dependencies:
       '@babel/core': 7.23.5
       '@babel/helper-plugin-utils': 7.22.5
-    dev: false
-
-  /@babel/plugin-transform-modules-commonjs@7.23.3(@babel/core@7.23.5):
-    resolution: {integrity: sha512-aVS0F65LKsdNOtcz6FRCpE4OgsP2OFnW46qNxNIX9h3wuzaNcSQsJysuMwqSibC98HPrf2vCgtxKNwS0DAlgcA==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.5
-      '@babel/helper-module-transforms': 7.23.3(@babel/core@7.23.5)
-      '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-simple-access': 7.22.5
     dev: false
 
   /@babel/plugin-transform-typescript@7.23.5(@babel/core@7.23.5):
@@ -343,20 +318,6 @@ packages:
       '@babel/helper-create-class-features-plugin': 7.23.5(@babel/core@7.23.5)
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.23.5)
-    dev: false
-
-  /@babel/preset-typescript@7.23.3(@babel/core@7.23.5):
-    resolution: {integrity: sha512-17oIGVlqz6CchO9RFYn5U6ZpWRZIngayYCtrPRSgANSwC2V1Jb+iP74nVxzzXJte8b8BYxrL1yY96xfhTBrNNQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.5
-      '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-validator-option': 7.22.15
-      '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.5)
-      '@babel/plugin-transform-modules-commonjs': 7.23.3(@babel/core@7.23.5)
-      '@babel/plugin-transform-typescript': 7.23.5(@babel/core@7.23.5)
     dev: false
 
   /@babel/template@7.22.15:
