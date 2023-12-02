@@ -1,11 +1,8 @@
-import yargs, { Arguments } from 'yargs'
-import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
 import { writeFile, rewriteFile } from '../../../../lib/file'
 import { kebabCase } from '../../../../lib/changeCase'
 
-import createBuilder from '../helpers/createBuilder'
-import getCreateParams from '../helpers/getCreateParams'
+import { CreateParams } from '../TYPES'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
 import ES_CONSTANTS from '../../fileTemplates/constants/ES_CONSTANTS'
@@ -16,19 +13,7 @@ import ROUTER from '../../fileTemplates/router/ROUTER'
 import ODM_INDEX from '../../fileTemplates/index/ODM_INDEX'
 import API_ROUTER from '../../fileTemplates/apiRouter/API_ROUTER'
 
-const COMMAND = 'rsrc-create-es-file-struct'
-
-yargs.command(
-  COMMAND,
-  colorify.trace('Create Backend Resource with OpensearchOdm in Files'),
-  createBuilder,
-  handler
-)
-
-async function handler(argv: Arguments) {
-  logger.initiate(`[${COMMAND}] Initiating...`)
-
-  const createParams = getCreateParams(argv)
+export default async function fileStructHandler(createParams: CreateParams) {
   const { rsrcName, routerMountPath, rsrcPath, routesFolderPath } = createParams
   const constantsPath = `./${rsrcName}.Constants.mjs`
   const schemaPath = `./${rsrcName}.Schema.mjs`
@@ -94,6 +79,4 @@ async function handler(argv: Arguments) {
     routesIndexFileLoc,
     routesIndexEditor(rsrcName, routerMountPath)
   )
-
-  logger.complete(`[${COMMAND}] Completed!`)
 }

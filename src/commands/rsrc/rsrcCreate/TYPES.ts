@@ -3,4 +3,5 @@ export interface CreateParams {
   routerMountPath: string
   rsrcPath: string
   routesFolderPath: string
+  folderStruct: boolean
 }

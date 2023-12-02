@@ -1,10 +1,7 @@
-import yargs, { Arguments } from 'yargs'
-import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
 import { writeFile, rewriteFile } from '../../../../lib/file'
 
-import createBuilder from '../helpers/createBuilder'
-import getCreateParams from '../helpers/getCreateParams'
+import { CreateParams } from '../TYPES'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
 import MODEL_INDEX from '../../fileTemplates/model/MODEL_INDEX'
@@ -13,19 +10,7 @@ import ROUTER_INDEX from '../../fileTemplates/router/ROUTER_INDEX'
 import INDEX from '../../fileTemplates/index/INDEX'
 import API_ROUTER from '../../fileTemplates/apiRouter/API_ROUTER'
 
-const COMMAND = 'rsrc-create-folder-struct'
-
-yargs.command(
-  COMMAND,
-  colorify.trace('Create Backend Resource in Folders'),
-  createBuilder,
-  handler
-)
-
-async function handler(argv: Arguments) {
-  logger.initiate(`[${COMMAND}] Initiating...`)
-
-  const createParams = getCreateParams(argv)
+export default async function folderStructHandler(createParams: CreateParams) {
   const { rsrcName, routerMountPath, rsrcPath, routesFolderPath } = createParams
   const modelPath = `./${rsrcName}.Model/index.mjs`
   const controllerPath = `./${rsrcName}.Controller/index.mjs`
@@ -81,6 +66,4 @@ async function handler(argv: Arguments) {
     routesIndexFileLoc,
     routesIndexEditor(rsrcName, routerMountPath)
   )
-
-  logger.complete(`[${COMMAND}] Completed!`)
 }

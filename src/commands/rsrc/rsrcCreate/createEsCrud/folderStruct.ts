@@ -1,11 +1,8 @@
-import yargs, { Arguments } from 'yargs'
-import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
 import { writeFile, rewriteFile } from '../../../../lib/file'
 import { kebabCase } from '../../../../lib/changeCase'
 
-import createBuilder from '../helpers/createBuilder'
-import getCreateParams from '../helpers/getCreateParams'
+import { CreateParams } from '../TYPES'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
 import ES_CONSTANTS from '../../fileTemplates/constants/ES_CONSTANTS'
@@ -20,19 +17,7 @@ import CRUD_ROUTER_INDEX from '../../fileTemplates/router/CRUD_ROUTER_INDEX'
 import ODM_INDEX from '../../fileTemplates/index/ODM_INDEX'
 import CRUD_API_ROUTER from '../../fileTemplates/apiRouter/CRUD_API_ROUTER'
 
-const COMMAND = 'rsrc-create-es-crud-folder-struct'
-
-yargs.command(
-  COMMAND,
-  colorify.trace('Create Backend Resource with OpensearchOdm CRUD in Folders'),
-  createBuilder,
-  handler
-)
-
-async function handler(argv: Arguments) {
-  logger.initiate(`[${COMMAND}] Initiating...`)
-
-  const createParams = getCreateParams(argv)
+export default async function folderStructHandler(createParams: CreateParams) {
   const { rsrcName, routerMountPath, rsrcPath, routesFolderPath } = createParams
   const constantsPath = `../${rsrcName}.Constants/index.mjs`
   const schemaPath = `../${rsrcName}.Schema/index.mjs`
@@ -130,6 +115,4 @@ async function handler(argv: Arguments) {
     routesIndexFileLoc,
     routesIndexEditor(rsrcName, routerMountPath)
   )
-
-  logger.complete(`[${COMMAND}] Completed!`)
 }

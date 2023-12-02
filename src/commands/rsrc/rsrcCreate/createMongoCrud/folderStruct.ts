@@ -1,10 +1,7 @@
-import yargs, { Arguments } from 'yargs'
-import { colorify, logger } from '../../../../lib/logger'
 import CliCommand from '../../../../lib/CliCommand'
 import { writeFile, rewriteFile } from '../../../../lib/file'
 
-import createBuilder from '../helpers/createBuilder'
-import getCreateParams from '../helpers/getCreateParams'
+import { CreateParams } from '../TYPES'
 import routesIndexEditor from '../helpers/routesIndexEditor'
 
 import MONGO_SCHEMA from '../../fileTemplates/schema/MONGO_SCHEMA'
@@ -18,19 +15,7 @@ import CRUD_ROUTER_INDEX from '../../fileTemplates/router/CRUD_ROUTER_INDEX'
 import ODM_INDEX from '../../fileTemplates/index/ODM_INDEX'
 import CRUD_API_ROUTER from '../../fileTemplates/apiRouter/CRUD_API_ROUTER'
 
-const COMMAND = 'rsrc-create-mongo-crud-folder-struct'
-
-yargs.command(
-  COMMAND,
-  colorify.trace('Create Backend Resource with MongoOdm CRUD in Folders'),
-  createBuilder,
-  handler
-)
-
-async function handler(argv: Arguments) {
-  logger.initiate(`[${COMMAND}] Initiating...`)
-
-  const createParams = getCreateParams(argv)
+export default async function folderStructHandler(createParams: CreateParams) {
   const { rsrcName, routerMountPath, rsrcPath, routesFolderPath } = createParams
   const schemaPath = `../${rsrcName}.Schema/index.mjs`
   const modelPath = `../${rsrcName}.Model/index.mjs`
@@ -112,6 +97,4 @@ async function handler(argv: Arguments) {
     routesIndexFileLoc,
     routesIndexEditor(rsrcName, routerMountPath)
   )
-
-  logger.complete(`[${COMMAND}] Completed!`)
 }

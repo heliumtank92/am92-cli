@@ -9,6 +9,12 @@ export default function getCreateParams(argv: Arguments): CreateParams {
   let projectRoot = (argv.projectRoot as string) || ''
   let rsrcName = pascalCase((argv.rsrcName as string) || '')
   let routerMountPath = (argv.routerMountPath as string) || ''
+  let folderStruct = ((argv.folderStruct as string) || '').toLowerCase()
+
+  if (!folderStruct) {
+    folderStruct = inputReader('Resouce in Folder Structure? [y/n]', '', false)
+    folderStruct = folderStruct.toLowerCase()
+  }
 
   if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
@@ -69,7 +75,8 @@ export default function getCreateParams(argv: Arguments): CreateParams {
     rsrcName,
     routerMountPath,
     rsrcPath,
-    routesFolderPath
+    routesFolderPath,
+    folderStruct: folderStruct === 'y'
   }
 
   return createParams
