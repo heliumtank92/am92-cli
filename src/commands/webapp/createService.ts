@@ -1,21 +1,21 @@
 import yargs, { Arguments } from 'yargs'
 import fs from 'fs'
-import { colorify, logger } from '../../../lib/logger'
-import inputReader from '../../../lib/inputReader'
-import CliCommand from '../../../lib/CliCommand'
-import { pascalCase } from '../../../lib/changeCase'
+import { colorify, logger } from '../../lib/logger'
+import inputReader from '../../lib/inputReader'
+import CliCommand from '../../lib/CliCommand'
+import { camelCase, pascalCase } from '../../lib/changeCase'
 
-import SERVICE_ACTIONS from './SERVICE_ACTIONS'
-import GET_SERVICE_FILE from './GET_SERVICE_FILE'
-import POST_SERVICE_FILE from './POST_SERVICE_FILE'
-import { writeFile } from '../../../lib/file'
+import SERVICE_ACTIONS from './fileTemplates/redux/SERVICE_ACTIONS'
+import GET_SERVICE_FILE from './fileTemplates/redux/GET_SERVICE_FILE'
+import POST_SERVICE_FILE from './fileTemplates/redux/POST_SERVICE_FILE'
+import { writeFile } from '../../lib/file'
 
 const COMMAND = 'webapp-create-service'
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD']
 
 yargs.command(
   COMMAND,
-  colorify.trace('Create Service in React Webapp using Typescript'),
+  colorify.trace('Create Service in React Webapp (Typescript)'),
   builder,
   handler
 )
@@ -90,6 +90,7 @@ async function handler(argv: Arguments) {
   if (!reducerName) {
     const REDUCER_NAME = 'Sample'
     reducerName = inputReader('Reducer Name', REDUCER_NAME, true)
+    reducerName = pascalCase(reducerName)
   }
 
   const reducerFolderPath = `${reduxFolderPath}/${reducerName}`
@@ -103,6 +104,7 @@ async function handler(argv: Arguments) {
   if (!serviceName) {
     const SERVICE_NAME = 'serviceName'
     serviceName = inputReader('Service Name', SERVICE_NAME, true)
+    serviceName = camelCase(serviceName)
   }
 
   const servicesFolder = `${reducerFolderPath}/Services`

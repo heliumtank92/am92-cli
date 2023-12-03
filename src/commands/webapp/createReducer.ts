@@ -1,20 +1,20 @@
 import yargs, { Arguments } from 'yargs'
 import fs from 'fs'
-import { colorify, logger } from '../../../lib/logger'
-import inputReader from '../../../lib/inputReader'
-import CliCommand from '../../../lib/CliCommand'
-import { writeFile, rewriteFile } from '../../../lib/file'
-import { camelCase, pascalCase } from '../../../lib/changeCase'
+import { colorify, logger } from '../../lib/logger'
+import inputReader from '../../lib/inputReader'
+import CliCommand from '../../lib/CliCommand'
+import { writeFile, rewriteFile } from '../../lib/file'
+import { camelCase, pascalCase } from '../../lib/changeCase'
 
-import ACTION_FILE from './ACTION_FILE'
-import REDUCER_FILE from './REDUCER_FILE'
-import SELECTOR_FILE from './SELECTOR_FILE'
+import ACTION_FILE from './fileTemplates/redux/ACTION_FILE'
+import REDUCER_FILE from './fileTemplates/redux/REDUCER_FILE'
+import SELECTOR_FILE from './fileTemplates/redux/SELECTOR_FILE'
 
 const COMMAND = 'webapp-create-reducer'
 
 yargs.command(
   COMMAND,
-  colorify.trace('Create Reducer in React Webapp using Typescript'),
+  colorify.trace('Create Reducer in React Webapp (Typescript)'),
   builder,
   handler
 )
@@ -70,6 +70,7 @@ async function handler(argv: Arguments) {
   if (!reducerName) {
     const REDUCER_NAME = 'Sample'
     reducerName = inputReader('Reducer Name', REDUCER_NAME, true)
+    reducerName = pascalCase(reducerName)
   }
 
   const reducerFolderPath = `${reduxFolderPath}/${reducerName}`
