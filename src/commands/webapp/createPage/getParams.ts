@@ -84,7 +84,7 @@ export default function getParams(argv: Arguments): CreatePageParams {
     pagePath,
     state: state === 'y',
     redux: redux === 'y',
-    router: redux === 'y'
+    router: router === 'y'
   }
 
   return params

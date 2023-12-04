@@ -16,28 +16,28 @@ export default function getComponentTemplate(
     return COMP
   }
 
-  if (state && !redux && !router) {
-    return COMP_STATE
+  if (!state && !redux && router) {
+    return COMP_ROUTER
   }
 
   if (!state && redux && !router) {
     return COMP_REDUX
   }
 
-  if (!state && !redux && router) {
-    return COMP_ROUTER
-  }
-
   if (!state && redux && router) {
     return COMP_REDUX_ROUTER
   }
 
-  if (state && redux && !router) {
-    return COMP_STATE_REDUX
+  if (state && !redux && !router) {
+    return COMP_STATE
   }
 
   if (state && !redux && router) {
     return COMP_STATE_ROUTER
+  }
+
+  if (state && redux && !router) {
+    return COMP_STATE_REDUX
   }
 
   if (state && redux && router) {
