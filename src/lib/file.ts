@@ -74,7 +74,6 @@ export function rewriteFile(
 
     transformSync(newFile, options)
   } catch (error) {
-    console.log(newFile)
     logger.error(`[Error] Failed to rewrite file: ${filePath}`)
     return
   }
