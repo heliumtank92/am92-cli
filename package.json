@@ -39,11 +39,8 @@
     "copy-files": "copyfiles -u 1 src/**/*.json ./dist/",
     "test": "echo 'Error: no test specified'",
     "preversion": "npm-run-all build test",
-    "version": "npm-run-all generate:docs commit:docs",
     "postversion": "git push && git push --tags && npm run publish:pkg",
-    "publish:pkg": "npm publish",
-    "generate:docs": "npx compodoc -p tsconfig.json",
-    "commit:docs": "git add docs && git commit -m 'Docs Updated'"
+    "publish:pkg": "npm publish"
   },
   "repository": "git@github.com:heliumtank92/am92-cli.git",
   "homepage": "https://heliumtank92.github.io/am92-cli",
