@@ -6,12 +6,12 @@ export interface I{componentName}Props extends IWithRouterProps {}
 
 export interface I{componentName}State {}
 
-export default class {componentName} extends Component<I{componentName}Props, I{componentName}State> {
+class {componentName} extends Component<I{componentName}Props, I{componentName}State> {
   state = {}
 
   render() {
     return (
-      <DsTypography variant='headingBoldExtraLarge'>{componentName}</DsTypography>
+      <DsTypography>{componentName}</DsTypography>
     )
   }
 }

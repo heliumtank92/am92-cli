@@ -9,7 +9,7 @@ export interface I{componentName}Props {
 class {componentName} extends PureComponent<I{componentName}Props> {
   render() {
     return (
-      <DsTypography variant='headingBoldExtraLarge'>{componentName}</DsTypography>
+      <DsTypography>{componentName}</DsTypography>
     )
   }
 }

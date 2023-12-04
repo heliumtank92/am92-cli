@@ -10,7 +10,7 @@ export default class {componentName} extends Component<I{componentName}Props, I{
 
   render() {
     return (
-      <DsTypography variant='headingBoldExtraLarge'>{componentName}</DsTypography>
+      <DsTypography>{componentName}</DsTypography>
     )
   }
 }`

@@ -14,7 +14,7 @@ class {componentName} extends Component<I{componentName}Props, I{componentName}S
 
   render() {
     return (
-      <DsTypography variant='headingBoldExtraLarge'>{componentName}</DsTypography>
+      <DsTypography>{componentName}</DsTypography>
     )
   }
 }
