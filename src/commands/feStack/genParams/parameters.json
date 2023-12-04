@@ -26,10 +26,6 @@
     {
         "ParameterKey": "DomainAliases",
         "ParameterValue": "test.com"
-    },
-    {
-        "ParameterKey": "GeoRestrictionWhitelist",
-        "ParameterValue": ["IN"]
     }
 ]
   

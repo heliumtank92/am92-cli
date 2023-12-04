@@ -192,15 +192,6 @@
                         "ViewerProtocolPolicy": "redirect-to-https",
                         "Compress": "true"
                     },
-                    "PriceClass": "PriceClass_200",
-                    "Restrictions": {
-                        "GeoRestriction": {
-                            "RestrictionType": "whitelist",
-                            "Locations": [
-                                "IN"
-                            ]
-                        }
-                    },
                     "ViewerCertificate": {
                         "AcmCertificateArn": {
                             "Ref": "ACMList"
