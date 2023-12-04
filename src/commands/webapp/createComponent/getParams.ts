@@ -86,7 +86,7 @@ export default function getParams(argv: Arguments): CreateComponentParams {
     componentName,
     state: state === 'y',
     redux: redux === 'y',
-    router: redux === 'y'
+    router: router === 'y'
   }
 
   return params
