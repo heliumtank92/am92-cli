@@ -18,7 +18,7 @@ export default function controllerEditor(params: AddRouteParams) {
       .replace('}', '')
       .trim()
     newController = newController.replaceAll(', ', ',\n  ')
-    newController = `const ${partialName}Controller = {${
+    newController = `const ${partialName || rsrcName}Controller = {${
       newController ? `\n  ${newController},\n  ` : ' '
     }${routeName}${newController ? '\n' : ' '}}`
 
