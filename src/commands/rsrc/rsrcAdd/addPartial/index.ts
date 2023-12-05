@@ -43,7 +43,7 @@ async function handler(argv: Arguments) {
     !fs.existsSync(controllerPath) ||
     !fs.existsSync(routerPath)
   ) {
-    logger.fatal(`[Error] Resource must be of Folder Structure!`)
+    logger.fatal(`[Error] Resource must be in Folder Structure!`)
     process.exit()
   }
 

@@ -23,7 +23,7 @@ export default function validateParams(params: AddRouteParams): ValidParams {
       !fs.existsSync(controllerFolderPath) ||
       !fs.existsSync(routerFolderPath)
     ) {
-      logger.fatal(`[Error] Resource must be of Folder Structure!`)
+      logger.fatal(`[Error] Resource must be in Folder Structure!`)
       process.exit()
     }
 
