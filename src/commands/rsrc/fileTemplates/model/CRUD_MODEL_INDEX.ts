@@ -1,7 +1,7 @@
-const CRUD_MODEL_INDEX = `import {rsrcName}CrudModel from './Crud.Model.mjs'
+const CRUD_MODEL_INDEX = `import CrudModel from './Crud.Model.mjs'
 
 const {rsrcName}Model = {
-  ...{rsrcName}CrudModel
+  ...CrudModel
 }
 
 export default {rsrcName}Model`

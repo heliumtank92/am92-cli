@@ -1,7 +1,7 @@
-const CRUD_CONTROLLER_INDEX = `import {rsrcName}CrudController from './Crud.Controller.mjs'
+const CRUD_CONTROLLER_INDEX = `import CrudController from './Crud.Controller.mjs'
 
 const {rsrcName}Controller = {
-  ...{rsrcName}CrudController
+  ...CrudController
 }
 export default {rsrcName}Controller`
 

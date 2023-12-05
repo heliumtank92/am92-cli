@@ -1,8 +1,8 @@
-const CRUD_ROUTER_PARTIAL = `import {rsrcName}CrudController from '../{rsrcName}.Controller/Crud.Controller.mjs'
+const CRUD_ROUTER_PARTIAL = `import CrudController from '../{rsrcName}.Controller/Crud.Controller.mjs'
 
-const { create, list, findById, updateById, removeById } = {rsrcName}CrudController
+const { create, list, findById, updateById, removeById } = CrudController
 
-const {rsrcName}CrudRoutes = {
+const CrudRoutes = {
   create: {
     method: 'post',
     path: '/',
@@ -30,6 +30,6 @@ const {rsrcName}CrudRoutes = {
   }
 }
 
-export default {rsrcName}CrudRoutes`
+export default CrudRoutes`
 
 export default CRUD_ROUTER_PARTIAL

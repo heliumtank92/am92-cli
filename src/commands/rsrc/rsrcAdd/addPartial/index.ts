@@ -14,7 +14,7 @@ import ODM_MODEL_INDEX from '../../fileTemplates/model/ODM_MODEL_INDEX'
 import CONTROLLER from '../../fileTemplates/controller/CONTROLLER'
 import ROUTES from '../../fileTemplates/router/ROUTES'
 
-const COMMAND = 'rsrc-add-rsrc-partial'
+const COMMAND = 'rsrc-add-partial'
 
 yargs.command(
   COMMAND,
@@ -64,7 +64,7 @@ async function handler(argv: Arguments) {
         '{partialName}',
         partialName
       )
-    : MODEL_INDEX.replaceAll('{rsrcName}', `${rsrcName}${partialName}`)
+    : MODEL_INDEX.replaceAll('{rsrcName}', `${partialName}`)
   writeFile('Resource Partial Model', model, _modelPath)
   rewriteFile(
     'Resource Model Index',
@@ -75,7 +75,7 @@ async function handler(argv: Arguments) {
   // Add Resource Partial Controller
   const controller = CONTROLLER.replaceAll(
     '{rsrcPrefix}',
-    `${rsrcName}${partialName}`
+    `${partialName}`
   ).replaceAll('{modelPath}', `../${rsrcName}.Model/${partialName}.Model.mjs`)
   writeFile('Resource Partial Controller', controller, _controllerPath)
   rewriteFile(

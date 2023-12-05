@@ -1,6 +1,6 @@
-const ROUTES = `import {rsrcName}{partialName}Controller from '../{rsrcName}.Controller/{partialName}.Controller.mjs'
+const ROUTES = `import {partialName}Controller from '../{rsrcName}.Controller/{partialName}.Controller.mjs'
 
-const {} = {rsrcName}{partialName}Controller
+const {} = {partialName}Controller
 
 const {partialName}Routes = {}
 

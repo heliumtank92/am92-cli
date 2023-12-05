@@ -1,10 +1,10 @@
 const CRUD_ROUTER_INDEX = `import { configureRouter } from '@am92/express-utils'
-import {rsrcName}CrudRoutes from './Crud.Routes.mjs'
+import CrudRoutes from './Crud.Routes.mjs'
 
 const masterConfig = {
   routerName: '{rsrcName}',
   routesConfig: {
-    ...{rsrcName}CrudRoutes
+    ...CrudRoutes
   }
 }
 

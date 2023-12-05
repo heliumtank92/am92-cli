@@ -17,7 +17,7 @@ export default function modelEditor(params: AddRouteParams) {
       .replace('}', '')
       .trim()
     newModel = newModel.replaceAll(', ', ',\n  ')
-    newModel = `const ${rsrcName}${partialName}Model = {${
+    newModel = `const ${partialName}Model = {${
       newModel ? `\n  ${newModel},\n  ` : ' '
     }${routeName}${newModel ? '\n' : ' '}}`
 

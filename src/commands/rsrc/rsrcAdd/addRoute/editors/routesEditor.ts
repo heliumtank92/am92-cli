@@ -22,9 +22,7 @@ export default function routesEditor(
     newController = newController.replaceAll(', ', ',\n  ')
     newController = `const {${
       newController ? `\n  ${newController},\n  ` : ' '
-    }${routeName}${
-      newController ? '\n' : ' '
-    }} = ${rsrcName}${partialName}Controller`
+    }${routeName}${newController ? '\n' : ' '}} = ${partialName}Controller`
 
     let newFile = file.replace(/const (.|\n)+Controller?/gm, newController)
 
