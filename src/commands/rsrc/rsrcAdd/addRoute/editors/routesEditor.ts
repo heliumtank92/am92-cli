@@ -32,7 +32,7 @@ export default function routesEditor(
       newFile = newFile.replace(
         `const ${partialName}Routes = {}`,
         `const ${partialName}Routes = {
-    ${routeName}: {
+  ${routeName}: {
     method: '${routeMethod}',
     path: '${routePath}',
     pipeline: [${routeName}]
