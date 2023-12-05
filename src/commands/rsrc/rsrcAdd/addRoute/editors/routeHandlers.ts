@@ -27,10 +27,9 @@ export function buildControllerHandler(params: AddRouteParams): string {
 
   return `
 async function ${routeName}(request, response, next) {${destructure}
-  const data = await ${partialName}Model.${routeName}(${_getModelParams(
-    routeMethod,
-    routePath
-  ).join(', ')})
+  const data = await ${
+    partialName || rsrcName
+  }Model.${routeName}(${_getModelParams(routeMethod, routePath).join(', ')})
   const responseBody = new ResponseBody(200, '${rsrcName} ${capitalCase(
     routeName
   )} Successful', data)
