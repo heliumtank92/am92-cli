@@ -1,11 +1,11 @@
 [
     {
         "ParameterKey": "BucketName",
-        "ParameterValue": "demo-bucket"
+        "ParameterValue": "test.com"
     },
     {
         "ParameterKey": "Name",
-        "ParameterValue": "demo-web-prod"
+        "ParameterValue": "test-web-prod"
     },
     {
         "ParameterKey": "Env",
