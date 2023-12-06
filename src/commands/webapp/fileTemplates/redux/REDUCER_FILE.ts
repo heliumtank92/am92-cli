@@ -5,7 +5,9 @@ const REDUCER_FILE = `import {
 } from '@reduxjs/toolkit'
 import { SLICE_NAME } from './Selectors'
 
-const INITIAL_STATE = {}
+export interface I_{constantCase(reducerName)}_STATE {}
+
+const INITIAL_STATE: I_{constantCase(reducerName)}_STATE = {}
 
 const sliceOptions: CreateSliceOptions = {
   name: SLICE_NAME,

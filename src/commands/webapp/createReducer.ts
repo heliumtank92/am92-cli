@@ -4,7 +4,7 @@ import { colorify, logger } from '../../lib/logger'
 import inputReader from '../../lib/inputReader'
 import CliCommand from '../../lib/CliCommand'
 import { writeFile, rewriteFile } from '../../lib/file'
-import { camelCase, pascalCase } from '../../lib/changeCase'
+import { camelCase, constantCase, pascalCase } from '../../lib/changeCase'
 
 import ACTION_FILE from './fileTemplates/redux/ACTION_FILE'
 import REDUCER_FILE from './fileTemplates/redux/REDUCER_FILE'
@@ -100,7 +100,11 @@ async function handler(argv: Arguments) {
 
   // Create Reducer File
   const reducerLoc = `${reducerFolderPath}/Reducer.ts`
-  writeFile('Reducer File', REDUCER_FILE, reducerLoc)
+  const reducer = REDUCER_FILE.replaceAll(
+    '{constantCase(reducerName)}',
+    constantCase(reducerName)
+  )
+  writeFile('Reducer File', reducer, reducerLoc)
 
   const reducersFile = `${reduxFolderPath}/Reducers.ts`
   rewriteFile('Routes Index', reducersFile, _reducersFileEditor(reducerName))
