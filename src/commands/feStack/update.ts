@@ -55,7 +55,7 @@ async function handler(argv: Arguments) {
   }
 
   if (!buildPath) {
-    const BUILD_PATH: string = '../build/'
+    const BUILD_PATH: string = './build/'
     buildPath = inputReader('Build Path', BUILD_PATH, true)
   }
 
