@@ -31,9 +31,7 @@ export function writeFile(
   }
 
   try {
-    const options: TransformOptions = {
-      filename: filePath
-    }
+    const options: TransformOptions = { filename: filePath }
 
     if (filePath.match(/.ts$/gm)) {
       options.presets = [['@babel/preset-typescript', { allExtensions: true }]]
@@ -64,9 +62,7 @@ export function rewriteFile(
   const newFile = fileEditor(file)
 
   try {
-    const options: TransformOptions = {
-      filename: filePath
-    }
+    const options: TransformOptions = { filename: filePath }
 
     if (filePath.match(/.ts$/gm)) {
       options.presets = [['@babel/preset-typescript', { allExtensions: true }]]
