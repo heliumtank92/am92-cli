@@ -94,6 +94,55 @@
                 }
             }
         },
+        "S3bucketpolicy": {
+            "Type": "AWS::S3::BucketPolicy",
+            "DependsOn": "myDistribution",
+            "Properties": {
+                "Bucket": {
+                    "Ref": "S3Bucket"
+                },
+                "PolicyDocument": {
+                    "Version": "2008-10-17",
+                    "Id": "PolicyForCloudFrontPrivateContent",
+                    "Statement": [
+                        {
+                            "Sid": "1",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": {
+                                    "Fn::Join": [
+                                        " ",
+                                        [
+                                            "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity",
+                                            {
+                                                "Ref": "OriginAccessIdentity"
+                                            }
+                                        ]
+                                    ]
+                                }
+                            },
+                            "Action": [
+                                "s3:GetObject"
+                            ],
+                            "Resource": [
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "arn:aws:s3:::",
+                                            {
+                                                "Ref": "S3Bucket"
+                                            },
+                                            "/*"
+                                        ]
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
         "myDistribution": {
             "Type": "AWS::CloudFront::Distribution",
             "DependsOn": "OriginAccessIdentity",
@@ -196,7 +245,7 @@
                         "AcmCertificateArn": {
                             "Ref": "ACMList"
                         },
-                        "MinimumProtocolVersion": "TLSv1.2_2018",
+                        "MinimumProtocolVersion": "TLSv1.2_2021",
                         "SslSupportMethod": "sni-only"
                     }
                 },
