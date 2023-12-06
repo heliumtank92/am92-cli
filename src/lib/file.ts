@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { transformSync } from '@babel/core'
+import { TransformOptions, transformSync } from '@babel/core'
 import CliCommand from './CliCommand'
 import { logger } from './logger'
 
@@ -31,13 +31,15 @@ export function writeFile(
   }
 
   try {
-    const options: any = {}
+    const options: TransformOptions = {
+      filename: filePath
+    }
 
     if (filePath.match(/.ts$/gm)) {
-      options.plugins = ['@babel/plugin-transform-typescript']
+      options.presets = [['@babel/preset-typescript', { allExtensions: true }]]
     } else if (filePath.match(/.tsx$/gm)) {
-      options.plugins = [
-        ['@babel/plugin-transform-typescript', { isTSX: true }]
+      options.presets = [
+        ['@babel/preset-typescript', { isTSX: true, allExtensions: true }]
       ]
     }
 
@@ -62,13 +64,15 @@ export function rewriteFile(
   const newFile = fileEditor(file)
 
   try {
-    const options: any = {}
+    const options: TransformOptions = {
+      filename: filePath
+    }
 
     if (filePath.match(/.ts$/gm)) {
-      options.plugins = ['@babel/plugin-transform-typescript']
+      options.presets = [['@babel/preset-typescript', { allExtensions: true }]]
     } else if (filePath.match(/.tsx$/gm)) {
-      options.plugins = [
-        ['@babel/plugin-transform-typescript', { isTSX: true }]
+      options.presets = [
+        ['@babel/preset-typescript', { isTSX: true, allExtensions: true }]
       ]
     }
 
