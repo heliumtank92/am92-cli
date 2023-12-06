@@ -1,5 +1,6 @@
 const COMP_STATE_REDUX_ROUTER = `import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { ThunkDispatch } from '@reduxjs/toolkit'
 import { DsTypography } from '@am92/react-design-system'
 import withRouter, { IWithRouterProps } from '~/src/Hocs/withRouter'
 

@@ -1,5 +1,6 @@
 const COMP_REDUX = `import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { ThunkDispatch } from '@reduxjs/toolkit'
 import { DsTypography } from '@am92/react-design-system'
 
 export interface I{componentName}Props {

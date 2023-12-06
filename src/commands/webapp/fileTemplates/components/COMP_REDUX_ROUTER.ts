@@ -1,6 +1,7 @@
 const COMP_REDUX_ROUTER = `import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { DsTypography } from '@am92/react-design-system'
+import { ThunkDispatch } from '@reduxjs/toolkit'
 import withRouter, { IWithRouterProps } from '~/src/Hocs/withRouter'
 
 export interface I{componentName}Props extends IWithRouterProps {
