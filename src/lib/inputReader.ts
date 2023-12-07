@@ -1,7 +1,8 @@
-import promptSync from 'prompt-sync'
+import promptSync, { Config } from 'prompt-sync'
 import { colorify, logger } from './logger'
 
-const prompt = promptSync()
+const promptConfig: Config = { sigint: true, eot: true }
+const prompt = promptSync(promptConfig)
 
 export default function inputReader(
   inputName: string,
