@@ -13,6 +13,7 @@ export default function getParams(argv: Arguments): AddRouteParams {
   let routeName = camelCase((argv.routeName as string) || '')
   let routeMethod = (argv.routeMethod as string) || ''
   let routePath = (argv.routePath as string) || ''
+  let hasQuery = ((argv.hasQuery as string) || '').toLowerCase()
 
   if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
@@ -89,6 +90,11 @@ export default function getParams(argv: Arguments): AddRouteParams {
     routePath = inputReader('Route URL', ROUTE_URL, true)
   }
 
+  if (!hasQuery) {
+    hasQuery = inputReader('Does Route have query? [y/n]', '', false)
+    hasQuery = hasQuery.toLowerCase()
+  }
+
   const routesFolderPath = `${apiFolderPath}/routes`
 
   const params: AddRouteParams = {
@@ -98,7 +104,8 @@ export default function getParams(argv: Arguments): AddRouteParams {
     routeName,
     routeMethod,
     routePath,
-    routesFolderPath
+    routesFolderPath,
+    hasQuery: hasQuery === 'y'
   }
 
   return params

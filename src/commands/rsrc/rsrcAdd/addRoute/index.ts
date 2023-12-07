@@ -34,7 +34,9 @@ async function handler(argv: Arguments) {
   const { modelPath, controllerPath, routerPath, apiRouterPath } = validParams
 
   const currentModel = getFile(modelPath)
-  if (currentModel.includes(`function ${routeName}`)) {
+  const hasRouteRegexStr = `function ${routeName}( | \\()`
+  const hasRouteRegex = new RegExp(hasRouteRegexStr, 'gm')
+  if (currentModel.match(hasRouteRegex)) {
     logger.fatal(`[Error] Route '${routeName}' already exists!`)
     process.exit()
   }

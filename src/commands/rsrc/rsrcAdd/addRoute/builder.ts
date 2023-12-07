@@ -34,9 +34,15 @@ export default function builder(yargs: any): any {
       choices: METHODS,
       required: false
     })
-    .option('route-url', {
-      description: 'Route URL',
+    .option('route-path', {
+      description: 'Route Path',
       type: 'string',
+      required: false
+    })
+    .option('has-query', {
+      description: 'Does Route have query',
+      type: 'string',
+      choices: ['y', 'n'],
       required: false
     })
 }

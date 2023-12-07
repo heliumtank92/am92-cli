@@ -5,7 +5,7 @@ export default function modelEditor(params: AddRouteParams) {
   return function (file: string): string {
     const { rsrcName, partialName, routeName } = params
 
-    const currentModel = (file.match(/const .+Model = {(.|\n){0,}}/gm) || [
+    const currentModel = (file.match(/const .+Model = {(.|\n){0,}?}/gm) || [
       ''
     ])[0]
 
@@ -23,7 +23,7 @@ export default function modelEditor(params: AddRouteParams) {
       newModel ? `\n  ${newModel},\n  ` : ' '
     }${routeName}${newModel ? '\n' : ' '}}`
 
-    let newFile = file.replace(/const .+Model = {(.|\n){0,}}/gm, newModel)
+    let newFile = file.replace(/const .+Model = {(.|\n){0,}?}/gm, newModel)
     newFile += buildModelHandler(params)
 
     return newFile

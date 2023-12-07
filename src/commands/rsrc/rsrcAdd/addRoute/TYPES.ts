@@ -6,6 +6,7 @@ export interface AddRouteParams {
   routeMethod: string
   routePath: string
   routesFolderPath: string
+  hasQuery: boolean
 }
 
 export const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD']
