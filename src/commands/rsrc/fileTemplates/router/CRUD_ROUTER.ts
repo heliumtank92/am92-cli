@@ -5,6 +5,8 @@ const { create, list, findById, updateById, removeById } = {rsrcName}Controller
 
 const masterConfig = {
   routerName: '{rsrcName}',
+  preMiddlewares = [],
+  postMiddlewares = [],
   routesConfig: {
     create: {
       method: 'post',

@@ -3,6 +3,8 @@ import CrudRoutes from './Crud.Routes.mjs'
 
 const masterConfig = {
   routerName: '{rsrcName}',
+  preMiddlewares = [],
+  postMiddlewares = [],
   routesConfig: {
     ...CrudRoutes
   }

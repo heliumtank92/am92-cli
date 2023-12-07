@@ -2,6 +2,8 @@ const ROUTER_INDEX = `import { configureRouter } from '@am92/express-utils'
 
 const masterConfig = {
   routerName: '{rsrcName}',
+  preMiddlewares = [],
+  postMiddlewares = [],
   routesConfig: {}
 }
 

@@ -5,6 +5,8 @@ const {} = {rsrcName}Controller
 
 const masterConfig = {
   routerName: '{rsrcName}',
+  preMiddlewares = [],
+  postMiddlewares = [],
   routesConfig: {}
 }
 
