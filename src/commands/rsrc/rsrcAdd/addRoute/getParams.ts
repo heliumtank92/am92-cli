@@ -2,7 +2,7 @@ import fs from 'fs'
 import { Arguments } from 'yargs'
 import { logger } from '../../../../lib/logger'
 import inputReader from '../../../../lib/inputReader'
-import { camelCase, pascalCase } from '../../../../lib/changeCase'
+import { camelCase, kebabCase, pascalCase } from '../../../../lib/changeCase'
 import { AddRouteParams, METHODS } from './TYPES'
 
 export default function getParams(argv: Arguments): AddRouteParams {
@@ -85,7 +85,7 @@ export default function getParams(argv: Arguments): AddRouteParams {
   }
 
   if (!routePath) {
-    const ROUTE_URL = '/route/url'
+    const ROUTE_URL = `/${kebabCase(routeName)}`
     routePath = inputReader('Route URL', ROUTE_URL, true)
   }
 

@@ -3,7 +3,7 @@ import { Arguments } from 'yargs'
 
 import inputReader from '../../../lib/inputReader'
 import { logger } from '../../../lib/logger'
-import { pascalCase } from '../../../lib/changeCase'
+import { kebabCase, pascalCase } from '../../../lib/changeCase'
 
 import { CreatePageParams } from './TYPES'
 
@@ -58,7 +58,7 @@ export default function getParams(argv: Arguments): CreatePageParams {
   }
 
   if (!pagePath) {
-    const PAGE_PATH = '/sample'
+    const PAGE_PATH = `/${kebabCase(pageName)}`
     pagePath = inputReader('Page Path', PAGE_PATH, true)
   }
 
