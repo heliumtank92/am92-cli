@@ -20,8 +20,10 @@
 
 ## Installation
 ```bash
-npm install -g @am92/cli
+pnpm install -g @am92/cli
 ```
+*Note: Use `pnpm` instead of `npm` to use this CLI.*
+
 <br />
 
 ## Usage
