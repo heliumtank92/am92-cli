@@ -1,14 +1,10 @@
 import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../../lib/logger'
-import { writeFile, rewriteFile, getFile } from '../../../../lib/file'
+import { rewriteFile, getFile } from '../../../../lib/file'
 
 import builder from './builder'
 import getParams from './getParams'
 import validateParams from './validateParams'
-import {
-  buildControllerHandler,
-  buildModelHandler
-} from './editors/routeHandlers'
 import modelEditor from './editors/modelEditor'
 import controllerEditor from './editors/controllerEditor'
 import routerEditor from './editors/routerEditor'
