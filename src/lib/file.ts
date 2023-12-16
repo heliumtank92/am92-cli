@@ -30,25 +30,12 @@ export function writeFile(
     return
   }
 
-  try {
-    const options: TransformOptions = { filename: filePath }
-
-    if (filePath.match(/.ts$/gm)) {
-      options.presets = [['@babel/preset-typescript', { allExtensions: true }]]
-    } else if (filePath.match(/.tsx$/gm)) {
-      options.presets = [
-        ['@babel/preset-typescript', { isTSX: true, allExtensions: true }]
-      ]
-    }
-
-    transformSync(fileContent, options)
-  } catch (error) {
-    logger.error(`[Error] Failed to write file: ${filePath}`)
-    return
+  if (!_validateFile(filePath, fileContent)) {
+    return logger.error(`[Error] Failed to write file: ${filePath}`)
   }
 
   new CliCommand(`${append ? 'Append' : 'Create'} ${fileName}`, 'echo')
-    .append(`"${fileContent}"`)
+    .append(`"${_sanitizeFile(fileContent)}"`)
     .append(`${append ? '>>' : '>'} ${filePath}`)
     .exec(false)
 }
@@ -61,25 +48,42 @@ export function rewriteFile(
   const file = getFile(filePath)
   const newFile = fileEditor(file)
 
-  try {
-    const options: TransformOptions = { filename: filePath }
+  if (!_validateFile(filePath, newFile)) {
+    return logger.error(`[Error] Failed to rewrite file: ${filePath}`)
+  }
 
-    if (filePath.match(/.ts$/gm)) {
+  new CliCommand(`Rewrite ${fileName}`, 'echo')
+    .append(`"${_sanitizeFile(newFile)}"`)
+    .append(`> ${filePath}`)
+    .exec(false)
+}
+
+function _validateFile(filePath: string, fileContent: string): boolean {
+  try {
+    const options: TransformOptions = {}
+
+    if (filePath.match(/.m?js$/gm)) {
+      options.filename = filePath
+    } else if (filePath.match(/.ts$/gm)) {
+      options.filename = filePath
       options.presets = [['@babel/preset-typescript', { allExtensions: true }]]
     } else if (filePath.match(/.tsx$/gm)) {
+      options.filename = filePath
       options.presets = [
         ['@babel/preset-typescript', { isTSX: true, allExtensions: true }]
       ]
     }
 
-    transformSync(newFile, options)
-  } catch (error) {
-    logger.error(`[Error] Failed to rewrite file: ${filePath}`)
-    return
-  }
+    if (options.filename) {
+      transformSync(fileContent, options)
+    }
 
-  new CliCommand(`Rewrite ${fileName}`, 'echo')
-    .append(`"${newFile}"`)
-    .append(`> ${filePath}`)
-    .exec(false)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+function _sanitizeFile(file: string): string {
+  return file.replace(/\\|`|\$|"/g, '\\$&')
 }
