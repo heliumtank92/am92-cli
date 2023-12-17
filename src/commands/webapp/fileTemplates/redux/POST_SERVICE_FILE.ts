@@ -3,7 +3,7 @@ import { asHttp } from '~/src/Configurations/WebHttp'
 import serviceActionCreatorWithTokenRotation from '~/src/Redux/serviceActionCreatorWithTokenRotation'
 import { {serviceName}TraceActions, {serviceName}ServiceName } from '../Actions'
 
-export interface I{pascalCase(serviceName)}RequestData = {}
+export interface I{pascalCase(serviceName)}RequestData {}
 
 async function {serviceName}(reqData: I{pascalCase(serviceName)}RequestData) {
   const options: WebHttpRequestOptions = {

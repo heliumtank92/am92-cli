@@ -80,6 +80,7 @@ function _validateFile(filePath: string, fileContent: string): boolean {
 
     return true
   } catch (error) {
+    console.log(error)
     return false
   }
 }
