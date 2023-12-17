@@ -3,7 +3,7 @@ import fs from 'fs'
 import inputReader from '../../../../lib/inputReader'
 import { logger } from '../../../../lib/logger'
 import { CreateParams } from '../TYPES'
-import { pascalCase } from '../../../../lib/changeCase'
+import { kebabCase, pascalCase } from '../../../../lib/changeCase'
 
 export default function getCreateParams(argv: Arguments): CreateParams {
   let projectRoot = (argv.projectRoot as string) || ''
@@ -67,7 +67,7 @@ export default function getCreateParams(argv: Arguments): CreateParams {
   }
 
   if (!routerMountPath) {
-    const ROUTER_MOUNT_PATH = '/samples'
+    const ROUTER_MOUNT_PATH = `/${kebabCase(rsrcName)}`
     routerMountPath = inputReader('Router Mount Path', ROUTER_MOUNT_PATH, true)
   }
 

@@ -62,7 +62,7 @@ function _validateFile(filePath: string, fileContent: string): boolean {
   try {
     const options: TransformOptions = {}
 
-    if (filePath.match(/.m?js$/gm)) {
+    if (filePath.match(/.m?(j|t)s$/gm)) {
       options.filename = filePath
     } else if (filePath.match(/.ts$/gm)) {
       options.filename = filePath
