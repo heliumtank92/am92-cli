@@ -16,7 +16,7 @@ export default function routerEditor(
 
     let newController = currentController
       .replace(/const { ?\n?/gm, '')
-      .replace(/(\n)?} = .+Controller/, '')
+      .replace(/(\n)?} =(\n)?.+Controller/, '')
       .trim()
 
     newController = newController.replaceAll(', ', ',\n  ')
