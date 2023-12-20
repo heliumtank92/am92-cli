@@ -6,4 +6,4 @@ import './commands/rsrc'
 import './commands/webapp'
 import './commands/feStack'
 
-yargs.help(true).wrap(100).argv
+yargs.help(true).wrap(100).parse()
