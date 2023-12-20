@@ -16,7 +16,7 @@ export default function appRoutesEditor(pageName: string, pagePath: string) {
 
     return `${currentRoutes}${constantCase(pageName)}: {
     pathname: '${pagePath}'
-  },
+  } as AppRouteItem,
 
   ANY:${restFile.substring(0, restFile.length - 1)}`
   }
