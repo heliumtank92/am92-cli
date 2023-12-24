@@ -51,10 +51,6 @@ const VSCODE_SETTINGS = `{
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[html]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "vscode.html-language-features"
-  },
 
   "diffEditor.ignoreTrimWhitespace": false,
 
