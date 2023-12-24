@@ -12,7 +12,7 @@
             "Description": "Name Tag",
             "Default": ""
         },
-        "Env": {
+        "Environment": {
             "Type": "String",
             "Default": "PROD",
             "Description": ""
@@ -22,6 +22,14 @@
             "Default": ""
         },
         "Owner": {
+            "Type": "String",
+            "Default": ""
+        },
+        "BillingCode": {
+            "Type": "String",
+            "Default": ""
+        },
+        "Creator": {
             "Type": "String",
             "Default": ""
         },
@@ -60,15 +68,27 @@
                         }
                     },
                     {
-                        "Key": "Env",
+                        "Key": "Environment",
                         "Value": {
-                            "Ref": "Env"
+                            "Ref": "Environment"
                         }
                     },
                     {
                         "Key": "Owner",
                         "Value": {
                             "Ref": "Owner"
+                        }
+                    },
+                    {
+                        "Key": "BillingCode",
+                        "Value": {
+                            "Ref": "BillingCode"
+                        }
+                    },
+                    {
+                        "Key": "Creator",
+                        "Value": {
+                            "Ref": "Creator"
                         }
                     }
                 ]
@@ -257,15 +277,27 @@
                         }
                     },
                     {
-                        "Key": "Env",
+                        "Key": "Environment",
                         "Value": {
-                            "Ref": "Env"
+                            "Ref": "Environment"
                         }
                     },
                     {
                         "Key": "Owner",
                         "Value": {
                             "Ref": "Owner"
+                        }
+                    },
+                    {
+                        "Key": "BillingCode",
+                        "Value": {
+                            "Ref": "BillingCode"
+                        }
+                    },
+                    {
+                        "Key": "Creator",
+                        "Value": {
+                            "Ref": "Creator"
                         }
                     }
                 ]

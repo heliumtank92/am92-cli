@@ -21,6 +21,11 @@ function builder(yargs: any) {
       type: 'string',
       required: false
     })
+    .option('aws-region', {
+      description: 'AWS Region',
+      type: 'string',
+      required: false
+    })
     .option('stack-name', {
       description: 'CloudFormation Stack Name',
       type: 'string',
@@ -37,12 +42,18 @@ async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
   let awsProfile = (argv.awsProfile as string) || ''
+  let awsRegion = (argv.awsRegion as string) || ''
   let stackName = (argv.stackName as string) || ''
   let paramsFilePath = (argv.paramsFilePath as string) || ''
 
   if (!awsProfile) {
     const AWS_PROFILE = process.env.AWS_PROFILE || ''
     awsProfile = inputReader('AWS Profile', AWS_PROFILE, true)
+  }
+
+  if (!awsRegion) {
+    const AWS_REGION = process.env.AWS_REGION || ''
+    awsRegion = inputReader('AWS Region', AWS_REGION, true)
   }
 
   if (!stackName) {
@@ -67,8 +78,10 @@ async function handler(argv: Arguments) {
     .appendArgs('parameters', paramsFileUrl)
     .appendArgs('capabilities', 'CAPABILITY_IAM')
     .appendArgs('profile', awsProfile)
+    .appendArgs('region', awsRegion)
     .exec()
 
+  logger.info(`[${COMMAND}] Please add 'A' Record in Route53 to the created CloudFront Distribution`)
   logger.complete(`[${COMMAND}] Completed!`)
 }
 

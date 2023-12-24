@@ -8,24 +8,31 @@
         "ParameterValue": "test-web-prod"
     },
     {
-        "ParameterKey": "Env",
+        "ParameterKey": "Environment",
         "ParameterValue": "PROD"
-    }, 
+    },
     {
         "ParameterKey": "Role",
         "ParameterValue": "WEB"
-    }, 
+    },
     {
         "ParameterKey": "Owner",
         "ParameterValue": "Owner Name"
-    }, 
+    },
+    {
+        "ParameterKey": "BillingCode",
+        "ParameterValue": "Billing Code"
+    },
+    {
+        "ParameterKey": "Creator",
+        "ParameterValue": "Creator"
+    },
     {
         "ParameterKey": "ACMList",
         "ParameterValue": "arn::acm::"
-    }, 
+    },
     {
         "ParameterKey": "DomainAliases",
         "ParameterValue": "test.com"
     }
 ]
-  
