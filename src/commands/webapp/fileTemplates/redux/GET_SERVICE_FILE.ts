@@ -5,7 +5,7 @@ import { {serviceName}TraceActions, {serviceName}ServiceName } from '../Actions'
 
 async function {serviceName}() {
   const options: WebHttpRequestOptions = {
-    url: '{serviceUrl}',
+    url: \`{serviceUrl}\`,
     method: '{serviceMethod}'
   }
 
