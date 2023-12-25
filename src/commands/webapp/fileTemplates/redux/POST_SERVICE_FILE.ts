@@ -7,7 +7,7 @@ export interface I{pascalCase(serviceName)}RequestData {}
 
 async function {serviceName}(reqData: I{pascalCase(serviceName)}RequestData) {
   const options: WebHttpRequestOptions = {
-    url: \`{serviceUrl}\`,
+    url: {serviceUrl},
     method: '{serviceMethod}',
     data: reqData
   }

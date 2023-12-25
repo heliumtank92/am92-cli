@@ -153,6 +153,13 @@ async function handler(argv: Arguments) {
     serviceMethod === 'GET' || serviceMethod === 'GET'
       ? GET_SERVICE_FILE
       : POST_SERVICE_FILE
+
+  if (serviceUrl.includes('/:')) {
+    serviceUrl = `\`${serviceUrl}\``
+  } else {
+    serviceUrl = `'${serviceUrl}'`
+  }
+
   const serviceFile = serviceFileTemplate
     .replaceAll('{serviceName}', serviceName)
     .replaceAll('{pascalCase(serviceName)}', pascalCase(serviceName))
