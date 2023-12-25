@@ -41,11 +41,8 @@ async function handler(argv: Arguments) {
 
 function _installDependencies() {
   new CliCommand('Install Dependencies', 'npm i --save-dev')
-    .append('eslint@^8.55.0')
-    .append('eslint-config-prettier@^8.10.0')
-    .append('eslint-plugin-node@^11.1.0')
-    .append('eslint-plugin-prettier@^4.2.1')
-    .append('eslint-plugin-unused-imports@^2.0.0')
+    .append('eslint@^8.56.0')
+    .append('eslint-config-airbnb@^19.0.4')
     .append('husky@^8.0.3')
     .append('prettier@^2.8.8')
     .exec(false)

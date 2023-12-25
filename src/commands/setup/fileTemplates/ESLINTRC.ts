@@ -1,57 +1,39 @@
 const ESLINTRC = `{
-  "env": {
-    "node": true,
-    "es2022": true
-  },
-  "extends": [
-    "plugin:node/recommended",
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": [
-    "unused-imports"
-  ],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "airbnb"
+  ],
   "rules": {
-    "no-unexpected-multiline": "error",
-    "max-len": [
-      "error",
-      {
-        "code": 120,
-        "ignoreUrls": true
-      }
-    ],
-    "no-tabs": [
-      "error",
-      {
-        "allowIndentationTabs": true
-      }
-    ],
-    "no-trailing-spaces": "error",
-    "eqeqeq": "error",
-    "complexity": [
-      "error",
-      8
-    ],
-    "max-depth": [
-      "error",
-      3
-    ],
-    "space-infix-ops": "error",
-    "no-unreachable-loop": "error",
-    "no-unneeded-ternary": "error",
-    "no-shadow": "error",
-    "no-mixed-operators": "error",
-    "no-process-exit": "off",
-    "no-unused-vars": "off",
-    "prettier/prettier": "off",
-    "prefer-const": "error",
-    "node/no-unsupported-features/es-syntax": "off",
-    "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "no-use-before-define": "off",
+    "no-underscore-dangle": "off",
+    "semi": "off",
+    "import/no-relative-packages": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "import/no-named-default": "off",
+    "comma-dangle": "off",
+    "object-curly-newline": "off",
+    "no-constructor-return": "off",
+    "no-case-declarations": "off",
+    "arrow-parens": "off",
+    "consistent-return": "off",
+    "func-names": "off",
+    "default-param-last": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off",
+    "operator-linebreak": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off",
+    "no-empty-function": "off",
+    "no-unused-vars": [
       "error",
       {
         "vars": "all",
@@ -60,29 +42,9 @@ const ESLINTRC = `{
         "argsIgnorePattern": "^_",
         "ignoreRestSiblings": true
       }
-    ],
-    "no-multiple-empty-lines": "error",
-    "quotes": [
-      "error",
-      "single",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
-    ],
-    "node/no-missing-import": [
-      "error",
-      {
-        "allowModules": []
-      }
-    ],
-    "node/no-extraneous-require": [
-      "error",
-      {
-        "allowModules": []
-      }
     ]
   }
-}`
+}
+`
 
 export default ESLINTRC
