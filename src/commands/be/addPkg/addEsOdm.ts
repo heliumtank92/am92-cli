@@ -17,17 +17,25 @@ yargs.command(
 )
 
 function builder(yargs: any): any {
-  return yargs.option('project-root', {
-    description: 'Project Root Path',
-    type: 'string',
-    required: false
-  })
+  return yargs
+    .option('project-root', {
+      description: 'Project Root Path',
+      type: 'string',
+      required: false
+    })
+    .option('package-manager', {
+      description: 'Package Manager',
+      type: 'string',
+      choices: ['npm', 'pnpm'],
+      required: false
+    })
 }
 
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
   let projectRoot = (argv.projectRoot as string) || ''
+  let packageManager = (argv.packageManager as string) || ''
 
   if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
@@ -49,10 +57,17 @@ async function handler(argv: Arguments) {
     process.exit()
   }
 
-  new CliCommand(
-    'Install Opensearch ODM',
-    'npm i --save @am92/opensearch-odm'
-  ).exec(false)
+  if (!packageManager) {
+    const PACKAGE_MANAGER: string = 'npm'
+    packageManager = inputReader('Package Manager', PACKAGE_MANAGER, true)
+  }
+
+  const installCmd =
+    packageManager === 'pnpm'
+      ? 'pnpm add @am92/opensearch-odm'
+      : 'npm i --save @am92/opensearch-odm'
+
+  new CliCommand('Install Opensearch ODM', installCmd).exec(false)
 
   const startServerFilePath = `${projectRoot}/startServer.mjs`
   const newImports = `import { clientManager as opensearchClientManager } from '@am92/opensearch-odm'`
