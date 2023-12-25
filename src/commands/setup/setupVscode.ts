@@ -6,6 +6,7 @@ import { writeFile } from '../../lib/file'
 import CliCommand from '../../lib/CliCommand'
 
 import VSCODE_SETTINGS from './fileTemplates/VSCODE_SETTINGS'
+import VSCODE_EXTENSIONS from './fileTemplates/VSCODE_EXTENSIONS'
 
 const COMMAND = 'setup-vscode'
 
@@ -22,12 +23,14 @@ async function handler(argv: Arguments) {
   const projectRoot = '.'
   const vscodeFolderPath = `${projectRoot}/.vscode`
   const vscodeSettingsPath = `${projectRoot}/.vscode/settings.json`
+  const vscodeExtensionsPath = `${projectRoot}/.vscode/extensions.json`
 
   if (!fs.existsSync(vscodeFolderPath)) {
     new CliCommand('Create Folder', `mkdir ${vscodeFolderPath}`).exec(false)
   }
 
   writeFile('VSCode Settings', VSCODE_SETTINGS, vscodeSettingsPath)
+  writeFile('VSCode Extensions', VSCODE_EXTENSIONS, vscodeExtensionsPath)
 
   logger.complete(`[${COMMAND}] Completed!`)
 }
