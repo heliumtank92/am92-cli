@@ -3,8 +3,9 @@ import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../../lib/logger'
 import inputReader from '../../../lib/inputReader'
 import CliCommand from '../../../lib/CliCommand'
-import { rewriteFile } from '../../../lib/file'
+import { rewriteFile, writeFile } from '../../../lib/file'
 import startServerEditor from './editors/startServerEditor'
+import MONGO_ODM_CONFIG from './fileTemplates/envConfigs/MONGO_ODM_CONFIG'
 
 const COMMAND = 'be-add-mongo-odm'
 
@@ -60,6 +61,9 @@ async function handler(argv: Arguments) {
     startServerFilePath,
     startServerEditor(newImports, connection)
   )
+
+  const devEnvFilePath = `${projectRoot}/.env.development`
+  writeFile('Dev Env Config', MONGO_ODM_CONFIG, devEnvFilePath, true)
 
   logger.complete(`[${COMMAND}] Completed!`)
 }

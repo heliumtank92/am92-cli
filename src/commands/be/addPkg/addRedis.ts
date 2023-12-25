@@ -6,6 +6,7 @@ import CliCommand from '../../../lib/CliCommand'
 import { rewriteFile, writeFile } from '../../../lib/file'
 import startServerEditor from './editors/startServerEditor'
 import REDIS_SDK from './fileTemplates/REDIS_SDK'
+import REDIS_CONFIG from './fileTemplates/envConfigs/REDIS_CONFIG'
 
 const COMMAND = 'be-add-redis'
 
@@ -62,6 +63,9 @@ async function handler(argv: Arguments) {
     startServerFilePath,
     startServerEditor(newImports, connection)
   )
+
+  const devEnvFilePath = `${projectRoot}/.env.development`
+  writeFile('Dev Env Config', REDIS_CONFIG, devEnvFilePath, true)
 
   logger.complete(`[${COMMAND}] Completed!`)
 }
