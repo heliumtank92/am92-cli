@@ -4,9 +4,6 @@ import { MODEL_NAME } from './{rsrcName}.Constants.mjs'
 
 const {rsrcName}Odm = new Model(MODEL_NAME, {rsrcName}Schema)
 const {
-  createIndices,
-  removeIndices,
-  indicesExists,
   createOne,
   list,
   findById,
@@ -15,9 +12,6 @@ const {
 } = {rsrcName}Odm
 
 const {rsrcName}Model = {
-  createIndices,
-  removeIndices,
-  indicesExists,
   create: createOne,
   list,
   findById,

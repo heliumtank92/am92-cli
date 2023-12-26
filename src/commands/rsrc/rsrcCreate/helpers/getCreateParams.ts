@@ -11,11 +11,6 @@ export default function getCreateParams(argv: Arguments): CreateParams {
   let routerMountPath = (argv.routerMountPath as string) || ''
   let folderStruct = ((argv.folderStruct as string) || '').toLowerCase()
 
-  if (!folderStruct) {
-    folderStruct = inputReader('Resouce in Folder Structure? [y/n]', '', false)
-    folderStruct = folderStruct.toLowerCase()
-  }
-
   if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
     projectRoot = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
@@ -42,6 +37,11 @@ export default function getCreateParams(argv: Arguments): CreateParams {
       `[Error] Resource Folder does not exist at the location: ${apiFolderPath}/`
     )
     process.exit()
+  }
+
+  if (!folderStruct) {
+    folderStruct = inputReader('Resouce in Folder Structure? [y/n]', '', false)
+    folderStruct = folderStruct.toLowerCase()
   }
 
   if (!rsrcName) {

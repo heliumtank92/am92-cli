@@ -4,27 +4,27 @@ const { create, list, findById, updateById, removeById } = CrudController
 
 const CrudRoutes = {
   create: {
-    method: 'post',
+    method: 'POST',
     path: '/',
     pipeline: [create]
   },
   list: {
-    method: 'get',
+    method: 'GET',
     path: '/',
     pipeline: [list]
   },
   findById: {
-    method: 'get',
+    method: 'GET',
     path: '/:id',
     pipeline: [findById]
   },
   updateById: {
-    method: 'patch',
+    method: 'PATCH',
     path: '/:id',
     pipeline: [updateById]
   },
   removeById: {
-    method: 'delete',
+    method: 'DELETE',
     path: '/:id',
     pipeline: [removeById]
   }
