@@ -13,7 +13,7 @@ export default function modelIndexEditor(
 
     imports = imports.replace(
       importsExtra,
-      `import ${partialName}Model from  './${partialName}.Model.mjs'`
+      `import ${partialName}Model from './${partialName}.Model.mjs'`
     )
 
     let modelObject = (file.match(/const .*Model = {(.|\n?)+(Model)?}/gm) || [

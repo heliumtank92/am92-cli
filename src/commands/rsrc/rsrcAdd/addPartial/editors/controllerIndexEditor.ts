@@ -13,7 +13,7 @@ export default function controllerIndexEditor(
 
     imports = imports.replace(
       importsExtra,
-      `import ${partialName}Controller from  './${partialName}.Controller.mjs'`
+      `import ${partialName}Controller from './${partialName}.Controller.mjs'`
     )
 
     let controllerObject = (file.match(
