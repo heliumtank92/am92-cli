@@ -26,8 +26,8 @@ const VSCODE_SETTINGS = `{
   "editor.inlineSuggest.enabled": true,
   "editor.suggestSelection": "first",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.addMissingImports": "explicit"
+    "source.addMissingImports": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
 
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],

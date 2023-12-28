@@ -45,6 +45,7 @@ function _installDependencies() {
   new CliCommand('Install Dependencies', 'npm i --save-dev')
     .append('eslint')
     .append('eslint-config-prettier')
+    .append('eslint-plugin-import')
     .append('eslint-plugin-n')
     .append('eslint-plugin-prettier')
     .append('eslint-plugin-unused-imports')
