@@ -27,8 +27,7 @@ const ESLINTRCBASE = `{
     "unused-imports/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "unused-imports/no-unused-imports": "error",
     "import/no-duplicates": "error",
-    "import/first": "error",
-    "import/order": ["error", { "alphabetize": { "order": "asc" } }]
+    "import/first": "error"
   }
 }`
 
