@@ -9,6 +9,7 @@ import ESLINTIGNORE from './fileTemplates/ESLINTIGNORE'
 import ESLINTRCBASE from './fileTemplates/ESLINTRCBASE'
 import ESLINTRC from './fileTemplates/ESLINTRC'
 import PRETTIERRC from './fileTemplates/PRETTIERRC'
+import JSCONFIG from './fileTemplates/JSCONFIG'
 
 const COMMAND = 'setup-be-linter'
 
@@ -54,13 +55,16 @@ function _installDependencies() {
 
 function _createLintFiles(projectRoot: string) {
   const eslintignorePath = `${projectRoot}/.eslintignore`
+  const eslintrcBasePath = `${projectRoot}/.eslintrc.base.json`
   const eslintrcPath = `${projectRoot}/.eslintrc.json`
   const prettierrcPath = `${projectRoot}/.prettierrc.json`
+  const jsconfigPath = `${projectRoot}/jsconfig.json`
 
   writeFile('.eslintignore', ESLINTIGNORE, eslintignorePath)
-  writeFile('.eslintrc.base.json', ESLINTRCBASE, eslintrcPath)
+  writeFile('.eslintrc.base.json', ESLINTRCBASE, eslintrcBasePath)
   writeFile('.eslintrc.json', ESLINTRC, eslintrcPath)
   writeFile('.prettierrc.json', PRETTIERRC, prettierrcPath)
+  writeFile('jsconfig.json', JSCONFIG, jsconfigPath)
 }
 
 function packageJsonEditor(file: string): string {
