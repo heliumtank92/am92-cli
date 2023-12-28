@@ -20,6 +20,7 @@ const ESLINTRCBASE = `{
   "rules": {
     "no-var": "error",
     "max-depth": 2,
+    "no-case-declarations": "off",
     "no-unreachable-loop": "error",
     "no-unneeded-ternary": "error",
     "no-unused-vars": "off",
