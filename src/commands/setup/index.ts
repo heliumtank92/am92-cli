@@ -1,2 +1,2 @@
 import './setupVscode'
-// import './setupBeLinter'
+import './setupBeLinter'

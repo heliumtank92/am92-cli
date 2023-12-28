@@ -1,6 +1,5 @@
 const ESLINTIGNORE = `node_modules/
-dist/
-test/**/*.js
-polyfill/*.js`
+test/
+polyfill/`
 
 export default ESLINTIGNORE
