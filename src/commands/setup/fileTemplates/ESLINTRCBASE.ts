@@ -24,7 +24,8 @@ const ESLINTRCBASE = `{
     "unused-imports/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "unused-imports/no-unused-imports": "error",
     "max-depth": 2,
-    "no-var": "error"
+    "no-var": "error",
+    "n/no-process-exit": "off"
   }
 }`
 
