@@ -4,6 +4,7 @@ import yargs, { Arguments } from 'yargs'
 import { colorify, logger } from '../../lib/logger'
 import { rewriteFile, writeFile } from '../../lib/file'
 import CliCommand from '../../lib/CliCommand'
+import inputReader from '../../lib/inputReader'
 
 import ESLINTIGNORE from './fileTemplates/ESLINTIGNORE'
 import ESLINTRCBASE from './fileTemplates/ESLINTRCBASE'
@@ -16,12 +17,27 @@ const COMMAND = 'setup-be-linter'
 yargs.command(
   COMMAND,
   colorify.trace('Setup ESLint, Prettier and Husky in Backend'),
-  yargs => yargs,
+  builder,
   handler
 )
 
+function builder(yargs: any): any {
+  return yargs.option('package-manager', {
+    description: 'Package Manager',
+    type: 'string',
+    choices: ['npm', 'pnpm'],
+    required: false
+  })
+}
+
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
+
+  let packageManager = (argv.packageManager as string) || ''
+  if (!packageManager) {
+    const PACKAGE_MANAGER: string = 'npm'
+    packageManager = inputReader('Package Manager', PACKAGE_MANAGER, true)
+  }
 
   const projectRoot = '.'
   const packageJsonFilePath = `${projectRoot}/package.json`
@@ -33,7 +49,7 @@ async function handler(argv: Arguments) {
     process.exit()
   }
 
-  _installDependencies()
+  _installDependencies(packageManager)
   _createLintFiles(projectRoot)
   rewriteFile('package.json', packageJsonFilePath, packageJsonEditor)
   _setupHusky(projectRoot)
@@ -41,8 +57,11 @@ async function handler(argv: Arguments) {
   logger.complete(`[${COMMAND}] Completed!`)
 }
 
-function _installDependencies() {
-  new CliCommand('Install Dependencies', 'npm i --save-dev')
+function _installDependencies(packageManager: string) {
+  const installCmd =
+    packageManager === 'pnpm' ? 'pnpm add -D' : 'npm i --save-dev'
+
+  new CliCommand('Install Dependencies', installCmd)
     .append('eslint')
     .append('eslint-config-prettier')
     .append('eslint-plugin-import')
