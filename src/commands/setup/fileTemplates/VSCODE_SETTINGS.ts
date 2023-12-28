@@ -21,7 +21,7 @@ const VSCODE_SETTINGS = `{
   "editor.find.seedSearchStringFromSelection": "never",
   "editor.renderLineHighlight": "all",
   "editor.formatOnSave": false,
-  "editor.formatOnPaste": false,
+  "editor.formatOnPaste": true,
   "editor.formatOnType": false,
   "editor.inlineSuggest.enabled": true,
   "editor.suggestSelection": "first",

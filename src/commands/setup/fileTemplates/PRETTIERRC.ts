@@ -2,7 +2,7 @@ const PRETTIERRC = `{
   "semi": false,
   "trailingComma": "none",
   "singleQuote": true,
-  "printWidth": 100,
+  "printWidth": 80,
   "arrowParens":"avoid"
 }`
 

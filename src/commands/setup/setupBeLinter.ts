@@ -6,6 +6,7 @@ import { rewriteFile, writeFile } from '../../lib/file'
 import CliCommand from '../../lib/CliCommand'
 
 import ESLINTIGNORE from './fileTemplates/ESLINTIGNORE'
+import ESLINTRCBASE from './fileTemplates/ESLINTRCBASE'
 import ESLINTRC from './fileTemplates/ESLINTRC'
 import PRETTIERRC from './fileTemplates/PRETTIERRC'
 
@@ -41,10 +42,13 @@ async function handler(argv: Arguments) {
 
 function _installDependencies() {
   new CliCommand('Install Dependencies', 'npm i --save-dev')
-    .append('eslint@^8.56.0')
-    .append('eslint-config-airbnb@^19.0.4')
-    .append('husky@^8.0.3')
-    .append('prettier@^2.8.8')
+    .append('eslint')
+    .append('eslint-config-prettier')
+    .append('eslint-plugin-n')
+    .append('eslint-plugin-prettier')
+    .append('eslint-plugin-unused-imports')
+    .append('husky')
+    .append('prettier')
     .exec(false)
 }
 
@@ -54,6 +58,7 @@ function _createLintFiles(projectRoot: string) {
   const prettierrcPath = `${projectRoot}/.prettierrc.json`
 
   writeFile('.eslintignore', ESLINTIGNORE, eslintignorePath)
+  writeFile('.eslintrc.base.json', ESLINTRCBASE, eslintrcPath)
   writeFile('.eslintrc.json', ESLINTRC, eslintrcPath)
   writeFile('.prettierrc.json', PRETTIERRC, prettierrcPath)
 }
@@ -62,7 +67,9 @@ function packageJsonEditor(file: string): string {
   try {
     const packageJson = JSON.parse(file)
     packageJson.scripts = packageJson.scripts || {}
-    packageJson.scripts.lint = 'eslint . --ext .mjs --fix'
+    packageJson.scripts.lint =
+      'eslint . || echo \'Run "npm run lint:fix" to automatically fix issues.\''
+    packageJson.scripts['lint:fix'] = 'eslint --fix .'
     const newPackageJsonFile = JSON.stringify(packageJson, null, 2)
     return newPackageJsonFile
   } catch (error) {
@@ -74,6 +81,6 @@ function _setupHusky(projectRoot: string) {
   new CliCommand('Install Husky', 'npx husky install').exec(false)
   new CliCommand(
     'Prepare Husky',
-    'npx husky add .husky/pre-commit "npm run lint"'
+    'npx husky add .husky/pre-commit "npm run lint --silent"'
   ).exec(false)
 }
