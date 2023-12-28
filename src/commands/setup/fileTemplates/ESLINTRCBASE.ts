@@ -8,13 +8,13 @@ const ESLINTRCBASE = `{
   },
   "extends": [
     "eslint:recommended",
-    "plugin:node/recommended",
+    "plugin:n/recommended",
     "plugin:prettier/recommended"
   ],
   "plugins": ["unused-imports"],
   "settings": {
-    "node": {
-      "allowModules": ["@am92/api-logger"]
+    "n": {
+      "allowModules": ["#api", "#config", "#polyfill"]
     }
   },
   "rules": {
