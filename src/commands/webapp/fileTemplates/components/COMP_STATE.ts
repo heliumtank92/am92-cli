@@ -5,8 +5,10 @@ export interface I{componentName}Props {}
 
 export interface I{componentName}State {}
 
+const DEFAULT_STATE: I{componentName}State = {}
+
 export default class {componentName} extends Component<I{componentName}Props, I{componentName}State> {
-  state = {}
+  state = DEFAULT_STATE
 
   render() {
     return (
