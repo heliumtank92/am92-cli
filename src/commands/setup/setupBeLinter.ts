@@ -67,6 +67,7 @@ function _installDependencies(packageManager: string) {
     .append('eslint-plugin-import')
     .append('eslint-plugin-n')
     .append('eslint-plugin-prettier')
+    .append('eslint-plugin-simple-import-sort')
     .append('eslint-plugin-unused-imports')
     .append('husky')
     .append('prettier')

@@ -11,7 +11,7 @@ const ESLINTRCBASE = `{
     "plugin:n/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["unused-imports", "import"],
+  "plugins": ["unused-imports", "import", "simple-import-sort"],
   "settings": {
     "n": {
       "allowModules": ["#api", "#config", "#polyfill"]
@@ -28,7 +28,40 @@ const ESLINTRCBASE = `{
     "unused-imports/no-unused-imports": "error",
     "import/no-duplicates": "error",
     "import/first": "error",
-    "n/no-process-exit": "off"
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^\\u0000"],
+          [
+            "^node:",
+            "^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)((\\/.*)|$)",
+            "^@?\\w"
+          ],
+          [
+            "(\\.|\\/|#)(c|C)onfigs?(\\.|\\/)",
+            "(\\.|\\/|#)(s|S)dks?(\\.|\\/)",
+            "(\\.|\\/|#)(l|L)ib(rary?)?(ies)?(\\.|\\/)",
+            "(\\.|\\/|#)(u|U)tils?(\\.|\\/)",
+            "(\\.|\\/|#)(h|H)elpers?(\\.|\\/)"
+          ],
+          [
+            "(\\.|\\/)(o|O)dms?(\\.|\\/)",
+            "(\\.|\\/)(m|M)odels?(\\.|\\/)",
+            "(\\.|\\/)(c|C)ontrollers?(\\.|\\/)",
+            "(\\.|\\/)(v|V)alidators?(\\.|\\/)",
+            "(\\.|\\/)(r|R)outer?s?(\\.|\\/)"
+          ],
+          [
+            "(\\.|\\/)(m|M)appers?(\\.|\\/)",
+            "(\\.|\\/)(c|C)onstants?(\\.|\\/)"
+          ],
+          [
+            "(^[\\.\\/])|(^[\\.\\.\\/])"
+          ]
+        ]
+      }
+    ]
   }
 }`
 
