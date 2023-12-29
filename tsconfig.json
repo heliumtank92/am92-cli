@@ -1,7 +1,8 @@
 {
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.json"
+    "./src/**/*.json",
+    "./src/**/.*.json"
   ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */

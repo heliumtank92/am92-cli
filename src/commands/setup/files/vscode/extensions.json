@@ -1,4 +1,4 @@
-const VSCODE_EXTENSIONS = `{
+{
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
@@ -13,6 +13,4 @@ const VSCODE_EXTENSIONS = `{
     "visualstudioexptteam.vscodeintellicode",
     "visualstudioexptteam.intellicode-api-usage-examples"
   ]
-}`
-
-export default VSCODE_EXTENSIONS
+}

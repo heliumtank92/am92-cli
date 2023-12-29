@@ -1,4 +1,4 @@
-const JSCONFIG = `{
+{
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
@@ -6,6 +6,4 @@ const JSCONFIG = `{
     }
   },
   "exclude": ["node_modules"]
-}`
-
-export default JSCONFIG
+}

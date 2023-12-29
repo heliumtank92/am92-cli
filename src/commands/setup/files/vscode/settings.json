@@ -1,4 +1,4 @@
-const VSCODE_SETTINGS = `{
+{
   "git.autofetch": true,
 
   "explorer.confirmDelete": true,
@@ -30,7 +30,15 @@ const VSCODE_SETTINGS = `{
     "source.fixAll.eslint": "explicit"
   },
 
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "jsonc",
+    "json5"
+  ],
   "prettier.singleQuote": true,
   "prettier.semi": false,
   "prettier.trailingComma": "none",
@@ -48,6 +56,18 @@ const VSCODE_SETTINGS = `{
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json5]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -75,6 +95,4 @@ const VSCODE_SETTINGS = `{
   "jsdoc-generator.includeTypes": false,
   "jsdoc-generator.includeAsync": true,
   "jsdoc-generator.includeExport": false
-}`
-
-export default VSCODE_SETTINGS
+}
