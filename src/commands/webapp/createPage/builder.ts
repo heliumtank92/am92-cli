@@ -11,7 +11,7 @@ export default function builder(yargs: any): any {
       required: false
     })
     .option('page-path', {
-      description: 'Page Path',
+      description: 'Page Route Path',
       type: 'string',
       required: false
     })

@@ -59,7 +59,7 @@ export default function getParams(argv: Arguments): CreatePageParams {
 
   if (!pagePath) {
     const PAGE_PATH = `/${kebabCase(pageName)}`
-    pagePath = inputReader('Page Path', PAGE_PATH, true)
+    pagePath = inputReader('Page Route Path', PAGE_PATH, true)
   }
 
   if (!state) {
