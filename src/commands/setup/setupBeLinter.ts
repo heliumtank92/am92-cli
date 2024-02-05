@@ -2,7 +2,7 @@ import fs from 'fs'
 import yargs, { Arguments } from 'yargs'
 
 import { colorify, logger } from '../../lib/logger'
-import { rewriteFile } from '../../lib/file'
+import { rewriteFile, writeFile } from '../../lib/file'
 import CliCommand from '../../lib/CliCommand'
 import inputReader from '../../lib/inputReader'
 
@@ -97,9 +97,10 @@ function packageJsonEditor(file: string): string {
 }
 
 function _setupHusky() {
-  new CliCommand('Install Husky', 'npx husky install').exec(false)
-  new CliCommand(
-    'Prepare Husky',
-    'npx husky add .husky/pre-commit "npm run lint --silent"'
-  ).exec(false)
+  new CliCommand('Initialize Husky', 'npx husky init').exec(false)
+  writeFile(
+    'Husky Pre-commit',
+    'npm test --silent\nnpm run lint --silent',
+    '.husky/pre-commit'
+  )
 }

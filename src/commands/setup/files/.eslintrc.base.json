@@ -30,6 +30,7 @@
     "unused-imports/no-unused-imports": "error",
     "import/no-duplicates": "error",
     "import/first": "error",
+    "n/no-process-exit": "off",
     "simple-import-sort/imports": [
       "error",
       {
