@@ -1,6 +1,6 @@
 {
   "name": "@am92/cli",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "description": "Command line interface of utilities for @am92 packages and boilerplates",
   "sideEffects": false,
   "types": "dist/index.d.ts",
