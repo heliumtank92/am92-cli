@@ -8,7 +8,6 @@ import { AddRouteParams, METHODS } from './TYPES'
 export default function getParams(argv: Arguments): AddRouteParams {
   let projectRoot = (argv.projectRoot as string) || ''
   let rsrcName = pascalCase((argv.rsrcName as string) || '')
-  let folderStruct = ((argv.folderStruct as string) || '').toLowerCase()
   let partialName = pascalCase((argv.partialName as string) || '')
   let routeName = camelCase((argv.routeName as string) || '')
   let routeMethod = (argv.routeMethod as string) || ''
@@ -57,12 +56,12 @@ export default function getParams(argv: Arguments): AddRouteParams {
     process.exit()
   }
 
-  if (!folderStruct) {
-    folderStruct = inputReader('Resouce in Folder Structure? [y/n]', '', false)
-    folderStruct = folderStruct.toLowerCase()
-  }
+  const folderStruct =
+    !fs.existsSync(`${rsrcPath}/${rsrcName}.Model`) ||
+    !fs.existsSync(`${rsrcPath}/${rsrcName}.Controller`) ||
+    !fs.existsSync(`${rsrcPath}/${rsrcName}.Router`)
 
-  if (folderStruct === 'y' && !partialName) {
+  if (folderStruct && !partialName) {
     partialName = inputReader('Resource Partial Name', '', false)
     partialName = pascalCase(partialName)
   }

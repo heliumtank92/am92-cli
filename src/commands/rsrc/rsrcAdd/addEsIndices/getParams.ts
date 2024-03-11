@@ -8,7 +8,6 @@ import { AddEsIndicesParams } from './TYPES'
 export default function getParams(argv: Arguments): AddEsIndicesParams {
   let projectRoot = (argv.projectRoot as string) || ''
   let rsrcName = pascalCase((argv.rsrcName as string) || '')
-  let folderStruct = ((argv.folderStruct as string) || '').toLowerCase()
 
   if (!projectRoot) {
     const ROOT_FOLDER_PATH: string = '.'
@@ -52,17 +51,17 @@ export default function getParams(argv: Arguments): AddEsIndicesParams {
     process.exit()
   }
 
-  if (!folderStruct) {
-    folderStruct = inputReader('Resouce in Folder Structure? [y/n]', '', false)
-    folderStruct = folderStruct.toLowerCase()
-  }
+  const folderStruct =
+    !fs.existsSync(`${rsrcPath}/${rsrcName}.Model`) ||
+    !fs.existsSync(`${rsrcPath}/${rsrcName}.Controller`) ||
+    !fs.existsSync(`${rsrcPath}/${rsrcName}.Router`)
 
   const routesFolderPath = `${apiFolderPath}/routes`
 
   const params: AddEsIndicesParams = {
     rsrcName,
     rsrcPath,
-    folderStruct: folderStruct === 'y',
+    folderStruct,
     routesFolderPath
   }
 

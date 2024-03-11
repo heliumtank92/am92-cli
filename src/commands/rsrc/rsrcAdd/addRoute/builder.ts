@@ -12,12 +12,6 @@ export default function builder(yargs: any): any {
       type: 'string',
       required: false
     })
-    .option('folder-struct', {
-      description: 'Is Resouce in Folder Structure',
-      type: 'string',
-      choices: ['y', 'n'],
-      required: false
-    })
     .option('partial-name', {
       description: 'Resource Partial Name',
       type: 'string',
