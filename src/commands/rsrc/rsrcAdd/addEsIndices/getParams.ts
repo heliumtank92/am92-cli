@@ -52,9 +52,9 @@ export default function getParams(argv: Arguments): AddEsIndicesParams {
   }
 
   const folderStruct =
-    !fs.existsSync(`${rsrcPath}/${rsrcName}.Model`) ||
-    !fs.existsSync(`${rsrcPath}/${rsrcName}.Controller`) ||
-    !fs.existsSync(`${rsrcPath}/${rsrcName}.Router`)
+    fs.existsSync(`${rsrcPath}/${rsrcName}.Model`) &&
+    fs.existsSync(`${rsrcPath}/${rsrcName}.Controller`) &&
+    fs.existsSync(`${rsrcPath}/${rsrcName}.Router`)
 
   const routesFolderPath = `${apiFolderPath}/routes`
 

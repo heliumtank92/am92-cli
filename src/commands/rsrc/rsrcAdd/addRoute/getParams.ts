@@ -57,9 +57,9 @@ export default function getParams(argv: Arguments): AddRouteParams {
   }
 
   const folderStruct =
-    !fs.existsSync(`${rsrcPath}/${rsrcName}.Model`) ||
-    !fs.existsSync(`${rsrcPath}/${rsrcName}.Controller`) ||
-    !fs.existsSync(`${rsrcPath}/${rsrcName}.Router`)
+    fs.existsSync(`${rsrcPath}/${rsrcName}.Model`) &&
+    fs.existsSync(`${rsrcPath}/${rsrcName}.Controller`) &&
+    fs.existsSync(`${rsrcPath}/${rsrcName}.Router`)
 
   if (folderStruct && !partialName) {
     partialName = inputReader('Resource Partial Name', '', false)
