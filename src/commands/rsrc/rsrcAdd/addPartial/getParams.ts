@@ -4,31 +4,12 @@ import { logger } from '../../../../lib/logger'
 import inputReader from '../../../../lib/inputReader'
 import { pascalCase } from '../../../../lib/changeCase'
 import { AddPartialParams } from './TYPES'
+import { getBERootPaths } from '../../../../helpers/beInpurReader'
 
 export default function getParams(argv: Arguments): AddPartialParams {
-  let projectRoot = (argv.projectRoot as string) || ''
+  const { apiFolderPath } = getBERootPaths(argv)
   let rsrcName = pascalCase((argv.rsrcName as string) || '')
   let partialName = pascalCase((argv.partialName as string) || '')
-
-  if (!projectRoot) {
-    const ROOT_FOLDER_PATH: string = '.'
-    projectRoot = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
-  }
-
-  if (!fs.existsSync(projectRoot)) {
-    logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRoot}`
-    )
-    process.exit()
-  }
-
-  const apiFolderPath = `${projectRoot}/api`
-  if (!fs.existsSync(apiFolderPath)) {
-    logger.fatal(
-      `[Error] API Folder does not exist at the location: ${apiFolderPath}`
-    )
-    process.exit()
-  }
 
   const rsrcFolderPath = `${apiFolderPath}/resources`
   if (!fs.existsSync(rsrcFolderPath)) {

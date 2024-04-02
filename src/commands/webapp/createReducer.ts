@@ -9,6 +9,7 @@ import { camelCase, constantCase, pascalCase } from '../../lib/changeCase'
 import ACTION_FILE from './fileTemplates/redux/ACTION_FILE'
 import REDUCER_FILE from './fileTemplates/redux/REDUCER_FILE'
 import SELECTOR_FILE from './fileTemplates/redux/SELECTOR_FILE'
+import { getWebappRootPaths } from '../../helpers/webappInpurReader'
 
 const COMMAND = 'webapp-create-reducer'
 
@@ -36,28 +37,8 @@ function builder(yargs: any): any {
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
-  let projectRoot = (argv.projectRoot as string) || ''
+  const { srcFolderPath } = getWebappRootPaths(argv)
   let reducerName = (argv.reducerName as string) || ''
-
-  if (!projectRoot) {
-    const API_FOLDER_PATH: string = '.'
-    projectRoot = inputReader('Project Root Path', API_FOLDER_PATH, true)
-  }
-
-  if (!fs.existsSync(projectRoot)) {
-    logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRoot}`
-    )
-    process.exit()
-  }
-
-  const srcFolderPath = `${projectRoot}/src`
-  if (!fs.existsSync(srcFolderPath)) {
-    logger.fatal(
-      `[Error] Project Source Folder does not exist at the location: ${srcFolderPath}`
-    )
-    process.exit()
-  }
 
   const reduxFolderPath = `${srcFolderPath}/Redux`
   if (!fs.existsSync(reduxFolderPath)) {

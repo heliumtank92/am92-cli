@@ -9,30 +9,33 @@ import { CreateComponentParams } from './TYPES'
 
 export default function getParams(argv: Arguments): CreateComponentParams {
   let projectRoot = (argv.projectRoot as string) || ''
+  let srcFolderPath = ``
   let pageName = (argv.pageName as string) || ''
   let componentName = (argv.componentName as string) || ''
   let state = ((argv.state as string) || '').toLowerCase()
   let redux = ((argv.redux as string) || '').toLowerCase()
   let router = ((argv.router as string) || '').toLowerCase()
 
-  if (!projectRoot) {
-    const ROOT_FOLDER_PATH: string = '.'
-    projectRoot = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
-  }
+  if (!projectRoot && fs.existsSync('.') && fs.existsSync('./src')) {
+    projectRoot = '.'
+    srcFolderPath = './src'
+  } else {
+    projectRoot = inputReader('Project Root Path', '', true)
 
-  if (!fs.existsSync(projectRoot)) {
-    logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRoot}`
-    )
-    process.exit()
-  }
+    if (!fs.existsSync(projectRoot)) {
+      logger.fatal(
+        `[Error] Project does not exist at the location: ${projectRoot}`
+      )
+      process.exit()
+    }
 
-  const srcFolderPath = `${projectRoot}/src`
-  if (!fs.existsSync(srcFolderPath)) {
-    logger.fatal(
-      `[Error] Project Source Folder does not exist at the location: ${srcFolderPath}`
-    )
-    process.exit()
+    srcFolderPath = `${projectRoot}/src`
+    if (!fs.existsSync(srcFolderPath)) {
+      logger.fatal(
+        `[Error] API Folder does not exist at the location: ${srcFolderPath}`
+      )
+      process.exit()
+    }
   }
 
   if (!pageName) {

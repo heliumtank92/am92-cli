@@ -6,34 +6,15 @@ import { logger } from '../../../lib/logger'
 import { kebabCase, pascalCase } from '../../../lib/changeCase'
 
 import { CreatePageParams } from './TYPES'
+import { getWebappRootPaths } from '../../../helpers/webappInpurReader'
 
 export default function getParams(argv: Arguments): CreatePageParams {
-  let projectRoot = (argv.projectRoot as string) || ''
+  const { srcFolderPath } = getWebappRootPaths(argv)
   let pageName = (argv.pageName as string) || ''
   let pagePath = (argv.pagePath as string) || ''
   let state = ((argv.state as string) || '').toLowerCase()
   let redux = ((argv.redux as string) || '').toLowerCase()
   let router = ((argv.router as string) || '').toLowerCase()
-
-  if (!projectRoot) {
-    const ROOT_FOLDER_PATH: string = '.'
-    projectRoot = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
-  }
-
-  if (!fs.existsSync(projectRoot)) {
-    logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRoot}`
-    )
-    process.exit()
-  }
-
-  const srcFolderPath = `${projectRoot}/src`
-  if (!fs.existsSync(srcFolderPath)) {
-    logger.fatal(
-      `[Error] Project Source Folder does not exist at the location: ${srcFolderPath}`
-    )
-    process.exit()
-  }
 
   const pagesFolderPath = `${srcFolderPath}/Pages`
   if (!fs.existsSync(pagesFolderPath)) {

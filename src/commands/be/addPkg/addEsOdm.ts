@@ -6,6 +6,7 @@ import CliCommand from '../../../lib/CliCommand'
 import { rewriteFile, writeFile } from '../../../lib/file'
 import startServerEditor from './editors/startServerEditor'
 import ES_ODM_CONFIG from './fileTemplates/envConfigs/ES_ODM_CONFIG'
+import { getBERootPaths } from '../../../helpers/beInpurReader'
 
 const COMMAND = 'be-add-es-odm'
 
@@ -34,28 +35,8 @@ function builder(yargs: any): any {
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
-  let projectRoot = (argv.projectRoot as string) || ''
+  const { projectRoot } = getBERootPaths(argv)
   let packageManager = (argv.packageManager as string) || ''
-
-  if (!projectRoot) {
-    const ROOT_FOLDER_PATH: string = '.'
-    projectRoot = inputReader('Project Root Path', ROOT_FOLDER_PATH, true)
-  }
-
-  if (!fs.existsSync(projectRoot)) {
-    logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRoot}`
-    )
-    process.exit()
-  }
-
-  const apiFolderPath = `${projectRoot}/api`
-  if (!fs.existsSync(apiFolderPath)) {
-    logger.fatal(
-      `[Error] API Folder does not exist at the location: ${apiFolderPath}`
-    )
-    process.exit()
-  }
 
   if (!packageManager) {
     const PACKAGE_MANAGER: string = 'npm'

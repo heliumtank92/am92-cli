@@ -9,6 +9,7 @@ import SERVICE_ACTIONS from './fileTemplates/redux/SERVICE_ACTIONS'
 import GET_SERVICE_FILE from './fileTemplates/redux/GET_SERVICE_FILE'
 import POST_SERVICE_FILE from './fileTemplates/redux/POST_SERVICE_FILE'
 import { writeFile } from '../../lib/file'
+import { getWebappRootPaths } from '../../helpers/webappInpurReader'
 
 const COMMAND = 'webapp-create-service'
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD']
@@ -53,31 +54,11 @@ function builder(yargs: any): any {
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
-  let projectRoot = (argv.projectRoot as string) || ''
+  const { srcFolderPath } = getWebappRootPaths(argv)
   let reducerName = (argv.reducerName as string) || ''
   let serviceName = (argv.serviceName as string) || ''
   let serviceMethod = (argv.serviceMethod as string) || ''
   let serviceUrl = (argv.serviceUrl as string) || ''
-
-  if (!projectRoot) {
-    const API_FOLDER_PATH: string = '.'
-    projectRoot = inputReader('Project Root Path', API_FOLDER_PATH, true)
-  }
-
-  if (!fs.existsSync(projectRoot)) {
-    logger.fatal(
-      `[Error] Project does not exist at the location: ${projectRoot}`
-    )
-    process.exit()
-  }
-
-  const srcFolderPath = `${projectRoot}/src`
-  if (!fs.existsSync(srcFolderPath)) {
-    logger.fatal(
-      `[Error] Project Source Folder does not exist at the location: ${srcFolderPath}`
-    )
-    process.exit()
-  }
 
   const reduxFolderPath = `${srcFolderPath}/Redux`
   if (!fs.existsSync(reduxFolderPath)) {
