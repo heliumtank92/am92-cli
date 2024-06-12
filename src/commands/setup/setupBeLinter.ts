@@ -57,16 +57,16 @@ function _installDependencies(packageManager: string) {
     packageManager === 'pnpm' ? 'pnpm add -D' : 'npm i --save-dev'
 
   new CliCommand('Install Dependencies', installCmd)
-    .append('eslint')
-    .append('eslint-config-prettier')
-    .append('eslint-plugin-import')
-    .append('eslint-plugin-jsonc')
-    .append('eslint-plugin-n')
-    .append('eslint-plugin-prettier')
-    .append('eslint-plugin-simple-import-sort')
-    .append('eslint-plugin-unused-imports')
-    .append('husky')
-    .append('prettier')
+    .append('eslint@^8.56.0')
+    .append('eslint-config-prettier@^9.1.0')
+    .append('eslint-plugin-import@^2.29.1')
+    .append('eslint-plugin-jsonc@^2.13.0')
+    .append('eslint-plugin-n@^16.6.2')
+    .append('eslint-plugin-prettier@^5.1.3')
+    .append('eslint-plugin-simple-import-sort@^10.0.0')
+    .append('eslint-plugin-unused-imports@^3.0.0')
+    .append('husky@^9.0.7')
+    .append('prettier@^3.2.4')
     .exec(false)
 }
 
@@ -83,6 +83,8 @@ function _createLintFiles() {
 function packageJsonEditor(file: string): string {
   try {
     const packageJson = JSON.parse(file)
+    packageJson.imports = packageJson.engines || {}
+    packageJson.imports['#*'] = './*'
     packageJson.engines = packageJson.engines || {}
     packageJson.engines.node = '>=18.16.0'
     packageJson.scripts = packageJson.scripts || {}
