@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 import yargs from 'yargs'
-// import './commands/setup'
+import './commands/setup'
 // import './commands/be'
 // import './commands/rsrc'
 // import './commands/webapp'
