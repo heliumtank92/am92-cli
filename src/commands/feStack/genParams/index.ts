@@ -1,8 +1,8 @@
 import yargs, { Arguments } from 'yargs'
 import fs from 'fs'
 import CliCommand from '../../../lib/CliCommand'
-import inputReader from '../../../lib/inputReader'
 import { colorify, logger } from '../../../lib/logger'
+import inputPromptWithOptions from '../../../lib/prompts/inputPromptWithOptions'
 
 const COMMAND = 'fe-stack-gen-params'
 
@@ -14,22 +14,27 @@ yargs.command(
 )
 
 function builder(yargs: any) {
-  return yargs.option('out-dir', {
-    description: 'Output Directory',
-    type: 'string',
-    required: false
-  })
+  return yargs
+    .option('out-dir', {
+      description: 'Output Directory',
+      type: 'string',
+      required: false
+    })
+    .option('file-name', {
+      description: 'Parameters File Name',
+      type: 'string',
+      required: false
+    })
 }
 
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
-  let outDir = (argv.outDir as string) || ''
-
-  if (!outDir) {
-    const BUILD_PATH: string = './'
-    outDir = inputReader('Output Directory', BUILD_PATH, true)
-  }
+  const outDir = await inputPromptWithOptions(
+    'Output Directory:',
+    ['./', '../'],
+    argv.outDir as string
+  )
 
   if (!fs.existsSync(outDir)) {
     logger.fatal(
@@ -38,10 +43,15 @@ async function handler(argv: Arguments) {
     process.exit()
   }
 
-  const sourceFile = `${__dirname}/parameters.json`
-  const destinationFile = `${outDir}/parameters.json`
+  const fileName = await inputPromptWithOptions(
+    'Parameters File Name:',
+    ['parameters.json'],
+    argv.fileName as string
+  )
 
-  // Delete Old Build
+  const sourceFile = `${__dirname}/parameters.json`
+  const destinationFile = `${outDir}/${fileName}`
+
   new CliCommand('Generate Parameters File', 'cp')
     .append(sourceFile)
     .append(destinationFile)

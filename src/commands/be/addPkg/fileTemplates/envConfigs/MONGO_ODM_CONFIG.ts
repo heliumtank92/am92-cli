@@ -1,9 +1,0 @@
-const MONGO_ODM_CONFIG = `#
-##### Mongo Config
-MONGO_HOSTS=localhost:27017
-MONGO_DBNAME=
-MONGO_USER_AUTH=false
-MONGO_USERNAME=
-MONGO_PASSWORD=`
-
-export default MONGO_ODM_CONFIG

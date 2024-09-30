@@ -1,8 +1,11 @@
 import yargs, { Arguments } from 'yargs'
 import fs from 'fs'
 import CliCommand from '../../lib/CliCommand'
-import inputReader from '../../lib/inputReader'
 import { colorify, logger } from '../../lib/logger'
+import awsProfilePrompt from '../../lib/prompts/awsProfilePrompt'
+import awsS3BucketPrompt from '../../lib/prompts/awsS3BucketPrompt'
+import inputPromptWithOptions from '../../lib/prompts/inputPromptWithOptions'
+import inputPrompt from '../../lib/prompts/inputPrompt'
 
 const COMMAND = 'fe-stack-update'
 
@@ -40,24 +43,16 @@ function builder(yargs: any) {
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
-  let awsProfile = (argv.awsProfile as string) || ''
-  let bucketName = (argv.bucketName as string) || ''
-  let cfDistId = (argv.cfDistId as string) || ''
-  let buildPath = (argv.buildPath as string) || ''
-
-  if (!awsProfile) {
-    const AWS_PROFILE = process.env.AWS_PROFILE || ''
-    awsProfile = inputReader('AWS Profile', AWS_PROFILE, true)
-  }
-
-  if (!bucketName) {
-    bucketName = inputReader('S3 Bucket Name', '', true)
-  }
-
-  if (!buildPath) {
-    const BUILD_PATH: string = './build/'
-    buildPath = inputReader('Build Path', BUILD_PATH, true)
-  }
+  let awsProfile = await awsProfilePrompt(argv.awsProfile as string)
+  let bucketName = await awsS3BucketPrompt(
+    awsProfile,
+    argv.bucketName as string
+  )
+  let buildPath = await inputPromptWithOptions(
+    'Build Path',
+    ['./build/', './dist/'],
+    argv.buildPath as string
+  )
 
   if (!fs.existsSync(buildPath)) {
     logger.fatal(
@@ -66,9 +61,10 @@ async function handler(argv: Arguments) {
     process.exit()
   }
 
-  if (!cfDistId) {
-    cfDistId = inputReader('CloudFront Distribution ID', '', true)
-  }
+  let cfDistId = await inputPrompt(
+    'CloudFront Distribution ID:',
+    argv.cfDistId as string
+  )
 
   // Delete Old Build
   new CliCommand('Delete Old Build', 'aws s3 rm')

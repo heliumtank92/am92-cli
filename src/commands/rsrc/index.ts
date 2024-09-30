@@ -1,2 +1,0 @@
-import './rsrcCreate'
-import './rsrcAdd'

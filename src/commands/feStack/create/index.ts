@@ -2,8 +2,11 @@ import yargs, { Arguments } from 'yargs'
 import fs from 'fs'
 import path from 'path'
 import CliCommand from '../../../lib/CliCommand'
-import inputReader from '../../../lib/inputReader'
 import { colorify, logger } from '../../../lib/logger'
+import awsProfilePrompt from '../../../lib/prompts/awsProfilePrompt'
+import awsRegionPrompt from '../../../lib/prompts/awsRegionPrompt'
+import inputPrompt from '../../../lib/prompts/inputPrompt'
+import inputPromptWithOptions from '../../../lib/prompts/inputPromptWithOptions'
 
 const COMMAND = 'fe-stack-create'
 
@@ -41,33 +44,17 @@ function builder(yargs: any) {
 async function handler(argv: Arguments) {
   logger.initiate(`[${COMMAND}] Initiating...`)
 
-  let awsProfile = (argv.awsProfile as string) || ''
-  let awsRegion = (argv.awsRegion as string) || ''
-  let stackName = (argv.stackName as string) || ''
-  let paramsFilePath = (argv.paramsFilePath as string) || ''
-
-  if (!awsProfile) {
-    const AWS_PROFILE = process.env.AWS_PROFILE || ''
-    awsProfile = inputReader('AWS Profile', AWS_PROFILE, true)
-  }
-
-  if (!awsRegion) {
-    const AWS_REGION = process.env.AWS_REGION || ''
-    awsRegion = inputReader('AWS Region', AWS_REGION, true)
-  }
-
-  if (!stackName) {
-    stackName = inputReader('CloudFormation Stack Name', '', true)
-  }
-
-  if (!paramsFilePath) {
-    const PARAMS_FILE_PATH = './parameters.json'
-    paramsFilePath = inputReader(
-      'Parameters File Location',
-      PARAMS_FILE_PATH,
-      true
-    )
-  }
+  let awsProfile = await awsProfilePrompt(argv.awsProfile as string)
+  let awsRegion = await awsRegionPrompt(argv.awsRegion as string)
+  let stackName = await inputPrompt(
+    'Enter CloudFormation Stack Name:',
+    argv.stackName as string
+  )
+  let paramsFilePath = await inputPromptWithOptions(
+    'Parameters File Location:',
+    ['./parameters.json'],
+    argv.paramsFilePath as string
+  )
 
   const templateBody = `file://${__dirname}/fe-stack.json`
   const paramsFileUrl = _getParamsFileUrl(paramsFilePath)
@@ -81,7 +68,9 @@ async function handler(argv: Arguments) {
     .appendArgs('region', awsRegion)
     .exec()
 
-  logger.info(`[${COMMAND}] Please add 'A' Record in Route53 to the created CloudFront Distribution`)
+  logger.info(
+    `[${COMMAND}] Please add 'A' Record in Route53 to the created CloudFront Distribution`
+  )
   logger.complete(`[${COMMAND}] Completed!`)
 }
 
