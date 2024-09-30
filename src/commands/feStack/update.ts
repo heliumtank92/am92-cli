@@ -6,6 +6,7 @@ import awsProfilePrompt from '../../lib/prompts/awsProfilePrompt'
 import awsS3BucketPrompt from '../../lib/prompts/awsS3BucketPrompt'
 import inputPromptWithOptions from '../../lib/prompts/inputPromptWithOptions'
 import inputPrompt from '../../lib/prompts/inputPrompt'
+import awsCfDistPrompt from '../../lib/prompts/awsCfDistPrompt'
 
 const COMMAND = 'fe-stack-update'
 
@@ -61,10 +62,7 @@ async function handler(argv: Arguments) {
     process.exit()
   }
 
-  let cfDistId = await inputPrompt(
-    'CloudFront Distribution ID:',
-    argv.cfDistId as string
-  )
+  let cfDistId = await awsCfDistPrompt(awsProfile, argv.cfDistId as string)
 
   // Delete Old Build
   new CliCommand('Delete Old Build', 'aws s3 rm')
