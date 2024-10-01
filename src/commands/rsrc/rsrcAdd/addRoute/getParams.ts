@@ -6,9 +6,9 @@ import rootPathBePrompt from '../../../../lib/prompts/rootPathBePrompt'
 import beResourcePrompt from '../../../../lib/prompts/beResourcePrompt'
 import bePartialPrompt from '../../../../lib/prompts/bePartialPrompt'
 import inputPrompt from '../../../../lib/prompts/inputPrompt'
-import { select } from '@inquirer/prompts'
 import inputPromptWithOptions from '../../../../lib/prompts/inputPromptWithOptions'
 import ynSelectPrompt from '../../../../lib/prompts/ynSelectPrompt'
+import selectPrompt from '../../../../lib/prompts/selectPrompt'
 
 export default async function getParams(
   argv: Arguments
@@ -24,42 +24,30 @@ export default async function getParams(
     fs.existsSync(`${rsrcPath}/${rsrcName}.Controller`) &&
     fs.existsSync(`${rsrcPath}/${rsrcName}.Router`)
 
-  let partialName = (argv.partialName as string) || ''
+  const partialName = folderStruct
+    ? await bePartialPrompt(rsrcPath, rsrcName, argv.partialName as string)
+    : ''
 
-  let routeName = camelCase((argv.routeName as string) || '')
-  let routeMethod = (argv.routeMethod as string) || ''
-  let routePath = (argv.routePath as string) || ''
-  let hasQuery = ((argv.hasQuery as string) || '').toLowerCase() === 'y'
+  const routeName = camelCase(
+    await inputPrompt('Route Name:', argv.routeName as string)
+  )
 
-  if (folderStruct && !partialName) {
-    partialName = await bePartialPrompt(
-      rsrcPath,
-      rsrcName,
-      argv.partialName as string
-    )
-  }
+  const routeMethod = await selectPrompt(
+    'Route Method:',
+    METHODS,
+    argv.routeMethod as string
+  )
 
-  if (!routeName) {
-    routeName = await inputPrompt('Route Name:')
-    routeName = camelCase(routeName)
-  }
+  const routePath = await inputPromptWithOptions(
+    'Route URL:',
+    [`/${kebabCase(routeName)}`],
+    argv.routePath as string
+  )
 
-  if (!routeMethod) {
-    routeMethod = await select({
-      message: 'Route Method:',
-      choices: METHODS
-    })
-  }
-
-  if (!routePath) {
-    routePath = await inputPromptWithOptions('Route URL:', [
-      `/${kebabCase(routeName)}`
-    ])
-  }
-
-  if (!hasQuery) {
-    hasQuery = await ynSelectPrompt('Does Route have query?')
-  }
+  const hasQuery = await ynSelectPrompt(
+    'Does Route have query?',
+    argv.hasQuery as string
+  )
 
   const routesFolderPath = `${apiFolderPath}/routes`
 
