@@ -16,7 +16,7 @@ export default async function rootPathBePrompt(projectRoot: string): Promise<{
   let sdksFolderPath = `${apiFolderPath}/sdks`
 
   if (!projectRoot) {
-    rootPath = await inputPromptWithOptions('Project Root Path', ['.'])
+    rootPath = await inputPromptWithOptions('Project Root Path:', ['.'])
     apiFolderPath = `${rootPath}/api`
     startServerFilePath = `${rootPath}/startServer.mjs`
     devEnvFilePath = `${rootPath}/.env.development`

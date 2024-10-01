@@ -49,7 +49,7 @@ async function handler(argv: Arguments) {
     argv.bucketName as string
   )
   let buildPath = await inputPromptWithOptions(
-    'Build Path',
+    'Build Path:',
     ['./build/', './dist/'],
     argv.buildPath as string
   )
