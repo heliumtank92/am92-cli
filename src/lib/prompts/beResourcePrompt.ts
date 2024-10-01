@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { select } from '@inquirer/prompts'
+import { search } from '@inquirer/prompts'
 import { logger } from '../logger'
 import inputPrompt from './inputPrompt'
 import { pascalCase } from '../changeCase'
@@ -37,7 +37,7 @@ export default async function beResourcePrompt(
     return { rsrcFolderPath, rsrcName, rsrcPath }
   }
 
-  const resources = new CliCommand(
+  const resources: string[] = new CliCommand(
     'List Resources',
     `ls -d ${rsrcFolderPath}/*`
   )
@@ -55,10 +55,18 @@ export default async function beResourcePrompt(
 
   rsrcName =
     rsrcName ||
-    ((await select({
+    ((await search({
       message: 'Select Resource',
-      choices: resources,
-      default: resources[0]
+      source: async input => {
+        if (!input) {
+          return resources
+        }
+
+        const filteredResources = resources.filter(resource =>
+          resource.includes(input.toLowerCase())
+        )
+        return filteredResources
+      }
     })) as string)
 
   const rsrcPath = `${rsrcFolderPath}/${rsrcName}`

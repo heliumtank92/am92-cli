@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { select } from '@inquirer/prompts'
+import { search } from '@inquirer/prompts'
 import { logger } from '../logger'
 import inputPrompt from './inputPrompt'
 import { pascalCase } from '../changeCase'
@@ -28,7 +28,10 @@ export default async function bePartialPrompt(
 
   const rsrcModelPath = `${rsrcPath}/${rsrcName}.Model`
 
-  const partials = new CliCommand('List Resources', `ls ${rsrcModelPath}/*`)
+  const partials: string[] = new CliCommand(
+    'List Resources',
+    `ls ${rsrcModelPath}/*`
+  )
     .exec(false)
     .toString()
     .split('\n')
@@ -46,10 +49,18 @@ export default async function bePartialPrompt(
 
   partialName =
     partialName ||
-    ((await select({
+    ((await search({
       message: 'Select Resource Partial',
-      choices: partials,
-      default: partials[0]
+      source: async input => {
+        if (!input) {
+          return partials
+        }
+
+        const filteredPartials = partials.filter(partial =>
+          partial.includes(input.toLowerCase())
+        )
+        return filteredPartials
+      }
     })) as string)
 
   partialName = pascalCase(partialName)
