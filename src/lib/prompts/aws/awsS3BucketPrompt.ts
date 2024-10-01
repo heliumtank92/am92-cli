@@ -1,5 +1,6 @@
 import { search } from '@inquirer/prompts'
-import CliCommand from '../CliCommand'
+import CliCommand from '../../CliCommand'
+import { logger } from '../../logger'
 
 export default async function awsS3BucketPrompt(
   awsProfile: string,
@@ -9,7 +10,7 @@ export default async function awsS3BucketPrompt(
     return bucketName
   }
 
-  console.log('Fetching AWS S3 Buckets...')
+  logger.info('Fetching AWS S3 Buckets...')
   const buckets: string[] = new CliCommand('AWS S3 Bucket List', `aws s3 ls`)
     .appendArgs('profile', awsProfile)
     .appendArgs('recursive')

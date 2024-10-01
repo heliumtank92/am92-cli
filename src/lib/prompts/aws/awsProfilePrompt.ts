@@ -1,5 +1,5 @@
 import { select } from '@inquirer/prompts'
-import CliCommand from '../CliCommand'
+import CliCommand from '../../CliCommand'
 
 export default async function awsProfilePrompt(
   awsProfile?: string

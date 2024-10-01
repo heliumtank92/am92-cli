@@ -1,6 +1,6 @@
-import { input, search, select } from '@inquirer/prompts'
-import CliCommand from '../CliCommand'
-import inputPromptWithOptions from './inputPromptWithOptions'
+import CliCommand from '../../CliCommand'
+import { logger } from '../../logger'
+import inputPromptWithOptions from '../inputPromptWithOptions'
 
 export default async function awsCfDistPrompt(
   awsProfile: string,
@@ -10,7 +10,7 @@ export default async function awsCfDistPrompt(
     return cfDistId
   }
 
-  console.log('Fetching AWS CloudFront Distributions...')
+  logger.info('Fetching AWS CloudFront Distributions...')
   const cfDistResponse: string = new CliCommand(
     'AWS CloudFront Distribution List',
     `aws cloudfront list-distributions`

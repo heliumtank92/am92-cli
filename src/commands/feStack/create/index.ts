@@ -3,10 +3,10 @@ import fs from 'fs'
 import path from 'path'
 import CliCommand from '../../../lib/CliCommand'
 import { colorify, logger } from '../../../lib/logger'
-import awsProfilePrompt from '../../../lib/prompts/awsProfilePrompt'
-import awsRegionPrompt from '../../../lib/prompts/awsRegionPrompt'
 import inputPrompt from '../../../lib/prompts/inputPrompt'
 import inputPromptWithOptions from '../../../lib/prompts/inputPromptWithOptions'
+import awsProfilePrompt from '../../../lib/prompts/aws/awsProfilePrompt'
+import awsRegionPrompt from '../../../lib/prompts/aws/awsRegionPrompt'
 
 const COMMAND = 'fe-stack-create'
 
