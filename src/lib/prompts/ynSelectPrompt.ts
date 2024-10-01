@@ -1,4 +1,4 @@
-import { select } from '@inquirer/prompts'
+import selectPrompt from './selectPrompt'
 
 export default async function ynSelectPrompt(
   message: string,
@@ -8,11 +8,7 @@ export default async function ynSelectPrompt(
     return value === 'y'
   }
 
-  const selectedValue: string = await select({
-    message,
-    choices: CHOICES
-  })
-
+  const selectedValue: string = await selectPrompt(message, CHOICES, value)
   return selectedValue === 'y'
 }
 

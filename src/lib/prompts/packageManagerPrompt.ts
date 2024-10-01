@@ -1,17 +1,14 @@
-import { select } from '@inquirer/prompts'
+import selectPrompt from './selectPrompt'
 
 export default async function packageManagerPrompt(
   packageManager?: string
 ): Promise<string> {
-  if (packageManager) {
-    return packageManager
-  }
-
-  const pkgMgr: string = await select({
-    message: 'Select Package Manager:',
-    choices: PACKAGE_MANAGERS,
-    default: PACKAGE_MANAGERS[0]
-  })
+  const pkgMgr: string = await selectPrompt(
+    'Select Package Manager:',
+    PACKAGE_MANAGERS,
+    packageManager,
+    PACKAGE_MANAGERS[0]
+  )
 
   return pkgMgr
 }

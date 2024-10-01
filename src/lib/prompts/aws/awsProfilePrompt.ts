@@ -1,5 +1,5 @@
-import { select } from '@inquirer/prompts'
 import CliCommand from '../../CliCommand'
+import selectPrompt from '../selectPrompt'
 
 export default async function awsProfilePrompt(
   awsProfile?: string
@@ -19,11 +19,12 @@ export default async function awsProfilePrompt(
 
   const envProfile = process.env.AWS_PROFILE || ''
 
-  const profile: string = await select({
-    message: 'Select AWS Profile:',
-    choices: profiles,
-    default: envProfile
-  })
+  const profile: string = await selectPrompt(
+    'Select AWS Profile:',
+    profiles,
+    undefined,
+    envProfile
+  )
 
   return profile
 }
