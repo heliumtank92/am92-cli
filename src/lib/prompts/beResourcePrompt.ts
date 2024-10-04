@@ -45,7 +45,7 @@ export default async function beResourcePrompt(
     .toString()
     .split('\n')
     .reduce((acc: string[], rsrcPath: string) => {
-      const rsrcName = rsrcPath.split(`${rsrcFolderPath}/`).pop()
+      const rsrcName = rsrcPath.replace(`${rsrcFolderPath}/`, '')
       if (rsrcName) {
         acc.push(rsrcName)
       }
@@ -63,7 +63,7 @@ export default async function beResourcePrompt(
         }
 
         const filteredResources = resources.filter(resource =>
-          resource.includes(input.toLowerCase())
+          resource.toLowerCase().includes(input.toLowerCase())
         )
         return filteredResources
       }

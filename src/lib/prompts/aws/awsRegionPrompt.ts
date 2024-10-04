@@ -15,7 +15,7 @@ export default async function awsRegionPrompt(
       }
 
       const regions = REGIONS.filter(region =>
-        region.includes(input.toLowerCase())
+        region.toLowerCase().includes(input.toLowerCase())
       )
       return regions
     }

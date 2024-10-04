@@ -57,7 +57,7 @@ export default async function bePartialPrompt(
         }
 
         const filteredPartials = partials.filter(partial =>
-          partial.includes(input.toLowerCase())
+          partial.toLowerCase().includes(input.toLowerCase())
         )
         return filteredPartials
       }
