@@ -1,5 +1,4 @@
 import fs from 'fs'
-import inputPromptWithOptions from './inputPromptWithOptions'
 import { logger } from '../logger'
 import inputPrompt from './inputPrompt'
 
