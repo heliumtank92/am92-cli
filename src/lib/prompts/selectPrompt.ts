@@ -6,14 +6,28 @@ export default async function selectPrompt(
   value?: string,
   defaultChoice?: string
 ): Promise<string> {
-  if (value) {
+  if (
+    value &&
+    choices.some(choice => {
+      if (typeof choice === 'string') {
+        return choice === value
+      } else {
+        return choice.value === value
+      }
+    })
+  ) {
     return value
   }
 
-  const selectValue: string = await select({
-    message,
+  const selectValue = (await select({
+    message: `${message}:`,
     choices,
     default: defaultChoice
-  })
+  }).catch(error => {
+    if (error.name === 'ExitPromptError') {
+      process.exit()
+    }
+  })) as string
+
   return selectValue
 }

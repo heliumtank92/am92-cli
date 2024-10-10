@@ -1,3 +1,3 @@
-import './setupVscode'
-import './setupBeLinter'
-import './setupBeRepo'
+import './commands/setupVscode'
+import './commands/setupBeLinter'
+import './commands/setupBeRepo'

@@ -1,26 +1,10 @@
 import { search } from '@inquirer/prompts'
+import searchPrompt from '../searchPrompt'
 
 export default async function awsRegionPrompt(
   awsRegion?: string
 ): Promise<string> {
-  if (awsRegion) {
-    return awsRegion
-  }
-
-  const region: string = await search({
-    message: 'Select AWS Region:',
-    source: async input => {
-      if (!input) {
-        return REGIONS
-      }
-
-      const regions = REGIONS.filter(region =>
-        region.toLowerCase().includes(input.toLowerCase())
-      )
-      return regions
-    }
-  })
-
+  const region = await searchPrompt('Select AWS Region', REGIONS, awsRegion)
   return region
 }
 

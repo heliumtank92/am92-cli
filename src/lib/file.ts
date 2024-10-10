@@ -1,5 +1,6 @@
 import fs from 'fs'
-import { TransformOptions, transformSync } from '@babel/core'
+import { Options, transformSync } from '@swc/core'
+
 import CliCommand from './CliCommand'
 import { logger } from './logger'
 
@@ -60,18 +61,17 @@ export function rewriteFile(
 
 function _validateFile(filePath: string, fileContent: string): boolean {
   try {
-    const options: TransformOptions = {}
+    const options: Options = {}
 
     if (filePath.match(/.m?js$/gm)) {
       options.filename = filePath
+      options.jsc = { parser: { syntax: 'ecmascript' } }
     } else if (filePath.match(/.ts$/gm)) {
       options.filename = filePath
-      options.presets = [['@babel/preset-typescript', { allExtensions: true }]]
+      options.jsc = { parser: { syntax: 'typescript' } }
     } else if (filePath.match(/.tsx$/gm)) {
       options.filename = filePath
-      options.presets = [
-        ['@babel/preset-typescript', { isTSX: true, allExtensions: true }]
-      ]
+      options.jsc = { parser: { syntax: 'typescript', tsx: true } }
     }
 
     if (options.filename) {

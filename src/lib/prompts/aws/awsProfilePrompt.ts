@@ -20,7 +20,7 @@ export default async function awsProfilePrompt(
   const envProfile = process.env.AWS_PROFILE || ''
 
   const profile: string = await selectPrompt(
-    'Select AWS Profile:',
+    'Select AWS Profile',
     profiles,
     undefined,
     envProfile

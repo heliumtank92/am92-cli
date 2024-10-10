@@ -31,7 +31,7 @@ export default async function awsCfDistPrompt(
   })
 
   const cfDist: string = await inputPromptWithOptions(
-    'AWS CloudFront Distribution:',
+    'AWS CloudFront Distribution',
     cfDistList
   )
 

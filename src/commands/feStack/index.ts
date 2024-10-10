@@ -1,3 +1,3 @@
-import './create'
-import './update'
-import './genParams'
+import './commands/create'
+import './commands/update'
+import './commands/genParams'

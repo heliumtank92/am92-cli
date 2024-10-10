@@ -1,6 +1,8 @@
 import { search } from '@inquirer/prompts'
+
 import CliCommand from '../../CliCommand'
 import { logger } from '../../logger'
+import searchPrompt from '../searchPrompt'
 
 export default async function awsS3BucketPrompt(
   awsProfile: string,
@@ -25,19 +27,6 @@ export default async function awsS3BucketPrompt(
       return acc
     }, [])
 
-  const bucket: string = await search({
-    message: 'Select AWS Region:',
-    source: async input => {
-      if (!input) {
-        return buckets
-      }
-
-      const bucketsFiltered = buckets.filter(bucketItem =>
-        bucketItem.includes(input.toLowerCase())
-      )
-      return bucketsFiltered
-    }
-  })
-
+  const bucket = await searchPrompt('Select AWS S3 Bucket', buckets)
   return bucket
 }

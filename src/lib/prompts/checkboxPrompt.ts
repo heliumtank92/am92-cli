@@ -9,10 +9,14 @@ export default async function checkboxPrompt(
     return values
   }
 
-  const checkboxValues: string[] = await checkbox({
-    message,
+  const checkboxValues = (await checkbox({
+    message: `${message}:`,
     choices
-  })
+  }).catch(error => {
+    if (error.name === 'ExitPromptError') {
+      process.exit()
+    }
+  })) as string[]
 
   return checkboxValues
 }

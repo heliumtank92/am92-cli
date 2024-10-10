@@ -8,7 +8,12 @@ export default async function inputPrompt(
     return value
   }
 
-  const inputValue: string = await input({ message })
+  const inputValue = (await input({ message: `${message}:` }).catch(error => {
+    if (error.name === 'ExitPromptError') {
+      process.exit()
+    }
+  })) as string
+
   if (!inputValue) {
     return inputPrompt(message, value)
   }

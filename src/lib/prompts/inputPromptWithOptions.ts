@@ -1,5 +1,7 @@
 import { input } from '@inquirer/prompts'
+
 import selectPrompt from './selectPrompt'
+import inputPrompt from './inputPrompt'
 
 export default async function inputPromptWithOptions(
   message: string,
@@ -19,6 +21,6 @@ export default async function inputPromptWithOptions(
     return selectedValue
   }
 
-  const inputValue: string = await input({ message })
+  const inputValue: string = await inputPrompt(message)
   return inputValue
 }

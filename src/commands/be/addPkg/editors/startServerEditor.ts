@@ -7,7 +7,7 @@ export default function startServerEditor(
   connection: string
 ) {
   return function (file: string): string {
-    let imports = (file.match(IMPORT_REGEX) || [''])[0]
+    const imports = (file.match(IMPORT_REGEX) || [''])[0]
     let newFile = file.replace(IMPORT_REGEX, `${imports}${newImports}\n`)
     newFile = newFile.replace(
       SERVER_LISTEN_REGEX,
