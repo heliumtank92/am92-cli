@@ -1,7 +1,5 @@
-import { input } from '@inquirer/prompts'
-
-import selectPrompt from './selectPrompt'
 import inputPrompt from './inputPrompt'
+import selectPrompt from './selectPrompt'
 
 export default async function inputPromptWithOptions(
   message: string,

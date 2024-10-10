@@ -1,4 +1,3 @@
-import { search } from '@inquirer/prompts'
 import searchPrompt from '../searchPrompt'
 
 export default async function awsRegionPrompt(

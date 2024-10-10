@@ -1,5 +1,6 @@
 import yargs, { Arguments } from 'yargs'
 
+import { camelCase, constantCase, pascalCase } from '../../../lib/changeCase'
 import CliCommand from '../../../lib/CliCommand'
 import { rewriteFile, writeFile } from '../../../lib/file'
 import { colorify, logger } from '../../../lib/logger'
@@ -7,7 +8,6 @@ import feReducerPrompt from '../../../lib/prompts/webapp/feReducerPrompt'
 import feRootPathPrompt from '../../../lib/prompts/webapp/feRootPathPrompt'
 
 import ACTION_FILE from '../fileTemplates/redux/ACTION_FILE'
-import { camelCase, pascalCase, constantCase } from '../../../lib/changeCase'
 import REDUCER_FILE from '../fileTemplates/redux/REDUCER_FILE'
 import SELECTOR_FILE from '../fileTemplates/redux/SELECTOR_FILE'
 import TYPES_FILE from '../fileTemplates/redux/TYPES_FILE'

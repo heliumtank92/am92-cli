@@ -1,5 +1,3 @@
-import { search } from '@inquirer/prompts'
-
 import CliCommand from '../../CliCommand'
 import { logger } from '../../logger'
 import searchPrompt from '../searchPrompt'
