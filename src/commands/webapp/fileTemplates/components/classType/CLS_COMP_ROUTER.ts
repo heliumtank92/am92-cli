@@ -1,4 +1,4 @@
-const COMP_ROUTER = `import React, { PureComponent } from 'react'
+const CLS_COMP_ROUTER = `import React, { PureComponent } from 'react'
 import { DsTypography } from '@am92/react-design-system'
 import withRouter, { IWithRouterProps } from '~/src/Hocs/withRouter'
 
@@ -14,4 +14,4 @@ class {componentName} extends PureComponent<I{componentName}Props> {
 
 export default withRouter({componentName})`
 
-export default COMP_ROUTER
+export default CLS_COMP_ROUTER

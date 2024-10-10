@@ -1,4 +1,4 @@
-const COMP = `import React, { PureComponent } from 'react'
+const CLS_COMP = `import React, { PureComponent } from 'react'
 import { DsTypography } from '@am92/react-design-system'
 
 export interface I{componentName}Props {}
@@ -11,4 +11,4 @@ export default class {componentName} extends PureComponent<I{componentName}Props
   }
 }`
 
-export default COMP
+export default CLS_COMP
