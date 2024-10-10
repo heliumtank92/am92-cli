@@ -9,8 +9,8 @@ import feRootPathPrompt from '../../../lib/prompts/webapp/feRootPathPrompt'
 
 import ACTION_FILE from '../fileTemplates/redux/ACTION_FILE'
 import REDUCER_FILE from '../fileTemplates/redux/REDUCER_FILE'
+import REDUX_TYPES_FILE from '../fileTemplates/redux/REDUX_TYPES_FILE'
 import SELECTOR_FILE from '../fileTemplates/redux/SELECTOR_FILE'
-import TYPES_FILE from '../fileTemplates/redux/TYPES_FILE'
 
 const COMMAND = 'webapp-create-reducer'
 
@@ -49,7 +49,7 @@ async function handler(argv: Arguments) {
   new CliCommand('Create Reducer Folder', `mkdir ${reducerPath}`).exec(false)
 
   // Create Types File
-  const types = TYPES_FILE.replaceAll(
+  const types = REDUX_TYPES_FILE.replaceAll(
     '{constantCase(reducerName)}',
     constantCase(reducerName)
   )
