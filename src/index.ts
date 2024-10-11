@@ -7,4 +7,9 @@ import './commands/feStack'
 
 import yargs from 'yargs'
 
-yargs.scriptName('am92').help(true).wrap(100).argv
+yargs
+  .scriptName('am92')
+  .help(true)
+  .alias('help', 'h')
+  .alias('version', 'v')
+  .wrap(100).argv
