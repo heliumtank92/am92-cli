@@ -37,7 +37,7 @@ function builder(yargs: any): any {
     .option('branches', {
       description: 'Branches',
       type: 'array',
-      choices: ['dev', 'staging', 'preprod'],
+      choices: ['dev', 'staging', 'preprod', 'release/1'],
       required: false
     })
 }
