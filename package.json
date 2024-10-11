@@ -23,7 +23,7 @@
     "build:clean": "rm -rf ./dist",
     "build": "npm-run-all build:clean compile",
     "publish:pkg": "npm publish",
-    "preversion": "npm-run-all build test",
+    "preversion": "npm-run-all test build",
     "postversion": "git push && git push --tags && npm run publish:pkg",
     "postinstall": "am92 completion"
   },
