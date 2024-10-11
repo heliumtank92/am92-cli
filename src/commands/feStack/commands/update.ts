@@ -47,7 +47,11 @@ async function handler(argv: Arguments) {
   const awsProfile = await awsProfilePrompt(argv.awsProfile as string)
   const bucketName = await awsS3BucketPrompt(
     awsProfile,
-    argv.bucketName as string
+    argv.bucketName as string,
+    new RegExp(
+      '^(?:www\\.)?[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)+(\\/[^s]*)?$',
+      'gi'
+    )
   )
   const buildPath = await inputPromptWithOptions(
     'Build Path',

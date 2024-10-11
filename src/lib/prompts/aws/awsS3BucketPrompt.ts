@@ -4,7 +4,8 @@ import searchPrompt from '../searchPrompt'
 
 export default async function awsS3BucketPrompt(
   awsProfile: string,
-  bucketName?: string
+  bucketName?: string,
+  filterRegex?: RegExp
 ): Promise<string> {
   if (bucketName) {
     return bucketName
@@ -20,10 +21,19 @@ export default async function awsS3BucketPrompt(
     .reduce((acc: string[], line: string) => {
       const bucket = line.split(' ')[2]
       if (bucket) {
-        acc.push(bucket)
+        const regexMatch = filterRegex ? filterRegex.test(bucket) : true
+        if (regexMatch) {
+          acc.push(bucket)
+        }
       }
       return acc
     }, [])
+    .sort()
+
+  if (!buckets.length) {
+    logger.fatal('[Error] No Buckets Found!')
+    process.exit(1)
+  }
 
   const bucket = await searchPrompt('Select AWS S3 Bucket', buckets)
   return bucket
