@@ -7,8 +7,13 @@ import './commands/feStack'
 
 import yargs from 'yargs'
 
+import { colorify } from './lib/logger'
+
 yargs
-  .completion()
+  .completion(
+    'completion',
+    colorify.trace('Generate Auto-complete Bash/ZSH Script')
+  )
   .scriptName('am92')
   .help(true)
   .alias('help', 'h')
