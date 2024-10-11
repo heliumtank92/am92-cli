@@ -1,0 +1,64 @@
+{
+  "env": {
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsonc/prettier",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "unused-imports",
+    "import",
+    "simple-import-sort"
+  ],
+  "rules": {
+    "no-var": "error",
+    "max-depth": 2,
+    "no-case-declarations": "off",
+    "no-unreachable-loop": "error",
+    "no-unneeded-ternary": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "import/no-duplicates": "error",
+    "import/first": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^\\u0000"],
+          [
+            "^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)((\\/.*)|$)",
+            "^node:",
+            "^@?\\w"
+          ],
+          [
+            "(\\.|\\/|#)(c|C)onstants?(\\.|\\/)?",
+            "((\\.|\\/|#)(c|C)onfigs?(\\.|\\/)|(\\.|\\/|#)CONFIGS?(\\.|\\/))?",
+            "(\\.|\\/|#)DEBUGS?(\\.|\\/)?"
+          ],
+          [
+            "(\\.|\\/|#)(s|S)dks?(\\.|\\/)?",
+            "(\\.|\\/|#)(l|L)ibs?(\\.|\\/)?",
+            "(\\.|\\/|#)(u|U)tils?(\\.|\\/)?",
+            "(\\.|\\/|#)(h|H)elpers?(\\.|\\/)?"
+          ],
+          ["^[\\.\\.\\/]", "^[\\.\\/]"]
+        ]
+      }
+    ]
+  }
+}

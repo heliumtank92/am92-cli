@@ -1,0 +1,3 @@
+const ENTITY_CONSTANTS_FILE = ``
+
+export default ENTITY_CONSTANTS_FILE
