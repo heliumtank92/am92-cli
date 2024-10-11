@@ -8,6 +8,7 @@ import './commands/feStack'
 import yargs from 'yargs'
 
 yargs
+  .completion()
   .scriptName('am92')
   .help(true)
   .alias('help', 'h')

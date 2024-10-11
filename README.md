@@ -39,6 +39,12 @@ am92 [command] --help
 ```
 <br />
 
+To set up autocomplete of commands, run the following command and follow the instructions:
+```bash
+am92 completion
+```
+<br />
+
 ## Contributors
 <table>
   <tbody>

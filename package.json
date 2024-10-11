@@ -24,7 +24,8 @@
     "build": "npm-run-all build:clean compile",
     "publish:pkg": "npm publish",
     "preversion": "npm-run-all build test",
-    "postversion": "git push && git push --tags && npm run publish:pkg"
+    "postversion": "git push && git push --tags && npm run publish:pkg",
+    "postinstall": "am92 completion"
   },
   "dependencies": {
     "@inquirer/prompts": "^6.0.1",
