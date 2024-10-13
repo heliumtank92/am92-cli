@@ -2,7 +2,7 @@ const CLS_COMP_STATE_REDUX = `import React, { Component } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { DsTypography } from '@am92/react-design-system'
 
-import { TAppDispatch, TAppSore } from '~/src/Configurations/AppStore'
+import { TAppDispatch, TAppStore } from '~/src/Configurations/AppStore'
 
 export interface I{componentName}Props extends PropsFromRedux {}
 
@@ -20,7 +20,7 @@ class {componentName} extends Component<I{componentName}Props, I{componentName}S
   }
 }
 
-const mapStateToProps = (state: TAppSore) => {
+const mapStateToProps = (state: TAppStore) => {
   return {}
 }
 

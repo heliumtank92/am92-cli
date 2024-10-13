@@ -2,7 +2,7 @@ const FUNC_COMP_REDUX = `import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { DsTypography } from '@am92/react-design-system'
 
-import { TAppDispatch, TAppSore } from '~/src/Configurations/AppStore'
+import { TAppDispatch, TAppStore } from '~/src/Configurations/AppStore'
 
 export interface I{componentName}Props extends PropsFromRedux {}
 
@@ -12,7 +12,7 @@ const {componentName}: React.FC<I{componentName}Props> = () => {
   )
 }
 
-const mapStateToProps = (state: TAppSore) => {
+const mapStateToProps = (state: TAppStore) => {
   return {}
 }
 

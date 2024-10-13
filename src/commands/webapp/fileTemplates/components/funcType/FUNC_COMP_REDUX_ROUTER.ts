@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { DsTypography } from '@am92/react-design-system'
 
 import withRouter, { IWithRouterProps } from '~/src/Hocs/withRouter'
-import { TAppDispatch, TAppSore } from '~/src/Configurations/AppStore'
+import { TAppDispatch, TAppStore } from '~/src/Configurations/AppStore'
 
 export interface I{componentName}Props extends IWithRouterProps, PropsFromRedux {}
 
@@ -13,7 +13,7 @@ const {componentName}: React.FC<I{componentName}Props> = () => {
   )
 }
 
-const mapStateToProps = (state: TAppSore) => {
+const mapStateToProps = (state: TAppStore) => {
   return {}
 }
 
