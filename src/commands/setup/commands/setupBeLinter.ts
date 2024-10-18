@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import yargs, { Arguments } from 'yargs'
 
 import CliCommand from '../../../lib/CliCommand'
@@ -8,10 +9,10 @@ import packageManagerPrompt from '../../../lib/prompts/packageManagerPrompt'
 
 const COMMAND = 'setup-be-linter'
 
-const ESLINTRC_BASE_PATH = `${__dirname}/files/.eslintrc.base.json`
-const ESLINTRC_PATH = `${__dirname}/files/.eslintrc.json`
-const PRETTIERRC_PATH = `${__dirname}/files/.prettierrc.json`
-const JSCONFIG_PATH = `${__dirname}/files/jsconfig.json`
+const ESLINTRC_BASE_PATH = path.join(__dirname, '../files/.eslintrc.base.json')
+const ESLINTRC_PATH = path.join(__dirname, '../files/.eslintrc.json')
+const PRETTIERRC_PATH = path.join(__dirname, '../files/.prettierrc.json')
+const JSCONFIG_PATH = path.join(__dirname, '../files/jsconfig.json')
 
 yargs.command(
   COMMAND,

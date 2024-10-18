@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import yargs from 'yargs'
 
 import CliCommand from '../../../lib/CliCommand'
@@ -6,7 +7,7 @@ import { colorify, logger } from '../../../lib/logger'
 
 const COMMAND = 'setup-vscode'
 
-const VSCODE_FOLDER_PATH = `${__dirname}/files/vscode`
+const VSCODE_FOLDER_PATH = path.join(__dirname, '../files/vscode')
 
 yargs.command(
   COMMAND,
