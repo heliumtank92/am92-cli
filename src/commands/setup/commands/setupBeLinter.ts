@@ -87,9 +87,9 @@ function packageJsonEditor(file: string): string {
     packageJson.engines = packageJson.engines || {}
     packageJson.engines.node = '>=18.16.0'
     packageJson.scripts = packageJson.scripts || {}
-    packageJson.scripts.lint =
-      'eslint . || echo \'Run "npm run lint:fix" to automatically fix issues.\''
+    packageJson.scripts.lint = 'eslint .'
     packageJson.scripts['lint:fix'] = 'eslint --fix .'
+    packageJson.scripts['prepare'] = 'npx husky'
     const newPackageJsonFile = JSON.stringify(packageJson, null, 2)
     return newPackageJsonFile
   } catch (error) {
